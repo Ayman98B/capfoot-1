@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Entity
 public class Joueur {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String Nom;
     private String Prenom;
@@ -21,7 +21,5 @@ public class Joueur {
     private String Tel;
     private boolean isCaptain;
 
-    public enum Statut {
-        INSCRIPTION, GROUPE, QUART_FINAL, DEMI_FINAL, FINAL
-    }
+
 }
