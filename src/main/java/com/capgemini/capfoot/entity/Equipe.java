@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @Data @AllArgsConstructor @NoArgsConstructor @ToString
 public class Equipe {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEquipe;
     private String site;
     private int nbrJoueurs;
