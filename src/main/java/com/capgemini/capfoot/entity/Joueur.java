@@ -21,4 +21,7 @@ public class Joueur {
     private String Tel;
     private boolean isCaptain;
 
+    public enum Statut {
+        INSCRIPTION, GROUPE, QUART_FINAL, DEMI_FINAL, FINAL
+    }
 }
