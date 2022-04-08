@@ -3,7 +3,9 @@ package com.capgemini.capfoot;
 import java.util.Date;
 import java.util.Optional;
 
+import com.capgemini.capfoot.dao.EquipeRepository;
 import com.capgemini.capfoot.dao.JoueurRepository;
+import com.capgemini.capfoot.entity.Equipe;
 import com.capgemini.capfoot.entity.Joueur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +23,9 @@ public class CapfootApplication implements CommandLineRunner{
 	MatchService matchservice;
 	@Autowired
 	JoueurRepository joueurRepo;
+
+	@Autowired
+	EquipeRepository equipeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CapfootApplication.class, args);
@@ -42,6 +47,7 @@ public class CapfootApplication implements CommandLineRunner{
 
 		// testJouer
 		testJoueur();
+		TestEquipe();
 		
 	}
 
@@ -79,6 +85,32 @@ public class CapfootApplication implements CommandLineRunner{
 
 		// Supprimer joueur 2
 		joueurRepo.deleteById(joueur2.getId());
+
+	}
+
+	public void TestEquipe(){
+		Equipe equipe = new Equipe();
+
+		// create equipe
+		equipe.setIdEquipe(1L);
+		equipe.setSite("Casablanca");
+		equipe.setNbrJoueurs(4);
+		equipeRepository.save(equipe);
+		System.out.println("equipe 1 : " + equipe.toString());
+
+		//update equipe
+		Optional<Equipe> equipe1 = Optional.of(equipeRepository.findById(1L).get());
+		equipe1.get().setNbrJoueurs(5);
+		equipe1.get().setSite("Rabat");
+		equipeRepository.save(equipe1.get());
+		System.out.println("updated equipe 1 : " + equipe1.get().toString());
+
+		//get equipe by id
+		Optional<Equipe> equipeById = Optional.of(equipeRepository.findById(1L).get());
+		System.out.println("updated equipe 1 : " + equipeById.get().toString());
+
+
+
 
 	}
 
