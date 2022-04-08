@@ -1,4 +1,4 @@
-package com.capgemini.capfoot.model;
+package com.capgemini.capfoot.entity;
 
 import java.time.LocalDate;
 
