@@ -6,6 +6,8 @@ import com.capgemini.capfoot.entity.Joueur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.capfoot.entity.Championat;
+
 @Repository
 public interface ChampionatRepo extends JpaRepository<Groupe_Equipe.Championat, Long>{
 
