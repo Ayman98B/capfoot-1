@@ -1,4 +1,4 @@
-package com.capgemini.capfoot.dao;
+package com.capgemini.capfoot.repository;
 
 import java.util.List;
 import java.util.Optional;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.capgemini.capfoot.dao.MatchRepository;
+import com.capgemini.capfoot.repository.MatchRepository;
 import com.capgemini.capfoot.entity.Match;
 
 public class MatchServiceImpl implements MatchService{
