@@ -33,7 +33,7 @@ public class MatchServiceImpl implements MatchService{
 	}
 
 	@Override
-	public void delateMatch(Long id) {
+	public void deleteMatch(Long id) {
 		matchRepository.deleteById(id);
 		
 	}

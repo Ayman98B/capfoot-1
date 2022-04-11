@@ -4,12 +4,15 @@ import java.util.List;
 
 import com.capgemini.capfoot.entity.Match;
 
-
 public interface MatchService {
 
 	public List<Match> getAllMatchs();
+
 	public Match getMatchById(Long id);
+
 	public Match addMatch(Match car);
-	public void updateMatch(Long id,Match car);
-	public void delateMatch(Long id);
+
+	public void updateMatch(Long id, Match car);
+
+	public void deleteMatch(Long id);
 }
