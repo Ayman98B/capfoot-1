@@ -1,15 +1,11 @@
 package com.capgemini.capfoot.repository;
 
-
-import com.capgemini.capfoot.entity.Championat;
-
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.capfoot.entity.Championat;
+import com.capgemini.capfoot.entity.Championship;
 
 @Repository
-public interface ChampionatRepo extends JpaRepository<Championat, Long>{
+public interface ChampionshipRepo extends JpaRepository<Championship, Long> {
 
 }
