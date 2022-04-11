@@ -15,7 +15,8 @@ import lombok.ToString;
 public class Team {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idTeam;
+    private Long id;
+    private String teamName;
     private String site;
     private int nbPlayers;
 
