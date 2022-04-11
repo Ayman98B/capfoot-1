@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Groupe {
+public class Group {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

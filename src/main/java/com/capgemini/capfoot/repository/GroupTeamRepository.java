@@ -1,10 +1,10 @@
 package com.capgemini.capfoot.repository;
 
-
-import com.capgemini.capfoot.entity.Groupe_Equipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.capfoot.entity.GroupTeam;
+
 @Repository
-public interface Group_EquipeRepository extends JpaRepository<Groupe_Equipe,Long> {
+public interface GroupTeamRepository extends JpaRepository<GroupTeam, Long> {
 }

@@ -43,7 +43,7 @@ public class Championship {
 	private boolean inProgress;
 
 	@OneToMany(mappedBy = "championship")
-	private List<Groupe> groups;
+	private List<Group> groups;
 
 	@ManyToOne
 	private Admin admin;
