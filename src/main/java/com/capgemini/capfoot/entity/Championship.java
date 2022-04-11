@@ -21,29 +21,29 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table
-public class Championat {
+public class Championship {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(nullable = false)
-	private String libelle;
+	private String label;
 
 	// @Column(nullable = false)
-	private LocalDate date_debut;
+	private LocalDate startDate;
 
 	// @Column(nullable = false)
-	private LocalDate date_fin;
+	private LocalDate endDate;
 
 	@Column(columnDefinition = "varchar(255) default 'INSCRIPTION'")
 	private Statut statut;
 
 	@Column(columnDefinition = "varchar(100) default 'FALSE'")
-	private boolean enCours;
+	private boolean inProgress;
 
-	@OneToMany(mappedBy = "championat")
-	private List<Groupe> groupes;
+	@OneToMany(mappedBy = "championship")
+	private List<Groupe> groups;
 
 	@ManyToOne
 	private Admin admin;

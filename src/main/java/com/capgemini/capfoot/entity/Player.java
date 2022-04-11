@@ -1,7 +1,5 @@
 package com.capgemini.capfoot.entity;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,17 +9,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Match {
+@NoArgsConstructor
+@Entity
+public class Player {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private boolean groupePhase;
-	private boolean directEliminationPhase;
-	private Date matchDate;
-	private String site;
+	private String firstName;
+	private String lastName;
+	private String CIN;
+	private String phone;
+	private String emailAdress;
+	private String password;
+	private boolean isStartingPlayer;
+	private boolean isCaptain;
+
 }
