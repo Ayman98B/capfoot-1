@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Match {
+public class MatchDisputee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
