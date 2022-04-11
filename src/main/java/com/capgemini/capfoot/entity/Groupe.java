@@ -20,9 +20,9 @@ public class Groupe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String nom;
-	private int nb_equipes;
+	private String name;
+	private int nbTeams;
 
 	@ManyToOne
-	private Championat championat;
+	private Championship championship;
 }

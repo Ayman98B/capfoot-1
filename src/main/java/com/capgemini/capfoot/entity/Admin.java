@@ -21,11 +21,11 @@ public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String nom;
-	private String prenom;
-	private String mdp;
-	private String adresse_mail;
+	private String firstName;
+	private String lastName;
+	private String password;
+	private String emailAdress;
 
 	@OneToMany(mappedBy = "admin")
-	private List<Championat> championat;
+	private List<Championship> championship;
 }
