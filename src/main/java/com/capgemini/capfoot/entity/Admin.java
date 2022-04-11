@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -27,5 +28,6 @@ public class Admin {
 	private String emailAdress;
 
 	@OneToMany(mappedBy = "admin")
+	@ToString.Exclude
 	private List<Championship> championship;
 }
