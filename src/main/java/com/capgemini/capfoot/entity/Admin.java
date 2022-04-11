@@ -1,26 +1,31 @@
 package com.capgemini.capfoot.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor @ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Admin {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String matricule;
-    private String nom;
-    private String prenom;
-    private String mdp;
-    private String adresse_mail;
-    private String GSM;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String nom;
+	private String prenom;
+	private String mdp;
+	private String adresse_mail;
+
+	@OneToMany(mappedBy = "admin")
+	private List<Championat> championat;
 }
