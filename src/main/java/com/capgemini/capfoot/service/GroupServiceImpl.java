@@ -25,10 +25,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void update(Groupe groupe, Long id) {
-        Groupe modifiedgroupe = groupeRepository.getById(id);
-        modifiedgroupe = groupe;
-        groupeRepository.save(modifiedgroupe);
+    public void update(Optional<Groupe> groupe, Long id) {
+        Optional<Groupe> groupe1 = groupeRepository.findById(id);
+        if(groupe1.isPresent()){
+            groupeRepository.save(groupe1.get());
+        }else System.out.println("msg");
     }
 
     @Override
