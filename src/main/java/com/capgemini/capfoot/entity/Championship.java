@@ -3,8 +3,11 @@ package com.capgemini.capfoot.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +20,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,20 +37,22 @@ public class Championship {
 	@Column(nullable = false)
 	private String label;
 
-	// @Column(nullable = false)
-	private LocalDate startDate;
+	@Column(nullable = false)
+	private LocalDate startDate = LocalDate.now();
 
 	// @Column(nullable = false)
-	private LocalDate endDate;
+	private LocalDate endDate = LocalDate.now().plusDays(30);
 
-	@Column(columnDefinition = "varchar(255) default 'INSCRIPTION'")
-	private Statut statut;
 
-	@Column(columnDefinition = "varchar(100) default 'FALSE'")
-	private boolean inProgress;
+	@Enumerated(EnumType.STRING)
+	private Statut statut = Statut.INSCRIPTION;
 
-	@OneToMany(mappedBy = "championship")
-	private List<Groupe> groupes;
+	private boolean progress = true;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
+	@ToString.Exclude
+	private List<Groupe> groups;
+
 
 	@ManyToOne
 	private Admin admin;
