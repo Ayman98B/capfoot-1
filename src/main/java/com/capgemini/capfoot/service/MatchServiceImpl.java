@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.capgemini.capfoot.dao.MatchRepository;
-import com.capgemini.capfoot.entity.Match;
+import com.capgemini.capfoot.repository.MatchRepository;
+import com.capgemini.capfoot.entity.MatchDisputee;
 
 public class MatchServiceImpl implements MatchService{
 
@@ -13,27 +13,27 @@ public class MatchServiceImpl implements MatchService{
 	MatchRepository matchRepository;
 	
 	@Override
-	public List<Match> getAllMatchs() {
+	public List<MatchDisputee> getAllMatchs() {
 		return matchRepository.findAll();
 	}
 
 	@Override
-	public Match getMatchById(Long id) {
+	public MatchDisputee getMatchById(Long id) {
 		return matchRepository.findById(id).get();
 	}
 
 	@Override
-	public Match addMatch(Match match) {
+	public MatchDisputee addMatch(MatchDisputee match) {
 		return matchRepository.save(match);
 	}
 
 	@Override
-	public void updateMatch(Long id, Match match) {
+	public void updateMatch(Long id, MatchDisputee match) {
 		matchRepository.save(match);
 	}
 
 	@Override
-	public void delateMatch(Long id) {
+	public void deleteMatch(Long id) {
 		matchRepository.deleteById(id);
 		
 	}

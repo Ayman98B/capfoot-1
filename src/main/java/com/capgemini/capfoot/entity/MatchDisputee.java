@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Match {
+public class MatchDisputee {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private boolean phaseDeGroupe;
-	private boolean phaseEliminationDirecte;
-	private Date dateDuMatch;
+	private boolean groupePhase;
+	private boolean directEliminationPhase;
+	private Date matchDate;
 	private String site;
 
 	@ManyToOne
