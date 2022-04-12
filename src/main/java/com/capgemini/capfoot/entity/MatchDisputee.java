@@ -34,6 +34,9 @@ public class MatchDisputee {
 	private String site;
 
 	@ManyToOne
-	private Team team;
+	private Team team1;
+
+	@ManyToOne
+	private Team team2;
 
 }
