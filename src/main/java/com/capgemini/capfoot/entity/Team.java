@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,4 +21,6 @@ public class Team {
     private List<Player> players;
     private int nbPlayers;
 
+    @OneToMany(mappedBy ="team")
+    private List<GroupTeam> groupTeam;
 }
