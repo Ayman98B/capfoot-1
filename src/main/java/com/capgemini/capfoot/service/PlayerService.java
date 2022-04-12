@@ -1,6 +1,5 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.Match;
 import com.capgemini.capfoot.entity.Player;
 
 import java.util.List;
