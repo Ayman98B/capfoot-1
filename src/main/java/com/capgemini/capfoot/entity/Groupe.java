@@ -1,12 +1,14 @@
 package com.capgemini.capfoot.entity;
 
+
 import javax.persistence.*;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
@@ -27,4 +29,5 @@ public class Groupe {
 
 	@OneToMany(mappedBy = "group")
 	private List<GroupTeam> groupTeam;
+
 }
