@@ -9,10 +9,8 @@ import java.util.Optional;
 
 public interface AdminService {
 
-    public void ajouter(Admin admin);
-    public void supprimer(Long id);
-    public void modifier(Admin admin);
-    public List<Admin> trouverT();
-    public Optional<Admin> trouverParId(Long id);
+    public void add(Admin admin);
+    public void delete(Long id);
+    public void update(Admin admin);
 
 }
