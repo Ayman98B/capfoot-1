@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +19,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+
+
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,21 +38,22 @@ public class Championship {
 	@Column(nullable = false)
 	private String label;
 
-	// @Column(nullable = false)
-	private LocalDate startDate;
+	@Column(nullable = false)
+	private LocalDate startDate = LocalDate.now();
 
 	// @Column(nullable = false)
-	private LocalDate endDate;
+	private LocalDate endDate = LocalDate.now().plusDays(30);
 
-	@Column(columnDefinition = "varchar(255) default 'INSCRIPTION'")
-	private Statut statut;
 
-	@Column(columnDefinition = "varchar(100) default 'FALSE'")
-	private boolean inProgress;
+	@Enumerated(EnumType.STRING)
+	private Statut statut = Statut.INSCRIPTION;
+
+	private boolean progress = true;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
 	@ToString.Exclude
 	private List<Groupe> groups;
+
 
 	@ManyToOne
 	private Admin admin;

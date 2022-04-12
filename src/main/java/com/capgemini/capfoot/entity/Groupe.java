@@ -1,10 +1,11 @@
 package com.capgemini.capfoot.entity;
 
 import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -21,6 +22,7 @@ public class Groupe {
 
 	@ManyToOne
 	private Championship championship;
-	@ManyToOne
-	private GroupTeam groupTeam;
+	@OneToMany(mappedBy = "group")
+	private List<GroupTeam> groupTeams;
+  
 }
