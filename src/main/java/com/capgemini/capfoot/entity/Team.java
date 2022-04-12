@@ -18,8 +18,7 @@ public class Team {
     private Long id;
     private String teamName;
     private String site;
-    @OneToMany(mappedBy = "team")
-    @ToString.Exclude
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Player> players;
     private int nbPlayers;
 

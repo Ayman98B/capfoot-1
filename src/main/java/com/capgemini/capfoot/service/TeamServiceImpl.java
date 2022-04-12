@@ -16,7 +16,7 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team addTeem(Team team) {
         team.setNbPlayers(team.getPlayers().size());
-        if(team.getNbPlayers() < 7 && team.getNbPlayers() > 7) {
+        if(team.getNbPlayers() != 7) {
             System.out.println("please your Team should have Only 7 players");
         }
         return teamRepository.save(team);
@@ -24,13 +24,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Team getTeamByName(String name) {
-        if(teamRepository.findByName(name) == null) return new Team();
         return teamRepository.findByName(name);
     }
 
     @Override
     public List<Team> gatAllTeam() {
-        if (teamRepository.findAll().isEmpty()) return new ArrayList<>();
         return teamRepository.findAll();
     }
 
