@@ -17,27 +17,19 @@ public class AdminServiceImpl implements AdminService {
     AdminRepository adminRepository;
 
     @Override
-    public void ajouter(Admin admin) {
+    public void add(Admin admin) {
         adminRepository.save(admin);
     }
 
     @Override
-    public void supprimer(Long id) {
+    public void delete(Long id) {
         adminRepository.deleteById(id);
     }
 
     @Override
-    public void modifier(Admin admin) {
+    public void update(Admin admin) {
 
     }
 
-    @Override
-    public List<Admin> trouverT() {
-        return adminRepository.findAll();
-    }
 
-    @Override
-    public Optional<Admin> trouverParId(Long id) {
-        return adminRepository.findById(id);
-    }
 }
