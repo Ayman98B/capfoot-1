@@ -1,21 +1,20 @@
 package com.capgemini.capfoot.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
+
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Group {
+
+public class Groupe {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,4 +24,10 @@ public class Group {
 
 	@ManyToOne
 	private Championship championship;
+
+
+	@OneToMany(mappedBy = "group")
+	private List<GroupTeam> groupTeam;
+
+
 }
