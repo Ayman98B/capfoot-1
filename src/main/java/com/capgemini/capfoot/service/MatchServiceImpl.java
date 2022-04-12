@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.capgemini.capfoot.repository.MatchRepository;
 import com.capgemini.capfoot.entity.MatchDisputee;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MatchServiceImpl implements MatchService{
 
 	@Autowired
@@ -14,16 +16,19 @@ public class MatchServiceImpl implements MatchService{
 	
 	@Override
 	public List<MatchDisputee> getAllMatchs() {
+
 		return matchRepository.findAll();
 	}
 
 	@Override
 	public MatchDisputee getMatchById(Long id) {
+
 		return matchRepository.findById(id).get();
 	}
 
 	@Override
 	public MatchDisputee addMatch(MatchDisputee match) {
+
 		return matchRepository.save(match);
 	}
 
