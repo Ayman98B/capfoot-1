@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import org.hibernate.annotations.GeneratorType;
+import com.capgemini.capfoot.entity.Team;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
