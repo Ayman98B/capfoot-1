@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,7 +45,7 @@ public class Championship {
 	private boolean inProgress;
 
 	@OneToMany(mappedBy = "championship")
-	private List<Group> groups;
+	private List<Groupe> groupes;
 
 	@ManyToOne
 	private Admin admin;

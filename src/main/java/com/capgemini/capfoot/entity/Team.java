@@ -19,6 +19,6 @@ public class Team {
     private String site;
     private int nbPlayers;
     @OneToMany(mappedBy = "team")
-    private List<Player> Cars = new ArrayList<>();
+    private List<Player> Players = new ArrayList<>();
 
 }
