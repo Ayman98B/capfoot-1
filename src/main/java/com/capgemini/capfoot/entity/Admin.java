@@ -17,6 +17,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Admin {
 
 	@Id
@@ -28,6 +29,5 @@ public class Admin {
 	private String emailAdress;
 
 	@OneToMany(mappedBy = "admin")
-	@ToString.Exclude
 	private List<Championship> championship;
 }
