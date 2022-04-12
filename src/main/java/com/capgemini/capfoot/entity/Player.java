@@ -1,9 +1,6 @@
 package com.capgemini.capfoot.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +23,7 @@ public class Player {
 	private String password;
 	private boolean isStartingPlayer;
 	private boolean isCaptain;
+	@ManyToOne
+	private Team team;
 
 }
