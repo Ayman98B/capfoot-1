@@ -12,9 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-
 public class Groupe {
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
