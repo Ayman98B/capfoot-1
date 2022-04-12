@@ -16,24 +16,35 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private PlayerRepository playerRepo;
     private TeamRepository teamRepo;
-    @Override
-    public void addPlayer(Player player) {
-        playerRepo.save(player);
-    }
 
     @Override
-    public void updatePlayer(Player player, Long id) {
+    public Player addPlayer(Player player) {
+        return playerRepo.save(player);
+    }
+
+
+
+    /*
+    public Player updatePlayer(Player player, Long id) {
         Optional<Player> p = playerRepo.findById(id);
         p.get().setFirstName(player.getFirstName());
         p.get().setLastName(player.getLastName());
         p.get().setCIN(player.getCIN());
-        p.get().setEmailAdress(player.getEmailAdress());
+        p.get().setEmailAddress(player.getEmailAddress());
         p.get().setPassword(player.getPassword());
         p.get().setPhone(player.getPhone());
         p.get().setCaptain(player.isCaptain());
         p.get().setStartingPlayer(player.isStartingPlayer());
-        playerRepo.save(p.get());
+        p.get().setAvailable(player.isAvailable());
+        return playerRepo.save(p.get());
+    } */
+    @Override
+    public Player updatePlayer(Player player)
+    {
+        return playerRepo.save(player);
     }
+
+
 
     @Override
     public void deletePlayer(Long id) {
@@ -58,6 +69,15 @@ public class PlayerServiceImpl implements PlayerService {
     public void addPlayerToTeam(Long idPlayer, Long idTeam) {
         Optional<Player> player = playerRepo.findById(idPlayer);
         Optional<Team> team = teamRepo.findById(idTeam);
-        team.get().getCars().add(player.get());
+
+        if( (player.get().isAvailable()) && (team.get().getNbPlayers() < 7)) {
+            team.get().getplayers().add(player.get());
+            player.get().setTeam(team.get());
+            player.get().setAvailable(false);
+            playerRepo.save(player.get());
+            teamRepo.save(team.get());
+        }
+        else
+            System.out.println("Joueur n'est pas dispo");
     }
 }
