@@ -1,5 +1,6 @@
 package com.capgemini.capfoot.entity;
 
+import java.time.LocalDate;
 import java.time.temporal.TemporalAmount;
 import java.util.Date;
 
@@ -30,13 +31,13 @@ public class MatchDisputee {
 	private Long id;
 	private boolean groupePhase;
 	private boolean directEliminationPhase;
-	private Date matchDate;
+	private LocalDate matchDate;
 	private String site;
 
 	@ManyToOne
-	private Team team1;
+	private Team teamHome;
 
 	@ManyToOne
-	private Team team2;
+	private Team teamAway;
 
 }
