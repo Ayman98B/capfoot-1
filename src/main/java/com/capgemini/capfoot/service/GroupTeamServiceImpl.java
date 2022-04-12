@@ -25,7 +25,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService{
 
     @Override
     public void addTeamToGroup(Team team, Groupe group) {
-        Team findTeam = teamRepository.findById(team.getIdTeam()).get();
+        Team findTeam = teamRepository.findById(team.getId()).get();
         Groupe findGroup = groupRepository.findById(group.getId()).get();
         if(findTeam != null && findGroup != null){
             GroupTeam groupTeam1 = new GroupTeam();

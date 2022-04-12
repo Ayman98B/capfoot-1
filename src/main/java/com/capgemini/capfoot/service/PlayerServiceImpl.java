@@ -74,7 +74,7 @@ public class PlayerServiceImpl implements PlayerService {
             Player player1 = player.get();
             Team team1 = team.get();
             if ((player.get().isAvailable()) && (team.get().getNbPlayers() < 7)) {
-                //team1.getplayers().add(player1);
+                team1.getPlayers().add(player1);
                 player1.setTeam(team1);
                 player1.setAvailable(false);
                 playerRepo.save(player1);
