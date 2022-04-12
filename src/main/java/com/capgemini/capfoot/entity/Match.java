@@ -1,11 +1,9 @@
 package com.capgemini.capfoot.entity;
 
+import java.time.temporal.TemporalAmount;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GeneratorType;
 
@@ -26,4 +24,7 @@ public class Match {
 	private boolean phaseEliminationDirecte;
 	private Date dateDuMatch;
 	private String site;
+
+	@ManyToOne
+	private Team team;
 }
