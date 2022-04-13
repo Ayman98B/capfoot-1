@@ -20,6 +20,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
+
+
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -49,6 +53,7 @@ public class Championship {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
 	@ToString.Exclude
 	private List<Groupe> groups;
+
 
 	@ManyToOne
 	private Admin admin;

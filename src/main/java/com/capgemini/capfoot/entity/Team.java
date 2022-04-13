@@ -12,7 +12,7 @@ public class Team {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String teamName;
+    private String name;
     private String site;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Player> players;
