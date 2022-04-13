@@ -12,12 +12,6 @@ import com.capgemini.capfoot.service.ChampionshipService;
 @SpringBootApplication
 public class CapfootApplication implements CommandLineRunner {
 
-	@Autowired
-	ChampionshipService championshipService;
-
-	@Autowired
-	ChampionshipRepo championshipRepo;
-
 	public static void main(String[] args) {
 		SpringApplication.run(CapfootApplication.class, args);
 	}
@@ -25,6 +19,11 @@ public class CapfootApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+
 	}
+
+
+	
+
 
 }

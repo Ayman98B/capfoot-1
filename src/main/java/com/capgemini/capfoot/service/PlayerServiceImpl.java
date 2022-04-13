@@ -70,14 +70,21 @@ public class PlayerServiceImpl implements PlayerService {
         Optional<Player> player = playerRepo.findById(idPlayer);
         Optional<Team> team = teamRepo.findById(idTeam);
 
-        if( (player.get().isAvailable()) && (team.get().getNbPlayers() < 7)) {
-            team.get().getplayers().add(player.get());
-            player.get().setTeam(team.get());
-            player.get().setAvailable(false);
-            playerRepo.save(player.get());
-            teamRepo.save(team.get());
+        if (player.isPresent() && team.isPresent()) {
+            Player player1 = player.get();
+            Team team1 = team.get();
+            if ((player.get().isAvailable()) && (team.get().getNbPlayers() < 7)) {
+                team1.getPlayers().add(player1);
+                player1.setTeam(team1);
+                player1.setAvailable(false);
+                playerRepo.save(player1);
+                teamRepo.save(team1);
+            } else
+                System.out.println("Joueur n'est pas dispo");
+        } else {
+            System.out.println("Joueur ou Equipe introuvable");
         }
-        else
-            System.out.println("Joueur n'est pas dispo");
     }
+
 }
+

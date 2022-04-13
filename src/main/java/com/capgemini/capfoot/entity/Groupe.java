@@ -12,9 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-
 public class Groupe {
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,11 +23,7 @@ public class Groupe {
 	@ManyToOne
 	private Championship championship;
 
-	@ManyToOne
-	private GroupTeam groupTeam;
-
 	@OneToMany(mappedBy = "group")
 	private List<GroupTeam> groupTeams;
-
 
 }
