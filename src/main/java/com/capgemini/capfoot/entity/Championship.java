@@ -54,7 +54,6 @@ public class Championship {
 	@ToString.Exclude
 	private List<Groupe> groups;
 
-
 	@ManyToOne
 	private Admin admin;
 
