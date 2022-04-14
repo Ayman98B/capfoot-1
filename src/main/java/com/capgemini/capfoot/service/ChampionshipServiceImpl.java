@@ -39,10 +39,8 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	}
 
 	@Override
-	public void updateChampionship(Championship ChampToEdit) {
-		// if changement de statut: planification des matches, Tirage au sort, l'envoie
-		// des email
-		// if statut = groupe, planification des match
+	public void updateChampionship(Long id,Championship ChampToEdit) {
+
 
 		Championship findChampion = championshipRepo.findById(ChampToEdit.getId()).get();
 		championshipRepo.save(findChampion);
