@@ -32,12 +32,10 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 		if (championshipRepo.findNbProgressTrue() > 0)
 			log.warn("Vous ne pouvez pas ajouter le tournoi '" + newChamp.getLabel()
 					+ "', il y a un autre tournoi en cours !!");
-
 		else {
 			championshipRepo.save(newChamp);
 			log.info("Championship entity created");
 		}
-
 	}
 
 	@Override
