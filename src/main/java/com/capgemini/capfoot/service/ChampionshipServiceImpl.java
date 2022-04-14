@@ -48,8 +48,9 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	}
 
 	@Override
-	public void deleteChampionship(Championship championToDelete) {
 
-		championshipRepo.delete(championToDelete);
-	}
+	public void deleteChampionship(Long id) {
+		championshipRepo.deleteById(id);
+  }
+  
 }

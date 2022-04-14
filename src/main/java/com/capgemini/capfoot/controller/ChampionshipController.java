@@ -28,5 +28,11 @@ public class ChampionshipController {
 	public void createChampionship(@RequestBody Championship championship) {
 		championshipService.createChampionship(championship);
 	}
+  
+  @DeleteMapping("/{id}")
+    public void deleteChampionship(@PathVariable("id") Long id){
+        championshipService.deleteChampionship(id);
+    }
+
 
 }
