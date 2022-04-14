@@ -2,14 +2,16 @@ package com.capgemini.capfoot.service;
 
 import java.util.List;
 
-import com.capgemini.capfoot.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Autowired
@@ -27,11 +29,13 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Override
 	public void createChampionship(Championship newChamp) {
-		if (championshipRepo.findNbProgressTrue() == 0)
-			championshipRepo.save(newChamp);
-		else
-			System.out.println("Vous ne pouvez pas ajouter le tournoi '" + newChamp.getLabel()
+		if (championshipRepo.findNbProgressTrue() > 0)
+			log.warn("Vous ne pouvez pas ajouter le tournoi '" + newChamp.getLabel()
 					+ "', il y a un autre tournoi en cours !!");
+		else {
+			championshipRepo.save(newChamp);
+			log.info("Championship entity created");
+		}
 	}
 
 	@Override
