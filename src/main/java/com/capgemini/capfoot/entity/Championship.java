@@ -20,10 +20,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
-
-
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -44,7 +40,6 @@ public class Championship {
 	// @Column(nullable = false)
 	private LocalDate endDate = LocalDate.now().plusDays(30);
 
-
 	@Enumerated(EnumType.STRING)
 	private Statut statut = Statut.INSCRIPTION;
 
@@ -53,7 +48,6 @@ public class Championship {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
 	@ToString.Exclude
 	private List<Groupe> groups;
-
 
 	@ManyToOne
 	private Admin admin;

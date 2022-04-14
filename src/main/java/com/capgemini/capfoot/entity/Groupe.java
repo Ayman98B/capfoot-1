@@ -22,10 +22,7 @@ public class Groupe {
 
 	@ManyToOne
 	private Championship championship;
-
-
 	@OneToMany(mappedBy = "group")
-	private List<GroupTeam> groupTeam;
-
-
+	private List<GroupTeam> groupTeams;
+  
 }
