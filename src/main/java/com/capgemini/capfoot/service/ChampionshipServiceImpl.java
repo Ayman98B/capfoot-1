@@ -32,7 +32,6 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 		else
 			System.out.println("Vous ne pouvez pas ajouter le tournoi '" + newChamp.getLabel()
 					+ "', il y a un autre tournoi en cours !!");
-
 	}
 
 	@Override
