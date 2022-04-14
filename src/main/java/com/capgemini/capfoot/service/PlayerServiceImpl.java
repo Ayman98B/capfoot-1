@@ -15,6 +15,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     private PlayerRepository playerRepo;
+    @Autowired
     private TeamRepository teamRepo;
 
     @Override
@@ -23,21 +24,6 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
 
-
-    /*
-    public Player updatePlayer(Player player, Long id) {
-        Optional<Player> p = playerRepo.findById(id);
-        p.get().setFirstName(player.getFirstName());
-        p.get().setLastName(player.getLastName());
-        p.get().setCIN(player.getCIN());
-        p.get().setEmailAddress(player.getEmailAddress());
-        p.get().setPassword(player.getPassword());
-        p.get().setPhone(player.getPhone());
-        p.get().setCaptain(player.isCaptain());
-        p.get().setStartingPlayer(player.isStartingPlayer());
-        p.get().setAvailable(player.isAvailable());
-        return playerRepo.save(p.get());
-    } */
     @Override
     public Player updatePlayer(Player player)
     {
@@ -66,15 +52,15 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void addPlayerToTeam(Long idPlayer, Long idTeam) {
+    public void addPlayerToTeam(Long idTeam, Long idPlayer) {
         Optional<Player> player = playerRepo.findById(idPlayer);
         Optional<Team> team = teamRepo.findById(idTeam);
 
         if (player.isPresent() && team.isPresent()) {
             Player player1 = player.get();
             Team team1 = team.get();
-            if ((player.get().isAvailable()) && (team.get().getNbPlayers() < 7)) {
-                team1.getPlayers().add(player1);
+            if ((player1.isAvailable()) && (team1.getNbPlayers() < 7)) {
+                //team1.getPlayers().add(player1);
                 player1.setTeam(team1);
                 player1.setAvailable(false);
                 playerRepo.save(player1);
