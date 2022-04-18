@@ -56,12 +56,6 @@ public class ChampionShipTests {
         assertThat(updateChampionship.getLabel()).isEqualTo(label);
     }
 
-    @Test
-    @Rollback(value = false)
-    @Order(3)
-    public void testListChampions(){
-        List<Championship> championships = (List<Championship>) championshipRepo.findAll();
-        Assertions.assertNotEquals(Collections.EMPTY_LIST, championships);
-    }
+
 
 }

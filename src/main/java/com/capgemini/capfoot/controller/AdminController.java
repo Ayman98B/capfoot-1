@@ -85,6 +85,12 @@ public class AdminController {
         championshipService.createChampionship(championship);
     }
 
+    @PutMapping("championships/update/{idChampion}")
+    public void updateChampionship(@PathVariable("idChampion") Long idChampion, @RequestBody Championship championship) {
+        championshipService.updateChampionship(idChampion, championship);
+    }
+
+
     @DeleteMapping("championships/delete/{id}")
     public void deleteChampionship(@PathVariable("id") Long id){
         championshipService.deleteChampionship(id);
