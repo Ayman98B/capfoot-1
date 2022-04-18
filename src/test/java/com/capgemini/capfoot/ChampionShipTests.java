@@ -2,19 +2,24 @@ package com.capgemini.capfoot;
 
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.hamcrest.CoreMatchers.is;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestMethodOrder(MethodOrderer.class)
 public class ChampionShipTests {
 
     @Autowired
@@ -22,6 +27,7 @@ public class ChampionShipTests {
 
     @Test
     @Rollback(value = false)
+    @Order(1)
     public void testCreateChampion(){
         Championship champ = new Championship();
         champ.setLabel("test test");
@@ -35,6 +41,7 @@ public class ChampionShipTests {
 
     @Test
     @Rollback(value = false)
+    @Order(2)
     public void testUpdateChampion(){
         String label = "test label";
         Championship champ = new Championship();
@@ -47,6 +54,14 @@ public class ChampionShipTests {
 
         Championship updateChampionship = championshipRepo.findByLabel(label);
         assertThat(updateChampionship.getLabel()).isEqualTo(label);
+    }
+
+    @Test
+    @Rollback(value = false)
+    @Order(3)
+    public void testListChampions(){
+        List<Championship> championships = (List<Championship>) championshipRepo.findAll();
+        Assertions.assertNotEquals(Collections.EMPTY_LIST, championships);
     }
 
 }
