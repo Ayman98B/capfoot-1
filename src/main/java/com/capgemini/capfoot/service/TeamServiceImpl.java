@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+
 @Service
 public class TeamServiceImpl implements TeamService {
 
@@ -32,7 +34,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<Team> gatAllTeam() {
-        return teamRepository.findAll();
+        List<Team> teamList = teamRepository.findAll();
+        if (teamList.isEmpty()) {
+            System.out.println("No Teams Found!");
+        }
+        return teamList;
     }
 
     @Override
@@ -55,7 +61,6 @@ public class TeamServiceImpl implements TeamService {
         } else {
             return false;
         }
-
     }
 
     @Override
