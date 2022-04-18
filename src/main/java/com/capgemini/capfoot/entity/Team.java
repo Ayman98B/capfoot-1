@@ -14,7 +14,7 @@ public class Team {
     private Long id;
     private String name;
     private String site;
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Player> players;
     private int nbPlayers;
     @OneToMany(mappedBy ="team")
