@@ -3,11 +3,13 @@ package com.capgemini.capfoot.service;
 import com.capgemini.capfoot.entity.Team;
 import com.capgemini.capfoot.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TeamServiceImpl implements TeamService {
 
     @Autowired
@@ -15,10 +17,10 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Team addTeem(Team team) {
-        team.setNbPlayers(team.getPlayers().size());
+        /*team.setNbPlayers(team.getPlayers().size());
         if(team.getNbPlayers() != 7) {
-            System.out.println("please your Team should have Only 7 players");
-        }
+            System.out.println("please your Team should have 7 players");
+        }*/
         return teamRepository.save(team);
     }
 
@@ -29,7 +31,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<Team> gatAllTeam() {
-        return teamRepository.findAll();
+        List<Team> teamList = teamRepository.findAll();
+        if (teamList.isEmpty()) {
+            System.out.println("No Teams Found!");
+        }
+        return teamList;
     }
 
     @Override
@@ -46,7 +52,12 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Boolean deleteTeamById(Long id) {
         Optional<Team> toDelete = teamRepository.findById(id);
-        teamRepository.delete(toDelete.get());
-        return true;
+        if (toDelete.isPresent()) {
+            teamRepository.delete(toDelete.get());
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
