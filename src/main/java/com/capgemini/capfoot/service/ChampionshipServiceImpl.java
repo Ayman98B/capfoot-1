@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.capgemini.capfoot.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.capfoot.entity.Championship;
@@ -44,25 +45,31 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	}
 
 	@Override
-	public void updateChampionship(Long id,Championship ChampToEdit) {
+	public void updateChampionship(Long id,Championship champion) {
 
 			// if changement de statut: planification des matches, Tirage au sort, l'envoie
 			// des email
 			// if statut = groupe, planification des match
+		if (id == null){
+			log.warn("Vous ne pouvez pas modifier le tournoi car ID null" );
+		}else {
 
-		/*if(ChampToEdit.getStatut()!=championshipRepo.findById(id).get().getStatut()) {
-			System.out.println("Sending Email...");
-			try {
-				send.sendEmail(teamRepository.findById(id).get(), "Test", "test d'envoie de mail");
-			} catch (MailException mailException) {
-				mailException.getStackTrace();
-			} catch (Exception e) {
-				System.out.println("Erreur d'envoie d'email: " + e);
+			if(champion.getStatut()!=championshipRepo.findById(id).get().getStatut()) {
+				System.out.println("Sending Email...");
+				try {
+					send.sendEmail(teamRepository.findById(id).get(), "Test", "test d'envoie de mail");
+				} catch (MailException mailException) {
+					mailException.getStackTrace();
+				} catch (Exception e) {
+					System.out.println("Erreur d'envoie d'email: " + e);
+				}
 			}
-		}*/
-		Championship findChampion = championshipRepo.findById(ChampToEdit.getId()).get();
-		championshipRepo.save(findChampion);
-
+			Championship championship = championshipRepo.findById(id).get();
+			championship.setLabel(champion.getLabel());
+			championship.setStartDate(champion.getStartDate());
+			championship.setProgress(champion.isProgress());
+			championshipRepo.save(championship);
+		}
 	}
 
 	@Override
