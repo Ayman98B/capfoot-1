@@ -30,5 +30,5 @@ public class AdminServiceImpl implements AdminService {
     public void update(Admin admin) {
 
     }
-    
+
 }

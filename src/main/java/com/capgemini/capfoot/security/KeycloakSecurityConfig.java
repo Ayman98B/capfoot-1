@@ -12,6 +12,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
+
 @KeycloakConfiguration
 class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
@@ -43,4 +44,6 @@ class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .antMatchers("/admin_auth")
                 .authenticated();
     }
+
+
 }

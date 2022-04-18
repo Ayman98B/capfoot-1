@@ -28,8 +28,9 @@ public class GroupServiceImpl implements GroupService {
     public void update(Optional<Groupe> groupe, Long id) {
         Optional<Groupe> groupe1 = groupeRepository.findById(id);
         if(groupe1.isPresent()){
+            groupe1=groupe;
             groupeRepository.save(groupe1.get());
-        }else System.out.println("msg");
+        }else System.out.println("Ce groupe n'existe pas");
     }
 
     @Override

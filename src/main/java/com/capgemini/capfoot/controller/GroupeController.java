@@ -15,27 +15,26 @@ public class GroupeController {
     GroupService groupeService;
 
     @PostMapping("/ajouter/groupes")
-    public void ajouterGroupe(@RequestBody Groupe groupe){
+    public void addGroupe(@RequestBody Groupe groupe){
         groupeService.add(groupe);
     }
 
     @PostMapping("/supprimer/groupes")
-    public void supprimerGroupe(@PathVariable Long id){
+    public void deleteGroupe(@PathVariable Long id){
         groupeService.delete(id);
     }
 
     @PostMapping("/modifier/groupes")
-    public void modifierGroupe(@RequestBody Groupe groupe, @PathVariable Long id){
+    public void updateGroupe(@RequestBody Groupe groupe, @PathVariable Long id){
         groupeService.update(Optional.ofNullable(groupe),id);
     }
-
     @GetMapping("/groupes")
     public List<Groupe> findAll(){
         return groupeService.findAll();
     }
 
     @GetMapping("/groupes/{id}")
-    public Optional<Groupe> trouver(@PathVariable("id") Long id){
+    public Optional<Groupe> findById(@PathVariable("id") Long id){
         return groupeService.findById(id);
     }
 }

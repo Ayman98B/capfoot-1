@@ -10,9 +10,9 @@ public interface MatchService {
 
 	public MatchDisputee getMatchById(Long id);
 
-	public MatchDisputee addMatch(MatchDisputee car);
+	public MatchDisputee addMatch(MatchDisputee match);
 
-	public void updateMatch(Long id, MatchDisputee car);
+	public void updateMatch(Long id, MatchDisputee match);
 
 	public void deleteMatch(Long id);
 }

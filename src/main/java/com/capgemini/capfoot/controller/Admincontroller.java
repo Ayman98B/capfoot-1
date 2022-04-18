@@ -51,7 +51,4 @@ public class Admincontroller {
             return "Au revoir";
         }
 
-            /*//@GetMapping("/admin_auth/test")
-            public String function() {
-                return "admin_auth";*/
 }
