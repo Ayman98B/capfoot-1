@@ -1,13 +1,18 @@
 package com.capgemini.capfoot.controller;
 
+import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.service.ChampionshipService;
 import com.capgemini.capfoot.service.MatchService;
 import com.capgemini.capfoot.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.ApiOperation;
+
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/")
@@ -18,18 +23,20 @@ public class AdminController {
     @Autowired
     TeamService teamService;
 
+    @Autowired
+    ChampionshipService championshipService;
 
-    @PostMapping("match/add")
+    @PostMapping("matchs/add")
     public MatchDisputee createMatch(@RequestBody MatchDisputee matchDisputee){
         return matchService.addMatch(matchDisputee);
     }
 
-    @PostMapping("team/add")
+    @PostMapping("teams/add")
     public Team createTeam(@RequestBody Team createdTeam){
-        return teamService.addTeem(createdTeam);
+        return teamService.addTeam(createdTeam);
     }
 
-    @PutMapping("match/teams/{id}")
+    @PutMapping("matchs/teams/{id}")
     public void setTeams(@PathVariable(value = "id") Long id, @RequestBody MatchDisputee setTeams){
         MatchDisputee matchToUpdate = matchService.getMatchById(id);
         matchToUpdate.setTeamHome(setTeams.getTeamHome());
@@ -37,7 +44,7 @@ public class AdminController {
         matchService.updateMatch(id, matchToUpdate);
     }
 
-    @PutMapping("match/score/{id}")
+    @PutMapping("matchs/score/{id}")
     public void updateMatchScore(@PathVariable(value = "id") Long id, @RequestBody MatchDisputee updateTeamsScore){
 
         MatchDisputee matchUpdateScore = matchService.getMatchById(id);
@@ -52,7 +59,7 @@ public class AdminController {
 
     }
 
-    @PutMapping("match/finalscore/{id}")
+    @PutMapping("matchs/finalscore/{id}")
     public void updateMatchFinalScore (@PathVariable("id") Long id, @RequestBody MatchDisputee matchDisputee){
         MatchDisputee matchFinalScore = matchService.getMatchById(id);
         int[] scoreMatch = new int[2];
@@ -66,9 +73,25 @@ public class AdminController {
 
     }
 
-    @GetMapping("match/{id}")
+    @GetMapping("matchs/{id}")
     public MatchDisputee getMatchById(@PathVariable("id") Long id){
         return matchService.getMatchById(id);
 
     }
+
+    @GetMapping("championships/getall")
+    public List<Championship> getAllChampionship() {
+        return championshipService.getAllChampionships();
+    }
+
+    @PostMapping("championships/add")
+    public void createChampionship(@RequestBody Championship championship) {
+        championshipService.createChampionship(championship);
+    }
+
+    @DeleteMapping("championships/delete/{id}")
+    public void deleteChampionship(@PathVariable("id") Long id){
+        championshipService.deleteChampionship(id);
+    }
+
 }
