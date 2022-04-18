@@ -15,14 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-
-
-
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,16 +37,17 @@ public class Championship {
 	// @Column(nullable = false)
 	private LocalDate endDate = LocalDate.now().plusDays(30);
 
-
 	@Enumerated(EnumType.STRING)
 	private Statut statut = Statut.INSCRIPTION;
 
+	@Getter
+	@Setter
+	@Column(nullable = false)
 	private boolean progress = true;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
 	@ToString.Exclude
 	private List<Groupe> groups;
-
 
 	@ManyToOne
 	private Admin admin;

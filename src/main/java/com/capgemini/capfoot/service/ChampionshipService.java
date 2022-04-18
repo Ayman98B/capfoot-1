@@ -12,8 +12,8 @@ public interface ChampionshipService {
 
 	public void createChampionship(Championship newChamp);
 
-	public void updateChampionship(Championship ChampToEdit);
+	public void updateChampionship(Long id,Championship ChampToEdit);
 
-	public void deleteChampionship(Championship championToDelete);
+	public void deleteChampionship(Long id);
 
 }

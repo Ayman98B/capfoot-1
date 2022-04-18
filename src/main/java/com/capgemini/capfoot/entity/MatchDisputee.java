@@ -33,6 +33,9 @@ public class MatchDisputee {
 	private boolean directEliminationPhase;
 	private LocalDate matchDate;
 	private String site;
+	private int scoreHome;
+	private int scoreAway;
+	private int[] scoreMatch;
 
 	@ManyToOne
 	private Team teamHome;

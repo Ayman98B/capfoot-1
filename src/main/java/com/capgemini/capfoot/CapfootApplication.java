@@ -6,11 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.repository.ChampionshipRepo;
-import com.capgemini.capfoot.service.ChampionshipService;
-
 import java.util.Optional;
 
 @SpringBootApplication
@@ -53,9 +48,5 @@ public class CapfootApplication implements CommandLineRunner {
 			System.out.println(g.toString());
 		});
 	}
-
-
-	
-
 
 }
