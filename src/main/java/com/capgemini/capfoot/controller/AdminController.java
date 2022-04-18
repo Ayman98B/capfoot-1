@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.service.ChampionshipService;
 
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 @RequestMapping("/api/v1/championships")
-public class ChampionshipController {
+public class AdminController {
 
 	@Autowired
 	ChampionshipService championshipService;
@@ -33,7 +31,7 @@ public class ChampionshipController {
 		championshipService.createChampionship(championship);
 	}
   
-  @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void deleteChampionship(@PathVariable("id") Long id){
         championshipService.deleteChampionship(id);
     }
