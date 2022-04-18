@@ -14,4 +14,6 @@ public interface ChampionshipRepo extends JpaRepository<Championship, Long> {
 
 	@Query("SELECT COUNT(*) FROM Championship c where c.progress = 'TRUE'")
 	public int findNbProgressTrue();
+
+	public Championship findByLabel(String name);
 }
