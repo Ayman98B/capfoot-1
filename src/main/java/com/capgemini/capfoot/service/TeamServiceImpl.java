@@ -32,7 +32,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<Team> gatAllTeam() {
-        return teamRepository.findAll();
+        List<Team> teamList = teamRepository.findAll();
+        if (teamList.isEmpty()) {
+            System.out.println("No Teams Found!");
+        }
+        return teamList;
     }
 
     @Override
@@ -55,7 +59,6 @@ public class TeamServiceImpl implements TeamService {
         } else {
             return false;
         }
-
     }
 
     @Override
