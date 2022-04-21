@@ -1,38 +1,38 @@
 package com.capgemini.capfoot.service;
 
 import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Statut;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.modules.junit4.PowerMockRunner;
+
 
 import java.time.LocalDate;
+import java.util.List;
 
+@RunWith(MockitoJUnitRunner.class)
+public class ChampionshipServiceImplTest {
 
-class ChampionshipServiceImplTest {
     @Mock
     private ChampionshipRepo championshipRepo;
-//    @InjectMocks
-    private ChampionshipService championshipServiceTest;
 
-    @BeforeEach
-    void SetUp(){
-        this.championshipServiceTest = new ChampionshipServiceImpl(this.championshipRepo);
+
+    public ChampionshipServiceImplTest() {
     }
 
     @Test
-    void testDeleteChampionship() {
-        Championship championship = new Championship(1L,"Capfoot",LocalDate.of(2022,02,01), LocalDate.of(2022,02,03), Statut.INSCRIPTION,false,null,null);
-        championshipServiceTest.createChampionship(championship);
-
-
-
+    public void testDeleteChampionship() {
+        Championship championship = new Championship();
+        championship.setLabel("CapFoot");
+        championship.setProgress(false);
+        championship.setId(1L);
+        championshipRepo.save(championship);
+        Championship result = championshipRepo.getById(1L);
+        System.out.println(result);
     }
-
-
 }
