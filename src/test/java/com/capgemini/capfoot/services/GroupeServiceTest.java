@@ -62,7 +62,7 @@ public class GroupeServiceTest {
         groupe.setId(2L);
         groupe.setName("g2");
         // when -  action or the behaviour that we are going test
-        Groupe updatedGroupe = groupeService.update(groupe, 2L);
+        Groupe updatedGroupe = groupeService.update(groupe, 1L);
 
         // then - verify the output
         assertThat(updatedGroupe.getId()).isEqualTo(2L);

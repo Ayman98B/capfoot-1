@@ -16,6 +16,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     AdminRepository adminRepository;
 
+/*
     @Override
     public void add(Admin admin) {
         adminRepository.save(admin);
@@ -30,5 +31,6 @@ public class AdminServiceImpl implements AdminService {
     public void update(Admin admin) {
 
     }
+*/
 
 }

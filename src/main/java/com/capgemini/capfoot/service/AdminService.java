@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface AdminService {
 
-    public void add(Admin admin);
+    /*public void add(Admin admin);
     public void delete(Long id);
-    public void update(Admin admin);
+    public void update(Admin admin);*/
 
 }

@@ -61,7 +61,7 @@ public class CapfootApplication implements CommandLineRunner {
         //Player player2 = new Player(3L,"Hamza","hamza.tika@capgemini.com");
         List<Player> players= new ArrayList<>();
        // players.add(player);
-        players.add(player1);
+        //players.add(player1);
         //players.add(player2);
         Team team = new Team(1L,"team1","casa",players);
        // System.out.println(team.getPlayers().get(1).getEmailAddress());
