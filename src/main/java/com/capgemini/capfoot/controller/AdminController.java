@@ -81,6 +81,7 @@ public class AdminController {
 
     @GetMapping("championships/getall")
     public List<Championship> getAllChampionship() {
+
         return championshipService.getAllChampionships();
     }
 
