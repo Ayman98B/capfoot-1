@@ -1,4 +1,4 @@
-package com.capgemini.capfoot.services;
+package com.capgemini.capfoot.service;
 
 import com.capgemini.capfoot.entity.Groupe;
 import com.capgemini.capfoot.repository.GroupRepository;

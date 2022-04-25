@@ -23,6 +23,10 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	@Autowired
 	TeamRepository teamRepository;
 
+	public ChampionshipServiceImpl(ChampionshipRepo championshipRepo) {
+		this.championshipRepo = championshipRepo;
+	}
+
 	@Override
 	public List<Championship> getAllChampionships() {
 		return championshipRepo.findAll();
