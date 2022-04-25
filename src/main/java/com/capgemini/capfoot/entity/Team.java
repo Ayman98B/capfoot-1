@@ -19,4 +19,10 @@ public class Team {
     private int nbPlayers;
     @OneToMany(mappedBy ="team")
     private List<GroupTeam> groupTeam;
+
+    public Team(long id, String name, String site, List<Player> players) {
+        this.id=id;
+        this.name=name;
+        this.players=players;
+    }
 }

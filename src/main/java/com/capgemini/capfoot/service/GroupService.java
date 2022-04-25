@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface GroupService {
 
-    public void add(Groupe groupe);
+    //public void add(Groupe groupe);
     public void delete(Long id);
-    public void update(Optional<Groupe> groupe, Long id);
+    public Groupe update(Groupe groupe, Long id);
     public List<Groupe> findAll();
     public Optional<Groupe> findById(Long id);
 
