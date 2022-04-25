@@ -2,6 +2,7 @@ package com.capgemini.capfoot.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.service.ChampionshipService;
@@ -9,6 +10,9 @@ import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Team;
 import com.capgemini.capfoot.service.MatchService;
 import com.capgemini.capfoot.service.TeamService;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/admin/")
@@ -95,4 +99,19 @@ public class AdminController {
     public void deleteChampionship(@PathVariable("id") Long id){
         championshipService.deleteChampionship(id);
     }
+
+    @RequestMapping(value = "/admin_auth", method = RequestMethod.GET)
+    public ResponseEntity<String> getAdmin() {
+        return ResponseEntity.ok("Hello Admin");
+    }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) throws ServletException {
+        request.logout();
+        return "Au revoir";
+    }
+
+
+
 }

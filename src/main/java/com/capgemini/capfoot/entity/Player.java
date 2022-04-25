@@ -31,4 +31,9 @@ public class Player {
 	@ManyToOne
 	private Team team;
 
+    public Player(long id, String firstName, String emailAddress) {
+		this.id=id;
+		this.firstName=firstName;
+		this.emailAddress=emailAddress;
+    }
 }

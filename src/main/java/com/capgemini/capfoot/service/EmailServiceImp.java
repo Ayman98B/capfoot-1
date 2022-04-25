@@ -6,10 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 
-
-
     @Service
-    public class SendEmailImp implements  Send {
+    public class EmailServiceImp implements  EmailService {
 
         @Autowired
         public JavaMailSender emailSender;
@@ -18,11 +16,14 @@ import org.springframework.mail.SimpleMailMessage;
 
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             for(int i=0;i< toAddress.getPlayers().size();i++){
-                simpleMailMessage.setTo(String.valueOf(toAddress.getPlayers().get(i)));
-                simpleMailMessage.setSubject(subject);
+                if(toAddress.getPlayers().get(i).isCaptain())
+                simpleMailMessage.setTo(String.valueOf(toAddress.getPlayers().get(i).getEmailAddress()));
+                if(toAddress.getPlayers().get(i).isCaptain()==false)
+                simpleMailMessage.setCc(String.valueOf(toAddress.getPlayers().get(i).getEmailAddress()));
+                simpleMailMessage.setSubject(subject);}
                 simpleMailMessage.setText(message);
                 emailSender.send(simpleMailMessage);
-                System.out.println("mail envoyée");}
+               // System.out.println("mail envoyée a "+toAddress.getPlayers().get(i).getFirstName()+" "+toAddress.getPlayers().get(i).getLastName());
         }
 
 }

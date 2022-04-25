@@ -19,7 +19,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	@Autowired
 	ChampionshipRepo championshipRepo;
 	@Autowired
-	Send send;
+	EmailService emailService;
 	@Autowired
 	TeamRepository teamRepository;
 
@@ -57,7 +57,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			if(champion.getStatut()!=championshipRepo.findById(id).get().getStatut()) {
 				System.out.println("Sending Email...");
 				try {
-					send.sendEmail(teamRepository.findById(id).get(), "Test", "test d'envoie de mail");
+					emailService.sendEmail(teamRepository.findById(id).get(), "Test", "test d'envoie de mail");
 				} catch (MailException mailException) {
 					mailException.getStackTrace();
 				} catch (Exception e) {

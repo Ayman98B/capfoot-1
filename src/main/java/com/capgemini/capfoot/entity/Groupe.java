@@ -23,8 +23,8 @@ public class Groupe {
 	@ManyToOne
 	private Championship championship;
 
-	//@OneToMany(mappedBy = "group")
-	//private List<GroupTeam> groupTeams;
+	@OneToMany(mappedBy = "group")
+	private List<GroupTeam> groupTeams;
 
 	public Groupe(long id, String name) {
 		this.id=id;

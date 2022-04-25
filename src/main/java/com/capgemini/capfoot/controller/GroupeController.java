@@ -14,11 +14,6 @@ public class GroupeController {
     @Autowired
     GroupService groupeService;
 
-    @PostMapping("/ajouter/groupes")
-    public void addGroupe(@RequestBody Groupe groupe){
-        groupeService.add(groupe);
-    }
-
     @PostMapping("/supprimer/groupes")
     public void deleteGroupe(@PathVariable Long id){
         groupeService.delete(id);
@@ -26,7 +21,7 @@ public class GroupeController {
 
     @PostMapping("/modifier/groupes")
     public void updateGroupe(@RequestBody Groupe groupe, @PathVariable Long id){
-        groupeService.update(Optional.ofNullable(groupe),id);
+        groupeService.update(groupe,id);
     }
     @GetMapping("/groupes")
     public List<Groupe> findAll(){

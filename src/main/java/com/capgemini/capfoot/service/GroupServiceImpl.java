@@ -14,10 +14,10 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     GroupRepository groupeRepository;
 
-    @Override
+   /* @Override
     public void add(Groupe groupe) {
         groupeRepository.save(groupe);
-    }
+    }*/
 
     @Override
     public void delete(Long id) {
@@ -25,12 +25,13 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void update(Optional<Groupe> groupe, Long id) {
+    public Groupe update(Groupe groupe, Long id) {
         Optional<Groupe> groupe1 = groupeRepository.findById(id);
         if(groupe1.isPresent()){
-            groupe1=groupe;
+            groupe1= Optional.ofNullable(groupe);
             groupeRepository.save(groupe1.get());
         }else System.out.println("Ce groupe n'existe pas");
+        return groupe;
     }
 
     @Override
