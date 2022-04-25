@@ -2,60 +2,72 @@ package com.capgemini.capfoot;
 
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
-
+import com.capgemini.capfoot.service.ChampionshipService;
+import com.capgemini.capfoot.service.ChampionshipServiceImpl;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
+import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.times;
 
-@DataJpaTest
-@TestMethodOrder(MethodOrderer.class)
+
+@RunWith(SpringRunner.class)
 public class ChampionShipTests {
 
-    @Autowired
+    @Mock
     private ChampionshipRepo championshipRepo;
 
-    @Test
-    @Rollback(value = false)
-    @Order(1)
-    public void testCreateChampion(){
-        Championship champ = new Championship();
-        champ.setLabel("test test");
-        champ.setStartDate(LocalDate.now());
-        champ.setEndDate(LocalDate.now());
-        champ.setProgress(true);
-        Championship saveChampionship = championshipRepo.save(champ);
+    @InjectMocks
+    ChampionshipService championshipService = new ChampionshipServiceImpl(championshipRepo);
 
-        assertNotNull(saveChampionship);
+
+
+    @Test
+    public void testUpdateChampion(){
+        // Given
+        Championship championship = new Championship();
+        championship.setLabel("First Label");
+        championship.setId(2L);
+
+        Mockito.when(championshipRepo.findById(championship.getId()))
+                .thenReturn(Optional.of(championship));
+
+        championship.setLabel("Second Label");
+        championshipService.updateChampionship(championship.getId(),championship);
+
+        assertThat(championshipService.getChampionshipById(championship.getId()).getLabel())
+                .isEqualTo("Second Label");
     }
 
     @Test
-    @Rollback(value = false)
-    @Order(2)
-    public void testUpdateChampion(){
-        String label = "test label";
+    public void testDeleteChampionship() {
+
+        Championship c = new Championship();
+        c.setLabel("CapFoot");
+        c.setId(1L);
+        Mockito.when(championshipRepo.findById(c.getId())).thenReturn(Optional.of(c));
+        championshipService.deleteChampionship(c.getId());
+        Mockito.verify(championshipRepo, times(1)).deleteById(1L);
+
+    }
+
+    @Before
+    public void createChamp(){
         Championship champ = new Championship();
         champ.setId(1L);
-        champ.setLabel(label);
+        champ.setLabel("test test");
         champ.setStartDate(LocalDate.now());
         champ.setEndDate(LocalDate.now());
         champ.setProgress(false);
         championshipRepo.save(champ);
-
-        Championship updateChampionship = championshipRepo.findByLabel(label);
-        assertThat(updateChampionship.getLabel()).isEqualTo(label);
+        System.out.println(champ);
+        System.out.println(championshipRepo.getById(champ.getId()));
     }
-
-
 
 }
