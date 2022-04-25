@@ -43,12 +43,17 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	}
 
 	@Override
-	public void updateChampionship(Long id,Championship ChampToEdit) {
+	public void updateChampionship(Long id,Championship champion) {
 
-
-		Championship findChampion = championshipRepo.findById(ChampToEdit.getId()).get();
-		championshipRepo.save(findChampion);
-
+		if (id == null){
+			log.warn("Vous ne pouvez pas modifier le tournoi car ID null" );
+		}else {
+			Championship championship = championshipRepo.findById(id).get();
+			championship.setLabel(champion.getLabel());
+			championship.setStartDate(champion.getStartDate());
+			championship.setProgress(champion.isProgress());
+			championshipRepo.save(championship);
+		}
 	}
 
 	@Override

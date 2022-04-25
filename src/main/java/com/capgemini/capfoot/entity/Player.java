@@ -19,7 +19,8 @@ public class Player {
 	private String firstName;
 	private String lastName;
 	@Column(unique=true)
-	private String CIN;
+	private String cin;
+	@Column(unique=true)
 	private String phone;
 	@Column(unique=true)
 	private String emailAddress;
