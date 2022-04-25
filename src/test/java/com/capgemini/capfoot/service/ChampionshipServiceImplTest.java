@@ -1,38 +1,39 @@
 package com.capgemini.capfoot.service;
-
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
 
 
-import java.time.LocalDate;
-import java.util.List;
-
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
 public class ChampionshipServiceImplTest {
 
     @Mock
     private ChampionshipRepo championshipRepo;
 
+    @InjectMocks
+    ChampionshipService championshipService = new ChampionshipServiceImpl(championshipRepo);
 
-    public ChampionshipServiceImplTest() {
-    }
+    
 
     @Test
     public void testDeleteChampionship() {
-        Championship championship = new Championship();
-        championship.setLabel("CapFoot");
-        championship.setProgress(false);
-        championship.setId(1L);
-        championshipRepo.save(championship);
-        Championship result = championshipRepo.getById(1L);
-        System.out.println(result);
+
+        Championship c = new Championship();
+        c.setLabel("CapFoot");
+        c.setId(1L);
+        Mockito.when(championshipRepo.findById(c.getId())).thenReturn(Optional.of(c));
+        championshipService.deleteChampionship(c.getId());
+        Mockito.verify(championshipRepo, times(1)).deleteById(1L);
+
+
     }
 }
