@@ -1,9 +1,10 @@
 package com.capgemini.capfoot.entity;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -24,5 +25,10 @@ public class Team {
         this.id=id;
         this.name=name;
         this.players=players;
+    }
+
+    public Team(String teamName, String site) {
+        this.name = teamName ;
+        this.site = site;
     }
 }
