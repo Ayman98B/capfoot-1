@@ -13,11 +13,18 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     TeamRepository teamRepository;
     @Autowired
-    private PlayerServiceImpl playerService;
+    PlayerServiceImpl playerService;
+
+    public TeamServiceImpl(TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
+    }
+
+
+
     @Override
     public Team addTeam(Team team) {
 
-        if(team.getPlayers().size() != 0 || team.getPlayers().size() != 7)
+        if(team.getPlayers().size() != 0 && team.getPlayers().size() != 7)
             System.out.println("Le nombre de joueurs par equipe doit etre egale à 7");
         return teamRepository.save(team);
     }
