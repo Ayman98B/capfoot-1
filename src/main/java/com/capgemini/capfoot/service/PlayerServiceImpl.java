@@ -18,6 +18,10 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private TeamRepository teamRepo;
 
+    public PlayerServiceImpl(PlayerRepository playerRepo) {
+        this.playerRepo = playerRepo;
+    }
+
     @Override
     public Player addPlayer(Player player) {
         return playerRepo.save(player);
