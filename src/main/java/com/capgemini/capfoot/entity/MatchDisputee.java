@@ -1,24 +1,11 @@
 package com.capgemini.capfoot.entity;
 
-import java.time.LocalDate;
-import java.time.temporal.TemporalAmount;
-import java.util.Date;
-
-import javax.persistence.*;
-
-import org.hibernate.annotations.GeneratorType;
-import com.capgemini.capfoot.entity.Team;
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -43,4 +30,11 @@ public class MatchDisputee {
 	@ManyToOne
 	private Team teamAway;
 
+    public MatchDisputee(boolean b, boolean b1, String site, Team team_home, Team team_away) {
+		this.groupePhase = b;
+		this.directEliminationPhase = b1;
+		this.site = site;
+		this.teamHome = team_home;
+		this.teamAway = team_away;
+    }
 }

@@ -1,9 +1,10 @@
 package com.capgemini.capfoot.entity;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -29,5 +30,9 @@ public class Groupe {
 	public Groupe(long id, String name) {
 		this.id=id;
 		this.name=name;
+	}
+
+	public Groupe(String groupName) {
+		this.name = groupName;
 	}
 }
