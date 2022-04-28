@@ -23,13 +23,10 @@ public class CapfootApplication implements CommandLineRunner {
     GroupRepository groupRepository;
 
     public static void main(String[] args) {
+
         SpringApplication.run(CapfootApplication.class, args);
     }
-
-  /*  @Override
-    public void run(String... args) throws Exception {
-    }*/
-
+    
     List<Team> CASA_TEAMS = Arrays.asList(
             buildTeamCasa("team_1"), buildTeamCasa("team_2"), buildTeamCasa("team_3"), buildTeamCasa("team_4"),
             buildTeamCasa("team_5"), buildTeamCasa("team_6"), buildTeamCasa("team_7"), buildTeamCasa("team_8"),
@@ -46,14 +43,17 @@ public class CapfootApplication implements CommandLineRunner {
             buildGroup("E"), buildGroup("F"), buildGroup("G"), buildGroup("H"));
 
     private static Team buildTeamCasa(String teamName) {
+
         return new Team(teamName, "Casa");
     }
 
     private static Team buildTeamRabat(String teamName) {
+
         return new Team(teamName, "RABAT");
     }
 
     private static Groupe buildGroup(String groupName) {
+
         return new Groupe(groupName);
     }
 
