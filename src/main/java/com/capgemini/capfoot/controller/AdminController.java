@@ -38,38 +38,18 @@ public class AdminController {
 
     @PutMapping("matchs/teams/{id}")
     public void setTeams(@PathVariable(value = "id") Long id, @RequestBody MatchDisputee setTeams){
-        MatchDisputee matchToUpdate = matchService.getMatchById(id);
-        matchToUpdate.setTeamHome(setTeams.getTeamHome());
-        matchToUpdate.setTeamAway(setTeams.getTeamAway());
-        matchService.updateMatch(id, matchToUpdate);
+        matchService.setTeams(id, setTeams);
     }
 
     @PutMapping("matchs/score/{id}")
     public void updateMatchScore(@PathVariable(value = "id") Long id, @RequestBody MatchDisputee updateTeamsScore){
-
-        MatchDisputee matchUpdateScore = matchService.getMatchById(id);
-        matchUpdateScore.setScoreAway(updateTeamsScore.getScoreAway());
-        matchUpdateScore.setScoreHome(updateTeamsScore.getScoreHome());
-
-        int[] scoreMatch = new int[2];
-        scoreMatch[0] = updateTeamsScore.getScoreAway();
-        scoreMatch[1] = updateTeamsScore.getScoreHome();
-        matchUpdateScore.setScoreMatch(scoreMatch);
-        matchService.updateMatch(id, matchUpdateScore);
+        matchService.updateMatchScore(id, updateTeamsScore);
 
     }
 
     @PutMapping("matchs/finalscore/{id}")
     public void updateMatchFinalScore (@PathVariable("id") Long id, @RequestBody MatchDisputee matchDisputee){
-        MatchDisputee matchFinalScore = matchService.getMatchById(id);
-        int[] scoreMatch = new int[2];
-            scoreMatch[0] = matchDisputee.getScoreAway();
-            scoreMatch[1] = matchDisputee.getScoreHome();
-
-                matchFinalScore.setScoreAway(matchDisputee.getScoreAway());
-                matchFinalScore.setScoreHome(matchDisputee.getScoreHome());
-            matchFinalScore.setScoreMatch(scoreMatch);
-            matchService.updateMatch(id, matchFinalScore);
+            matchService.updateMatchFinalScore(id, matchDisputee);
 
     }
 
