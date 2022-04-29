@@ -55,8 +55,8 @@ public class MatchServiceTest {
     @Test
     public void whenSetTeams_WillReturnUpdatedMatch(){
 
-        Team team1 = new Team(1L, "team1", "casa", null, 7, null);
-        Team team2 = new Team(1L, "team1", "casa", null, 7, null);
+        Team team1 = new Team(1L, "team1", "casa");
+        Team team2 = new Team(1L, "team1", "casa");
 
         MatchDisputee matchDisputee =
                 new MatchDisputee(1L, true, true, LocalDate.now(), "casa", 0, 0, null, null, null);

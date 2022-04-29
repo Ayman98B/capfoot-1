@@ -1,11 +1,10 @@
 package com.capgemini.capfoot.entity;
 
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -18,11 +17,11 @@ public class Player {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String cin;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String phone;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String emailAddress;
 	private String password;
 	private boolean isStartingPlayer;
@@ -36,4 +35,17 @@ public class Player {
 		this.firstName=firstName;
 		this.emailAddress=emailAddress;
     }
+
+	public Player(String firstName, String lastName, String cin, String phone, String emailAddress, String password, boolean isStartingPlayer, boolean isCaptain, boolean isAvailable, Team team) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.cin = cin;
+		this.phone = phone;
+		this.emailAddress = emailAddress;
+		this.password = password;
+		this.isStartingPlayer = isStartingPlayer;
+		this.isCaptain = isCaptain;
+		this.isAvailable = isAvailable;
+		this.team = team;
+	}
 }
