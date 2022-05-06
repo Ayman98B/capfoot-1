@@ -52,6 +52,7 @@ class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin_auth").hasAnyRole("ADMIN")
                 .anyRequest().permitAll();
+      
         http.csrf().disable();
         http.headers().frameOptions().disable(); // otherwise Vaadin doesn't work properly
 
