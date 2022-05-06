@@ -55,8 +55,12 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 		else {
 			championshipRepo.save(newChamp);
 			log.info("Championship entity created");
-			List<Groupe> GROUPS = Arrays.asList(groupService.buildGroup("A"), groupService.buildGroup("B"), groupService.buildGroup("C"), groupService.buildGroup("D"),
-					groupService.buildGroup("E"), groupService.buildGroup("F"), groupService.buildGroup("G"), groupService.buildGroup("H"));
+
+			List<Groupe> GROUPS = Arrays.asList(groupService.buildGroup("A",newChamp),
+					groupService.buildGroup("B",newChamp), groupService.buildGroup("C",newChamp),
+					groupService.buildGroup("D",newChamp),
+					groupService.buildGroup("E",newChamp), groupService.buildGroup("F",newChamp),
+					groupService.buildGroup("G",newChamp), groupService.buildGroup("H",newChamp));
 			groupRepository.saveAll(GROUPS);
 
 		}

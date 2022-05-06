@@ -13,6 +13,6 @@ public interface GroupService {
     public Groupe update(Groupe groupe, Long id);
     public List<Groupe> findAll();
     public Optional<Groupe> findById(Long id);
-    public Groupe buildGroup(String groupName);
+    public Groupe buildGroup(String groupName, Championship championship);
 
 }

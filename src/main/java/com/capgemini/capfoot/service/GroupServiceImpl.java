@@ -50,9 +50,8 @@ public class GroupServiceImpl implements GroupService {
 
 
     @Override
-    public Groupe buildGroup(String groupName) {
-
-        return new Groupe(groupName);
+    public Groupe buildGroup(String groupName, Championship championship) {
+        return new Groupe(groupName, championship);
     }
 
 }
