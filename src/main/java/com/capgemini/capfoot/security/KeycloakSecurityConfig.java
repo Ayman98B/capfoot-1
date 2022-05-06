@@ -41,8 +41,12 @@ class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/admin_auth")
-                .authenticated();
+                .antMatchers("/admin_auth").hasAnyRole("ADMIN")
+                .anyRequest().permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable(); // otherwise Vaadin doesn't work properly
+
     }
 
 

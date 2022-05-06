@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/admin/")
+@CrossOrigin(origins = "*")
 public class AdminController {
     @Autowired
     MatchService matchService;
@@ -25,6 +26,11 @@ public class AdminController {
 
     @Autowired
     ChampionshipService championshipService;
+
+    @GetMapping("matchs/all")
+    public List<MatchDisputee> getAllMatchs(){
+        return matchService.getAllMatchs();
+    }
 
     @PostMapping("matchs/add")
     public MatchDisputee createMatch(@RequestBody MatchDisputee matchDisputee){
