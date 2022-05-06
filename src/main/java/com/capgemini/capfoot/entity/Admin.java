@@ -2,11 +2,7 @@ package com.capgemini.capfoot.entity;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,11 +22,11 @@ public class Admin {
 	private Long id;
 
 	@NonNull
-	@NotBlank(message = "Votre prénom Obligatoire")
+	@NotBlank(message = "Votre prénom et Obligatoire")
 	private String firstName;
 
 	@NonNull
-	@NotBlank(message = "Votre nom Obligatoire")
+	@NotBlank(message = "Votre nom et Obligatoire")
 	private String lastName;
 
 	@NotNull
@@ -38,6 +34,7 @@ public class Admin {
 	private String password;
 
 	@Email
+	@Column(unique = true)
 	private String emailAdress;
 
 	@OneToMany(mappedBy = "admin")

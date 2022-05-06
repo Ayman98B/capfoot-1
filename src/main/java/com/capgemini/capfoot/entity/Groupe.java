@@ -32,7 +32,9 @@ public class Groupe {
 		this.name=name;
 	}
 
-	public Groupe(String groupName) {
+	public Groupe(String groupName, Championship championship) {
+
 		this.name = groupName;
+		this.championship = championship;
 	}
 }
