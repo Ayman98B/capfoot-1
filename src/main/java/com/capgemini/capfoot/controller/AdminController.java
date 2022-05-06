@@ -1,6 +1,11 @@
 package com.capgemini.capfoot.controller;
 
+import java.util.Arrays;
 import java.util.List;
+
+import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.repository.GroupRepository;
+import com.capgemini.capfoot.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/admin/")
+@CrossOrigin("*")
 public class AdminController {
     @Autowired
     MatchService matchService;
@@ -25,6 +31,12 @@ public class AdminController {
 
     @Autowired
     ChampionshipService championshipService;
+
+    @Autowired
+    GroupService groupService;
+
+    @Autowired
+    GroupRepository groupRepository;
 
     @PostMapping("matchs/add")
     public MatchDisputee createMatch(@RequestBody MatchDisputee matchDisputee){
@@ -88,6 +100,7 @@ public class AdminController {
     @PostMapping("championships/add")
     public void createChampionship(@RequestBody Championship championship) {
         championshipService.createChampionship(championship);
+
     }
 
     @PutMapping("championships/update/{idChampion}")

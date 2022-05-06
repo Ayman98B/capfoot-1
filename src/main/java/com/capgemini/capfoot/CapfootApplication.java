@@ -39,8 +39,8 @@ public class CapfootApplication implements CommandLineRunner {
             buildTeamRabat("team_r_9"), buildTeamRabat("team_r_10"), buildTeamRabat("team_r_11"), buildTeamRabat("team_r_12"),
             buildTeamRabat("team_r_13"), buildTeamRabat("team_r_14"), buildTeamRabat("team_r_15"), buildTeamRabat("team_r_16"));
 
-    List<Groupe> GROUPS = Arrays.asList(buildGroup("A"), buildGroup("B"), buildGroup("C"), buildGroup("D"),
-            buildGroup("E"), buildGroup("F"), buildGroup("G"), buildGroup("H"));
+    //List<Groupe> GROUPS = Arrays.asList(buildGroup("A"), buildGroup("B"), buildGroup("C"), buildGroup("D"),
+            //buildGroup("E"), buildGroup("F"), buildGroup("G"), buildGroup("H"));
 
     private static Team buildTeamCasa(String teamName) {
 
@@ -52,16 +52,16 @@ public class CapfootApplication implements CommandLineRunner {
         return new Team(teamName, "RABAT");
     }
 
-    private static Groupe buildGroup(String groupName) {
+    //private static Groupe buildGroup(String groupName) {
 
-        return new Groupe(groupName);
-    }
+        //return new Groupe(groupName);
+    //}
 
     @Override
     public void run(String... args) {
         teamRepository.saveAll(CASA_TEAMS);
         teamRepository.saveAll(RABAT_TEAMS);
-        groupRepository.saveAll(GROUPS);
+        //groupRepository.saveAll(GROUPS);
     }
 
 }

@@ -1,7 +1,10 @@
 package com.capgemini.capfoot.service;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -22,6 +25,12 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	EmailService emailService;
 	@Autowired
 	TeamRepository teamRepository;
+
+	@Autowired
+	GroupService groupService;
+
+	@Autowired
+	GroupRepository groupRepository;
 
 	public ChampionshipServiceImpl(ChampionshipRepo championshipRepo) {
 		this.championshipRepo = championshipRepo;
@@ -46,6 +55,10 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 		else {
 			championshipRepo.save(newChamp);
 			log.info("Championship entity created");
+			List<Groupe> GROUPS = Arrays.asList(groupService.buildGroup("A"), groupService.buildGroup("B"), groupService.buildGroup("C"), groupService.buildGroup("D"),
+					groupService.buildGroup("E"), groupService.buildGroup("F"), groupService.buildGroup("G"), groupService.buildGroup("H"));
+			groupRepository.saveAll(GROUPS);
+
 		}
 	}
 
