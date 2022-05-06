@@ -23,13 +23,10 @@ public class CapfootApplication implements CommandLineRunner {
     GroupRepository groupRepository;
 
     public static void main(String[] args) {
+
         SpringApplication.run(CapfootApplication.class, args);
     }
-
-  /*  @Override
-    public void run(String... args) throws Exception {
-    }*/
-
+    
     List<Team> CASA_TEAMS = Arrays.asList(
             buildTeamCasa("team_1"), buildTeamCasa("team_2"), buildTeamCasa("team_3"), buildTeamCasa("team_4"),
             buildTeamCasa("team_5"), buildTeamCasa("team_6"), buildTeamCasa("team_7"), buildTeamCasa("team_8"),
@@ -42,26 +39,29 @@ public class CapfootApplication implements CommandLineRunner {
             buildTeamRabat("team_r_9"), buildTeamRabat("team_r_10"), buildTeamRabat("team_r_11"), buildTeamRabat("team_r_12"),
             buildTeamRabat("team_r_13"), buildTeamRabat("team_r_14"), buildTeamRabat("team_r_15"), buildTeamRabat("team_r_16"));
 
-    List<Groupe> GROUPS = Arrays.asList(buildGroup("A"), buildGroup("B"), buildGroup("C"), buildGroup("D"),
-            buildGroup("E"), buildGroup("F"), buildGroup("G"), buildGroup("H"));
+    //List<Groupe> GROUPS = Arrays.asList(buildGroup("A"), buildGroup("B"), buildGroup("C"), buildGroup("D"),
+            //buildGroup("E"), buildGroup("F"), buildGroup("G"), buildGroup("H"));
 
     private static Team buildTeamCasa(String teamName) {
+
         return new Team(teamName, "Casa");
     }
 
     private static Team buildTeamRabat(String teamName) {
+
         return new Team(teamName, "RABAT");
     }
 
-    private static Groupe buildGroup(String groupName) {
-        return new Groupe(groupName);
-    }
+    //private static Groupe buildGroup(String groupName) {
+
+        //return new Groupe(groupName);
+    //}
 
     @Override
     public void run(String... args) {
         teamRepository.saveAll(CASA_TEAMS);
         teamRepository.saveAll(RABAT_TEAMS);
-        groupRepository.saveAll(GROUPS);
+        //groupRepository.saveAll(GROUPS);
     }
 
 }

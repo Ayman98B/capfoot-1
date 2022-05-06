@@ -1,5 +1,6 @@
 package com.capgemini.capfoot.service;
 
+import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.Groupe;
 
 import java.util.List;
@@ -12,5 +13,6 @@ public interface GroupService {
     public Groupe update(Groupe groupe, Long id);
     public List<Groupe> findAll();
     public Optional<Groupe> findById(Long id);
+    public Groupe buildGroup(String groupName, Championship championship);
 
 }
