@@ -15,7 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +37,7 @@ public class Championship {
 
 	@Column(nullable = false)
 	private String label;
-
+	
 	@Column(nullable = false)
 	private LocalDate startDate = LocalDate.now();
 
@@ -47,6 +54,7 @@ public class Championship {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
 	@ToString.Exclude
+	@JsonIgnore
 	private List<Groupe> groups;
 
 	@ManyToOne

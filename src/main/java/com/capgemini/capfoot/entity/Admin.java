@@ -2,12 +2,23 @@ package com.capgemini.capfoot.entity;
 
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.ToString;
 
 
 
@@ -35,8 +46,10 @@ public class Admin {
 
 	@Email
 	@Column(unique = true)
-	private String emailAdress;
+	private String emailAdress;	
 
 	@OneToMany(mappedBy = "admin")
+	@JsonIgnore
+	@ToString.Exclude
 	private List<Championship> championships;
 }
