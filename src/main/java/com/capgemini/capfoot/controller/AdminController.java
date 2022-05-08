@@ -1,21 +1,24 @@
 package com.capgemini.capfoot.controller;
 
-import java.util.List;
+import com.capgemini.capfoot.entity.Championship;
+import com.capgemini.capfoot.entity.MatchDisputee;
+import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.repository.GroupRepository;
+import com.capgemini.capfoot.service.ChampionshipService;
+import com.capgemini.capfoot.service.GroupService;
+import com.capgemini.capfoot.service.MatchService;
+import com.capgemini.capfoot.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.service.ChampionshipService;
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.service.MatchService;
-import com.capgemini.capfoot.service.TeamService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/")
+@CrossOrigin(origins = "*")
 public class AdminController {
     @Autowired
     MatchService matchService;
@@ -26,6 +29,17 @@ public class AdminController {
     @Autowired
     ChampionshipService championshipService;
 
+    @Autowired
+    GroupService groupService;
+
+    @Autowired
+    GroupRepository groupRepository;
+
+    @GetMapping("matchs/all")
+    public List<MatchDisputee> getAllMatchs(){
+        return matchService.getAllMatchs();
+    }
+  
     @PostMapping("matchs/add")
     public MatchDisputee createMatch(@RequestBody MatchDisputee matchDisputee){
         return matchService.addMatch(matchDisputee);
@@ -68,6 +82,7 @@ public class AdminController {
     @PostMapping("championships/add")
     public void createChampionship(@RequestBody Championship championship) {
         championshipService.createChampionship(championship);
+
     }
 
     @PutMapping("championships/update/{idChampion}")
