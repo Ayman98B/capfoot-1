@@ -1,6 +1,7 @@
 package com.capgemini.capfoot.service;
 
 import com.capgemini.capfoot.entity.MatchDisputee;
+import com.capgemini.capfoot.entity.Site;
 import com.capgemini.capfoot.entity.Team;
 import com.capgemini.capfoot.repository.MatchRepository;
 import org.junit.Test;
@@ -38,12 +39,12 @@ public class MatchServiceTest {
     public void whenUpdateScore_WillReturnUpdatedScore(){
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), "casa", 0, 0, null, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedScore =
-                new MatchDisputee(1L, true, true, LocalDate.now(), "casa", 0, 3, null, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 3, null, null, null);
 
 
         matchService.updateMatchFinalScore(1L,updatedScore);
@@ -55,16 +56,16 @@ public class MatchServiceTest {
     @Test
     public void whenSetTeams_WillReturnUpdatedMatch(){
 
-        Team team1 = new Team(1L, "team1", "casa", null, 7, null);
-        Team team2 = new Team(1L, "team1", "casa", null, 7, null);
+        Team team1 = new Team(1L, "team1", Site.CASABLANCA, null, 7, null);
+        Team team2 = new Team(1L, "team1", Site.CASABLANCA, null, 7, null);
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), "casa", 0, 0, null, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedTeams =
-                new MatchDisputee(1L, true, true, LocalDate.now(), "casa", 0, 0, null, team1, team2);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, team1, team2);
 
 
         matchService.setTeams(1L,updatedTeams);
@@ -77,12 +78,12 @@ public class MatchServiceTest {
     public void whenUpdateScoreTeams_WillReturnUpdatedScoreTeam(){
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), "casa", 0, 0, null, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedScoreTeams =
-                new MatchDisputee(1L, true, true, LocalDate.now(), "casa", 2, 3, null, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 2, 3, null, null, null);
 
 
         matchService.updateMatchFinalScore(1L,updatedScoreTeams);

@@ -1,11 +1,16 @@
 package com.capgemini.capfoot.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 @Data
 @AllArgsConstructor
@@ -18,11 +23,12 @@ public class Player {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String cin;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String phone;
-	@Column(unique=true)
+	@Email
+	@Column(unique = true)
 	private String emailAddress;
 	private String password;
 	private boolean isStartingPlayer;
@@ -31,9 +37,9 @@ public class Player {
 	@ManyToOne
 	private Team team;
 
-    public Player(long id, String firstName, String emailAddress) {
-		this.id=id;
-		this.firstName=firstName;
-		this.emailAddress=emailAddress;
-    }
+	public Player(long id, String firstName, String emailAddress) {
+		this.id = id;
+		this.firstName = firstName;
+		this.emailAddress = emailAddress;
+	}
 }

@@ -20,8 +20,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 
-
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -41,12 +39,12 @@ public class Admin {
 	private String lastName;
 
 	@NotNull
-	@NotBlank(message = "Votre nom Obligatoire")
+	@NotBlank(message = "Votre password Obligatoire")
 	private String password;
 
 	@Email
 	@Column(unique = true)
-	private String emailAdress;	
+	private String emailAdress;
 
 	@OneToMany(mappedBy = "admin")
 	@JsonIgnore

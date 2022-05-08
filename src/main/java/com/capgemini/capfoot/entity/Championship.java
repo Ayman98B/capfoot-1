@@ -37,7 +37,7 @@ public class Championship {
 
 	@Column(nullable = false)
 	private String label;
-	
+
 	@Column(nullable = false)
 	private LocalDate startDate = LocalDate.now();
 

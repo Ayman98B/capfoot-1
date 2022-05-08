@@ -1,12 +1,17 @@
 package com.capgemini.capfoot.entity;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.List;
-
 
 @Entity
 @Data
@@ -28,8 +33,8 @@ public class Groupe {
 	private List<GroupTeam> groupTeams;
 
 	public Groupe(long id, String name) {
-		this.id=id;
-		this.name=name;
+		this.id = id;
+		this.name = name;
 	}
 
 	public Groupe(String groupName, Championship championship) {
