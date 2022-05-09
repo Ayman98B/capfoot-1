@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.*;
 
 @NoArgsConstructor
@@ -40,13 +42,11 @@ public class Championship {
 	@Enumerated(EnumType.STRING)
 	private Statut statut = Statut.INSCRIPTION;
 
-	@Getter
-	@Setter
 	@Column(nullable = false)
 	private boolean progress = true;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
-	@ToString.Exclude
+	@OneToMany(mappedBy = "championship")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Groupe> groups;
 
 	@ManyToOne

@@ -12,7 +12,7 @@ public interface ChampionshipService {
 
 	public void createChampionship(Championship newChamp);
 
-	public void updateChampionship(Long id,Championship Champion);
+	public void updateChampionship(Championship updateChamp);
 
 	public void deleteChampionship(Long id);
 
