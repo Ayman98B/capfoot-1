@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -28,8 +27,8 @@ public class Groupe {
 	private List<GroupTeam> groupTeams;
 
 	public Groupe(long id, String name) {
-		this.id=id;
-		this.name=name;
+		this.id = id;
+		this.name = name;
 	}
 
 	public Groupe(String groupName, Championship championship) {

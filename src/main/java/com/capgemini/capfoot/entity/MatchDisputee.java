@@ -1,11 +1,18 @@
 package com.capgemini.capfoot.entity;
 
+import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Data
@@ -19,7 +26,8 @@ public class MatchDisputee {
 	private boolean groupePhase;
 	private boolean directEliminationPhase;
 	private LocalDate matchDate;
-	private String site;
+	@Enumerated(EnumType.STRING)
+	private Site site;
 	private int scoreHome;
 	private int scoreAway;
 	private int[] scoreMatch;
@@ -30,11 +38,11 @@ public class MatchDisputee {
 	@ManyToOne
 	private Team teamAway;
 
-    public MatchDisputee(boolean b, boolean b1, String site, Team team_home, Team team_away) {
+	public MatchDisputee(boolean b, boolean b1, Site site, Team team_home, Team team_away) {
 		this.groupePhase = b;
 		this.directEliminationPhase = b1;
 		this.site = site;
 		this.teamHome = team_home;
 		this.teamAway = team_away;
-    }
+	}
 }
