@@ -15,4 +15,10 @@ public interface MatchService {
 	public void updateMatch(Long id, MatchDisputee match);
 
 	public void deleteMatch(Long id);
+
+	public MatchDisputee setTeams(Long id, MatchDisputee setTeam);
+
+	public MatchDisputee updateMatchScore(Long id, MatchDisputee updateTeamsScore);
+
+	public MatchDisputee updateMatchFinalScore(Long id, MatchDisputee matchFinalScore);
 }
