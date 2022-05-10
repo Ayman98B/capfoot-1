@@ -14,4 +14,5 @@ public interface GroupTeamRepository extends JpaRepository<GroupTeam, Long> {
     GroupTeam findByGroupAndTeam(Groupe groupe, Team team);
     @Query(value = "SELECT group FROM GroupTeam group ORDER BY group_id")
     List<GroupTeam> getGroupsAndTheirTeams();
+    GroupTeam findByTeam(Team team);
 }
