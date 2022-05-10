@@ -1,9 +1,6 @@
 package com.capgemini.capfoot;
 
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.entity.Player;
-import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
 import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.PlayerRepository;
@@ -53,15 +50,15 @@ public class CapfootApplication implements CommandLineRunner {
     Championship capfoot = createChampionship();
 
     List<Team> casaTeams = Arrays.asList(
-            generateTeam("Casa","team_1"),generateTeam("Casa","team_2"),generateTeam("Casa","team_3"),generateTeam("Casa","team_4"),
-            generateTeam("Casa","team_5"),generateTeam("Casa","team_6"),generateTeam("Casa","team_7"),generateTeam("Casa","team_8"),
-            generateTeam("Casa","team_9"),generateTeam("Casa","team_10"),generateTeam("Casa","team_11"),generateTeam("Casa","team_12"),
-            generateTeam("Casa","team_13"),generateTeam("Casa","team_14"),generateTeam("Casa","team_15"),generateTeam("Casa","team_16"));
+            generateTeam(Site.CASABLANCA,"team_1"),generateTeam(Site.CASABLANCA,"team_2"),generateTeam(Site.CASABLANCA,"team_3"),generateTeam(Site.CASABLANCA,"team_4"),
+            generateTeam(Site.CASABLANCA,"team_5"),generateTeam(Site.CASABLANCA,"team_6"),generateTeam(Site.CASABLANCA,"team_7"),generateTeam(Site.CASABLANCA,"team_8"),
+            generateTeam(Site.CASABLANCA,"team_9"),generateTeam(Site.CASABLANCA,"team_10"),generateTeam(Site.CASABLANCA,"team_11"),generateTeam(Site.CASABLANCA,"team_12"),
+            generateTeam(Site.CASABLANCA,"team_13"),generateTeam(Site.CASABLANCA,"team_14"),generateTeam(Site.CASABLANCA,"team_15"),generateTeam(Site.CASABLANCA,"team_16"));
     List<Team> rabatTeams = Arrays.asList(
-            generateTeam("Rabat","team_r_1"),generateTeam("Rabat","team_r_2"),generateTeam("Rabat","team_r_3"),generateTeam("Rabat","team_r_4"),
-            generateTeam("Rabat","team_r_5"),generateTeam("Rabat","team_r_6"),generateTeam("Rabat","team_r_7"),generateTeam("Rabat","team_r_8"),
-            generateTeam("Rabat","team_r_9"),generateTeam("Rabat","team_r_10"),generateTeam("Rabat","team_r_11"),generateTeam("Rabat","team_r_12"),
-            generateTeam("Rabat","team_r_13"),generateTeam("Rabat","team_r_14"),generateTeam("Rabat","team_r_15"),generateTeam("Rabat","team_r_16")
+            generateTeam(Site.RABAT,"team_r_1"),generateTeam(Site.RABAT,"team_r_2"),generateTeam(Site.RABAT,"team_r_3"),generateTeam(Site.RABAT,"team_r_4"),
+            generateTeam(Site.RABAT,"team_r_5"),generateTeam(Site.RABAT,"team_r_6"),generateTeam(Site.RABAT,"team_r_7"),generateTeam(Site.RABAT,"team_r_8"),
+            generateTeam(Site.RABAT,"team_r_9"),generateTeam(Site.RABAT,"team_r_10"),generateTeam(Site.RABAT,"team_r_11"),generateTeam(Site.RABAT,"team_r_12"),
+            generateTeam(Site.RABAT,"team_r_13"),generateTeam(Site.RABAT,"team_r_14"),generateTeam(Site.RABAT,"team_r_15"),generateTeam(Site.RABAT,"team_r_16")
     );
 
     List<Team> CASA_TEAMS = Arrays.asList(
@@ -82,12 +79,12 @@ public class CapfootApplication implements CommandLineRunner {
 
     private static Team buildTeamCasa(String teamName) {
 
-        return new Team(teamName, "Casa");
+        return new Team(teamName, Site.CASABLANCA);
     }
 
     private static Team buildTeamRabat(String teamName) {
 
-        return new Team(teamName, "RABAT");
+        return new Team(teamName, Site.RABAT);
     }
 
     private static Groupe buildGroup(String groupName) {
@@ -105,7 +102,7 @@ public class CapfootApplication implements CommandLineRunner {
         return capfoot;
     }
 
-    private Team generateTeam(String site, String name){
+    private Team generateTeam(Site site, String name){
         Team team = new Team();
         team.setName(name);
         team.setSite(site);

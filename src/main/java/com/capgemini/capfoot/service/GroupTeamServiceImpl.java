@@ -1,9 +1,6 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.GroupTeam;
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.GroupTeamRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
@@ -73,8 +70,8 @@ public class GroupTeamServiceImpl implements  GroupTeamService{
 
     @Override
     public List<GroupTeam> launchDraw() {
-        List<Team> casaTeams = teamRepository.findTeamsBySite("Casa");
-        List<Team> rabatTeams = teamRepository.findTeamsBySite("Rabat");
+        List<Team> casaTeams = teamRepository.findTeamsBySite(Site.CASABLANCA);
+        List<Team> rabatTeams = teamRepository.findTeamsBySite(Site.RABAT);
 
         List<Groupe> groups = groupRepository.findAll();
         handleDrawForTeamsPerSite(casaTeams, groups.subList(0, 4));
