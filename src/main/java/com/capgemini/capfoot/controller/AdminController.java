@@ -37,7 +37,14 @@ public class AdminController {
 
     @GetMapping("matchs/all")
     public List<MatchDisputee> getAllMatchs(){
-        return matchService.getAllMatchs();
+        List<MatchDisputee> listMatch = matchService.getAllMatchs();
+        for (MatchDisputee matchDisputee : listMatch){
+            matchDisputee.getTeamAway().setPlayers(null);
+            matchDisputee.getTeamHome().setPlayers(null);
+            matchDisputee.getTeamAway().setGroupTeam(null);
+            matchDisputee.getTeamHome().setGroupTeam(null);
+        }
+        return listMatch;
     }
   
     @PostMapping("matchs/add")
@@ -69,7 +76,12 @@ public class AdminController {
 
     @GetMapping("matchs/{id}")
     public MatchDisputee getMatchById(@PathVariable("id") Long id){
-        return matchService.getMatchById(id);
+        MatchDisputee match = matchService.getMatchById(id);
+        match.getTeamAway().setPlayers(null);
+        match.getTeamHome().setPlayers(null);
+        match.getTeamAway().setGroupTeam(null);
+        match.getTeamHome().setGroupTeam(null);
+        return match;
 
     }
 
@@ -79,15 +91,24 @@ public class AdminController {
         return championshipService.getAllChampionships();
     }
 
+    @GetMapping("championships/{id}")
+    public Championship getChampionship(@PathVariable("id") long id) {
+
+        Championship championship = championshipService.getChampionshipById(id);
+
+        //championship.setGroups();
+        return championship;
+    }
+
     @PostMapping("championships/add")
     public void createChampionship(@RequestBody Championship championship) {
         championshipService.createChampionship(championship);
 
     }
 
-    @PutMapping("championships/update/{idChampion}")
-    public void updateChampionship(@PathVariable("idChampion") Long idChampion, @RequestBody Championship championship) {
-        championshipService.updateChampionship(idChampion, championship);
+    @PutMapping("championships/update")
+    public void updateChampionship(@RequestBody Championship championship) {
+        championshipService.updateChampionship(championship);
     }
 
 

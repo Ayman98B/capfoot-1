@@ -79,6 +79,12 @@ public class GroupTeamServiceImpl implements  GroupTeamService{
         return groupTeamRepository.findAll();
     }
 
+    @Override
+    public GroupTeam getGroupByTeam(Team team) {
+        return groupTeamRepository.findByTeam(team);
+    }
+
+
     private void handleDrawForTeamsPerSite(List<Team> teams, List<Groupe> groupes) {
         int index = 0;
         int length;

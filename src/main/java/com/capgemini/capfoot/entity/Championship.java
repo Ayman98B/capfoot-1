@@ -1,7 +1,11 @@
 package com.capgemini.capfoot.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,14 +34,12 @@ public class Championship {
 	@Enumerated(EnumType.STRING)
 	private Statut statut = Statut.INSCRIPTION;
 
-	@Getter
-	@Setter
 	@Column(nullable = false)
 	private boolean progress = true;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
 	@ToString.Exclude
-	@JsonIgnore
 	private List<Groupe> groups;
 
 	@ManyToOne

@@ -24,7 +24,6 @@ public class ChampionshipServiceImplTest {
     @InjectMocks
     ChampionshipService championshipService = new ChampionshipServiceImpl(championshipRepo);
 
-    
 
     @Test
     public void testDeleteChampionship() {
@@ -49,7 +48,7 @@ public class ChampionshipServiceImplTest {
                 .thenReturn(Optional.of(championship));
 
         championship.setLabel("Second Label");
-        championshipService.updateChampionship(championship.getId(),championship);
+        championshipService.updateChampionship(championship);
 
         assertThat(championshipService.getChampionshipById(championship.getId()).getLabel())
                 .isEqualTo("Second Label");
