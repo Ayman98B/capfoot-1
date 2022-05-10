@@ -1,5 +1,6 @@
 package com.capgemini.capfoot.service;
 
+import com.capgemini.capfoot.dto.GroupTeamResponseDto;
 import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.GroupTeamRepository;
@@ -82,6 +83,15 @@ public class GroupTeamServiceImpl implements  GroupTeamService{
     @Override
     public GroupTeam getGroupByTeam(Team team) {
         return groupTeamRepository.findByTeam(team);
+    }
+
+    @Override
+    public List<GroupTeamResponseDto> getAll() {
+            List<GroupTeamResponseDto> groupTeamResponseList = new ArrayList<>();
+            groupTeamRepository.getGroupsAndTheirTeams().forEach(groupTeam -> {
+                groupTeamResponseList.add(GroupTeamResponseDto.createGroupTeamResponseDto(groupTeam));
+            });
+        return groupTeamResponseList;
     }
 
 
