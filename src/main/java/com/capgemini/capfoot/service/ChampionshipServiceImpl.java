@@ -1,19 +1,17 @@
 package com.capgemini.capfoot.service;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.repository.ChampionshipRepo;
 import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.repository.ChampionshipRepo;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -57,9 +55,9 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			championshipRepo.save(newChamp);
 			log.info("Championship entity created");
 
-			List<Groupe> GROUPS = Arrays.asList(groupService.buildGroup("A",newChamp),
-					groupService.buildGroup("B",newChamp), groupService.buildGroup("C",newChamp),
-					groupService.buildGroup("D",newChamp),
+			List<Groupe> GROUPS = Arrays.asList(
+					groupService.buildGroup("A",newChamp),groupService.buildGroup("B",newChamp),
+					groupService.buildGroup("C",newChamp), groupService.buildGroup("D",newChamp),
 					groupService.buildGroup("E",newChamp), groupService.buildGroup("F",newChamp),
 					groupService.buildGroup("G",newChamp), groupService.buildGroup("H",newChamp));
 			groupRepository.saveAll(GROUPS);

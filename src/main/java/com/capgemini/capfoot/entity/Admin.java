@@ -1,15 +1,13 @@
 package com.capgemini.capfoot.entity;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import lombok.*;
-
-
+import java.util.List;
 
 @Entity
 @Data
@@ -30,7 +28,7 @@ public class Admin {
 	private String lastName;
 
 	@NotNull
-	@NotBlank(message = "Votre nom Obligatoire")
+	@NotBlank(message = "Votre password Obligatoire")
 	private String password;
 
 	@Email
@@ -38,5 +36,7 @@ public class Admin {
 	private String emailAdress;
 
 	@OneToMany(mappedBy = "admin")
+	@JsonIgnore
+	@ToString.Exclude
 	private List<Championship> championships;
 }
