@@ -3,10 +3,14 @@ package com.capgemini.capfoot.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.capgemini.capfoot.entity.GroupTeam;
+import com.capgemini.capfoot.entity.State;
+import com.capgemini.capfoot.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.capgemini.capfoot.repository.MatchRepository;
 import com.capgemini.capfoot.entity.MatchDisputee;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +18,12 @@ public class MatchServiceImpl implements MatchService{
 
 	@Autowired
 	MatchRepository matchRepository;
+
+	GroupTeamService groupTeamService;
+
+	public MatchServiceImpl(@Lazy GroupTeamService groupTeamService){
+		this.groupTeamService = groupTeamService;
+	}
 	
 	@Override
 	public List<MatchDisputee> getAllMatchs() {
@@ -64,6 +74,32 @@ public class MatchServiceImpl implements MatchService{
 		if(matchUpdateScore.isPresent()){
 			matchUpdateScore.get().setScoreAway(updateTeamsScore.getScoreAway());
 			matchUpdateScore.get().setScoreHome(updateTeamsScore.getScoreHome());
+			matchUpdateScore.get().setMatchState(updateTeamsScore.getMatchState());
+
+
+			int scoreTeamHome = updateTeamsScore.getScoreHome();
+			int scoreTeamAway = updateTeamsScore.getScoreAway();
+			Team teamHome =  updateTeamsScore.getTeamHome();
+			Team teamAway = updateTeamsScore.getTeamAway();
+
+
+			GroupTeam groupByTeam = groupTeamService.getGroupByTeam(teamHome);
+
+
+			if(updateTeamsScore.getMatchState() == State.END){
+				if(scoreTeamHome > scoreTeamAway) {
+					groupTeamService.addWin(teamHome,groupByTeam.getGroup());
+					groupTeamService.addLoss(teamAway,groupByTeam.getGroup());
+				}
+				if(scoreTeamHome < scoreTeamAway) {
+					groupTeamService.addLoss(teamHome,groupByTeam.getGroup());
+					groupTeamService.addWin(teamAway,groupByTeam.getGroup());
+				}
+				if(scoreTeamHome == scoreTeamAway) {
+					groupTeamService.addDraw(teamHome,groupByTeam.getGroup());
+					groupTeamService.addDraw(teamAway,groupByTeam.getGroup());
+				}
+			}
 
 			int[] scoreMatch = new int[2];
 			scoreMatch[0] = updateTeamsScore.getScoreAway();

@@ -13,4 +13,5 @@ public interface GroupTeamService {
     public void addDraw(Team team, Groupe group);
     public List<GroupTeam> launchDraw();
 
+    GroupTeam getGroupByTeam(Team team);
 }
