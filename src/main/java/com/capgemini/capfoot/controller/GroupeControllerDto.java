@@ -1,21 +1,18 @@
 package com.capgemini.capfoot.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.capgemini.capfoot.dto.GroupTeamResponseDto;
 import com.capgemini.capfoot.dto.GroupeResponseDto;
 import com.capgemini.capfoot.entity.Groupe;
 import com.capgemini.capfoot.service.GroupService;
+import com.capgemini.capfoot.service.GroupTeamService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.management.openmbean.CompositeData;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/groupes/dto")
@@ -23,6 +20,9 @@ public class GroupeControllerDto {
 
     @Autowired
     GroupService groupeService;
+
+    @Autowired
+    GroupTeamService groupTeamService;
 
     @PostMapping("/supprimer")
     public ResponseEntity<String> deleteGroupe(@PathVariable Long id){
@@ -49,6 +49,11 @@ public class GroupeControllerDto {
     public ResponseEntity<Optional<Groupe>> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(groupeService.findById(id));
     }
+    @GetMapping("/groupsTeams")
+    public List<GroupTeamResponseDto> findAllGroupsTeams(){
+        return groupTeamService.getAll();
+    }
+}
     
     /* @GetMapping("/{id}")
     public Optional<GroupeResponseDto> findById(@PathVariable("id") Long id){
