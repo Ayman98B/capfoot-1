@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +24,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.*;
 
-=======
->>>>>>> main
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -52,14 +50,10 @@ public class Championship {
 	@Column(nullable = false)
 	private boolean progress = true;
 
-<<<<<<< HEAD
-	@OneToMany(mappedBy = "championship")
 	@JsonProperty(access = Access.WRITE_ONLY)
-=======
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
 	@ToString.Exclude
-	@JsonIgnore
->>>>>>> main
+
 	private List<Groupe> groups;
 
 	@ManyToOne
