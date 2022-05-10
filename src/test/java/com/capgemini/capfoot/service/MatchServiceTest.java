@@ -2,6 +2,7 @@ package com.capgemini.capfoot.service;
 
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Site;
+import com.capgemini.capfoot.entity.State;
 import com.capgemini.capfoot.entity.Team;
 import com.capgemini.capfoot.repository.MatchRepository;
 import org.junit.Test;
@@ -27,24 +28,16 @@ public class MatchServiceTest {
     @Autowired
     private MatchService matchService;
 
-    @TestConfiguration
-    static class TodoServiceContextConfiguration{
-        @Bean
-        public MatchService matchService(){
-            return new MatchServiceImpl();
-        }
-    }
-
     @Test
     public void whenUpdateScore_WillReturnUpdatedScore(){
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, State.PENDING, null, null);
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedScore =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 3, null, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 3, State.PENDING, null, null);
 
 
         matchService.updateMatchFinalScore(1L,updatedScore);
