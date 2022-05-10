@@ -50,15 +50,15 @@ public class CapfootApplication implements CommandLineRunner {
     Championship capfoot = createChampionship();
 
     List<Team> casaTeams = Arrays.asList(
-            generateTeam(String.valueOf(Site.CASABLANCA),"team_1"),generateTeam(String.valueOf(Site.CASABLANCA),"team_2"),generateTeam(String.valueOf(Site.CASABLANCA),"team_3"),generateTeam(String.valueOf(Site.CASABLANCA),"team_4"),
-            generateTeam(String.valueOf(Site.CASABLANCA),"team_5"),generateTeam(String.valueOf(Site.CASABLANCA),"team_6"),generateTeam(String.valueOf(Site.CASABLANCA),"team_7"),generateTeam(String.valueOf(Site.CASABLANCA),"team_8"),
-            generateTeam(String.valueOf(Site.CASABLANCA),"team_9"),generateTeam(String.valueOf(Site.CASABLANCA),"team_10"),generateTeam(String.valueOf(Site.CASABLANCA),"team_11"),generateTeam(String.valueOf(Site.CASABLANCA),"team_12"),
-            generateTeam(String.valueOf(Site.CASABLANCA),"team_13"),generateTeam(String.valueOf(Site.CASABLANCA),"team_14"),generateTeam(String.valueOf(Site.CASABLANCA),"team_15"),generateTeam(String.valueOf(Site.CASABLANCA),"team_16"));
+            generateTeam(Site.CASABLANCA,"team_1"),generateTeam(Site.CASABLANCA,"team_2"),generateTeam(Site.CASABLANCA,"team_3"),generateTeam(Site.CASABLANCA,"team_4"),
+            generateTeam(Site.CASABLANCA,"team_5"),generateTeam(Site.CASABLANCA,"team_6"),generateTeam(Site.CASABLANCA,"team_7"),generateTeam(Site.CASABLANCA,"team_8"),
+            generateTeam(Site.CASABLANCA,"team_9"),generateTeam(Site.CASABLANCA,"team_10"),generateTeam(Site.CASABLANCA,"team_11"),generateTeam(Site.CASABLANCA,"team_12"),
+            generateTeam(Site.CASABLANCA,"team_13"),generateTeam(Site.CASABLANCA,"team_14"),generateTeam(Site.CASABLANCA,"team_15"),generateTeam(Site.CASABLANCA,"team_16"));
     List<Team> rabatTeams = Arrays.asList(
-            generateTeam("RABAT","team_r_1"),generateTeam("RABAT","team_r_2"),generateTeam("RABAT","team_r_3"),generateTeam("RABAT","team_r_4"),
-            generateTeam("RABAT","team_r_5"),generateTeam("RABAT","team_r_6"),generateTeam("RABAT","team_r_7"),generateTeam("RABAT","team_r_8"),
-            generateTeam("RABAT","team_r_9"),generateTeam("RABAT","team_r_10"),generateTeam("RABAT","team_r_11"),generateTeam("RABAT","team_r_12"),
-            generateTeam("RABAT","team_r_13"),generateTeam("RABAT","team_r_14"),generateTeam("RABAT","team_r_15"),generateTeam("RABAT","team_r_16")
+            generateTeam(Site.RABAT,"team_r_1"),generateTeam(Site.RABAT,"team_r_2"),generateTeam(Site.RABAT,"team_r_3"),generateTeam(Site.RABAT,"team_r_4"),
+            generateTeam(Site.RABAT,"team_r_5"),generateTeam(Site.RABAT,"team_r_6"),generateTeam(Site.RABAT,"team_r_7"),generateTeam(Site.RABAT,"team_r_8"),
+            generateTeam(Site.RABAT,"team_r_9"),generateTeam(Site.RABAT,"team_r_10"),generateTeam(Site.RABAT,"team_r_11"),generateTeam(Site.RABAT,"team_r_12"),
+            generateTeam(Site.RABAT,"team_r_13"),generateTeam(Site.RABAT,"team_r_14"),generateTeam(Site.RABAT,"team_r_15"),generateTeam(Site.RABAT,"team_r_16")
     );
 
     List<Team> CASA_TEAMS = Arrays.asList(
@@ -102,10 +102,10 @@ public class CapfootApplication implements CommandLineRunner {
         return capfoot;
     }
 
-    private Team generateTeam(String site, String name){
+    private Team generateTeam(Site site, String name){
         Team team = new Team();
         team.setName(name);
-        team.setSite(Site.valueOf(site));
+        team.setSite(site);
         List players = new ArrayList<>();
         for(int i = 0 ; i<6;i++){
             Player p = new Player(

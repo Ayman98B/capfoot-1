@@ -1,25 +1,5 @@
 package com.capgemini.capfoot.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.capgemini.capfoot.dto.ChampionshipCreationDto;
 import com.capgemini.capfoot.dto.ChampionshipResponseDto;
 import com.capgemini.capfoot.dto.MatchDisputeeResponseDto;
@@ -32,6 +12,15 @@ import com.capgemini.capfoot.service.ChampionshipService;
 import com.capgemini.capfoot.service.GroupService;
 import com.capgemini.capfoot.service.MatchService;
 import com.capgemini.capfoot.service.TeamService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/dto")
@@ -119,7 +108,7 @@ public class AdminControllerDto {
 		return ResponseEntity.ok("createChampionship");
 	}
 
-	@PutMapping("championships/update/{idChampion}")
+	@PutMapping("championships/update")
 	public ResponseEntity<String> updateChampionship(@RequestBody Championship championship) {
 		championshipService.updateChampionship(championship);
 		return ResponseEntity.ok("createChampionship");

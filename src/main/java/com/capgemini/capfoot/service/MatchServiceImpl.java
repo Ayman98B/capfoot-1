@@ -1,17 +1,16 @@
 package com.capgemini.capfoot.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.capgemini.capfoot.entity.GroupTeam;
+import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.State;
 import com.capgemini.capfoot.entity.Team;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.capgemini.capfoot.repository.MatchRepository;
-import com.capgemini.capfoot.entity.MatchDisputee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MatchServiceImpl implements MatchService{

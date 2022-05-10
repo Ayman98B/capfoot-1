@@ -1,5 +1,6 @@
 package com.capgemini.capfoot.service;
 
+import com.capgemini.capfoot.dto.GroupTeamResponseDto;
 import com.capgemini.capfoot.entity.GroupTeam;
 import com.capgemini.capfoot.entity.Groupe;
 import com.capgemini.capfoot.entity.Team;
@@ -14,4 +15,6 @@ public interface GroupTeamService {
     public List<GroupTeam> launchDraw();
 
     GroupTeam getGroupByTeam(Team team);
+
+    List<GroupTeamResponseDto> getAll();
 }

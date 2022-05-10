@@ -17,6 +17,7 @@ public class GroupTeamResponseDto {
 	private int cumulPoint;
 	private Long groupId;
 	private Long teamId;
+	private String TeamName;
 
 	public static GroupTeamResponseDto createGroupTeamResponseDto(GroupTeam groupTeam) {
 		return new GroupTeamResponseDto(
@@ -26,7 +27,8 @@ public class GroupTeamResponseDto {
 				groupTeam.getNbLossMatch(), 
 				groupTeam.getCumulPoint(), 
 				groupTeam.getGroup().getId(),
-				groupTeam.getTeam().getId()
+				groupTeam.getTeam().getId(),
+				groupTeam.getTeam().getName()
 				);
 	}
 }
