@@ -1,5 +1,9 @@
 package com.capgemini.capfoot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,8 +49,9 @@ public class Championship {
 	@Column(nullable = false)
 	private boolean progress = true;
 
-	@OneToMany(mappedBy = "championship")
 	@JsonProperty(access = Access.WRITE_ONLY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
+	@ToString.Exclude
 	private List<Groupe> groups;
 
 	@ManyToOne
