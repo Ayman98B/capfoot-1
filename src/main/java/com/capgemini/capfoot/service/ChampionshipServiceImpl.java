@@ -42,6 +42,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Override
 	public Championship getChampionshipById(Long idCamp) {
+
 		return championshipRepo.findById(idCamp).get();
 	}
 
@@ -65,30 +66,25 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	}
 
 	@Override
-	public void updateChampionship(Long id,Championship champion) {
+	public void updateChampionship(Championship updateChamp) {
 
 			// if changement de statut: planification des matches, Tirage au sort, l'envoie
 			// des email
 			// if statut = groupe, planification des match
-		if (id == null){
+		if (updateChamp.getId() == null){
 			log.warn("Vous ne pouvez pas modifier le tournoi car ID null" );
 		}else {
-
-			if(champion.getStatut()!=championshipRepo.findById(id).get().getStatut()) {
+			if(updateChamp.getStatut() != updateChamp.getStatut()) {
 				System.out.println("Sending Email...");
 				try {
-					emailService.sendEmail(teamRepository.findById(id).get(), "Test", "test d'envoie de mail");
+					emailService.sendEmail(teamRepository.findById(updateChamp.getId()).get(), "Test", "test d'envoie de mail");
 				} catch (MailException mailException) {
 					mailException.getStackTrace();
 				} catch (Exception e) {
 					System.out.println("Erreur d'envoie d'email: " + e);
 				}
 			}
-			Championship championship = championshipRepo.findById(id).get();
-			championship.setLabel(champion.getLabel());
-			championship.setStartDate(champion.getStartDate());
-			championship.setProgress(champion.isProgress());
-			championshipRepo.save(championship);
+			championshipRepo.save(updateChamp);
 		}
 	}
 

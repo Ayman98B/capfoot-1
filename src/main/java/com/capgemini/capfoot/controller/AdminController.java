@@ -79,15 +79,24 @@ public class AdminController {
         return championshipService.getAllChampionships();
     }
 
+    @GetMapping("championships/{id}")
+    public Championship getChampionship(@PathVariable("id") long id) {
+
+        Championship championship = championshipService.getChampionshipById(id);
+
+        //championship.setGroups();
+        return championship;
+    }
+
     @PostMapping("championships/add")
     public void createChampionship(@RequestBody Championship championship) {
         championshipService.createChampionship(championship);
 
     }
 
-    @PutMapping("championships/update/{idChampion}")
-    public void updateChampionship(@PathVariable("idChampion") Long idChampion, @RequestBody Championship championship) {
-        championshipService.updateChampionship(idChampion, championship);
+    @PutMapping("championships/update")
+    public void updateChampionship(@RequestBody Championship championship) {
+        championshipService.updateChampionship(championship);
     }
 
 
