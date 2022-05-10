@@ -108,9 +108,8 @@ public class AdminControllerDto {
 		return ResponseEntity.ok("createChampionship");
 	}
 
-	@PutMapping("championships/update/{idChampion}")
-	public ResponseEntity<String> updateChampionship(@PathVariable("idChampion") Long idChampion,
-			@RequestBody Championship championship) {
+	@PutMapping("championships/update")
+	public ResponseEntity<String> updateChampionship(@RequestBody Championship championship) {
 		championshipService.updateChampionship(championship);
 		return ResponseEntity.ok("createChampionship");
 	}

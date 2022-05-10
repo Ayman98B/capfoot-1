@@ -74,6 +74,7 @@ public class MatchServiceImpl implements MatchService{
 			matchUpdateScore.get().setScoreAway(updateTeamsScore.getScoreAway());
 			matchUpdateScore.get().setScoreHome(updateTeamsScore.getScoreHome());
 			matchUpdateScore.get().setMatchState(updateTeamsScore.getMatchState());
+			matchUpdateScore.get().setMatchDate(updateTeamsScore.getMatchDate());
 
 
 			int scoreTeamHome = updateTeamsScore.getScoreHome();
