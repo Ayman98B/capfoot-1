@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.capgemini.capfoot.entity.Championship;
+import com.capgemini.capfoot.entity.Championship_State;
 import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.entity.Statut;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +25,7 @@ public class ChampionshipResponseDto {
 
 	private LocalDate endDate;
 
-	private Statut statut;
+	private Championship_State statut;
 
 	private boolean progress;
 
@@ -46,11 +46,15 @@ public class ChampionshipResponseDto {
 	}
 
 	public static List<GroupeResponseDto> createGroupeTeamsDtos(List<Groupe> group) {
-		List<GroupeResponseDto> groupDtos = new ArrayList<GroupeResponseDto>();
-		for (Groupe groupTemp : group) {
-			groupDtos.add(GroupeResponseDto.createGroupeDto(groupTemp));
+		if (group == null) {
+			return null;
+		} else {
+			List<GroupeResponseDto> groupDtos = new ArrayList<GroupeResponseDto>();
+			for (Groupe groupTemp : group) {
+				groupDtos.add(GroupeResponseDto.createGroupeDto(groupTemp));
+			}
+			return groupDtos;
 		}
-		return groupDtos;
 	}
 
 }
