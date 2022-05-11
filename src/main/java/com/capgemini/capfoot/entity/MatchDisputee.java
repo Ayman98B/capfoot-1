@@ -32,7 +32,7 @@ public class MatchDisputee {
 	private int scoreAway;
 	private int[] scoreMatch;
 	@Enumerated(EnumType.STRING)
-	private State matchState = State.PENDING;
+	private Match_State matchState = Match_State.PENDING;
 
 	@ManyToOne
 	private Team teamHome;
@@ -48,7 +48,7 @@ public class MatchDisputee {
 		this.teamAway = team_away;
 	}
 
-	public MatchDisputee(long l, boolean b, boolean b1, LocalDate now, Site site, int i, int i1, State state, Team team_home, Team team_away) {
+	public MatchDisputee(long l, boolean b, boolean b1, LocalDate now, Site site, int i, int i1, Match_State state, Team team_home, Team team_away) {
 		this.groupePhase = b;
 		this.directEliminationPhase = b1;
 		this.site = site;

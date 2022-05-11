@@ -3,6 +3,7 @@ package com.capgemini.capfoot.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,7 +24,8 @@ public class Groupe {
 	@ManyToOne
 	private Championship championship;
 
-	@OneToMany(mappedBy = "group")
+	@OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
+	@ToString.Exclude
 	private List<GroupTeam> groupTeams;
 
 	public Groupe(long id, String name) {
