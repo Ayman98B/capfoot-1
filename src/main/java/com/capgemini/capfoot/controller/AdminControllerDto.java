@@ -1,29 +1,41 @@
 package com.capgemini.capfoot.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.capgemini.capfoot.dto.ChampionshipCreationDto;
 import com.capgemini.capfoot.dto.ChampionshipResponseDto;
+import com.capgemini.capfoot.dto.ChampionshipUpdateDto;
 import com.capgemini.capfoot.dto.MatchDisputeeResponseDto;
 import com.capgemini.capfoot.dto.TeamResponseDto;
+import com.capgemini.capfoot.entity.Admin;
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.GroupRepository;
+import com.capgemini.capfoot.service.AdminService;
 import com.capgemini.capfoot.service.ChampionshipService;
 import com.capgemini.capfoot.service.GroupService;
 import com.capgemini.capfoot.service.MatchService;
 import com.capgemini.capfoot.service.TeamService;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/admin/dto")
+@RequestMapping("/api/v2/admin")
 @CrossOrigin(origins = "*")
 public class AdminControllerDto {
 
@@ -40,7 +52,7 @@ public class AdminControllerDto {
 	GroupService groupService;
 
 	@Autowired
-	GroupRepository groupRepository;
+	AdminService adminService;
 
 	@GetMapping("matchs/all")
 	public ResponseEntity<List<MatchDisputeeResponseDto>> getAllMatchsDto() {
@@ -100,28 +112,36 @@ public class AdminControllerDto {
 
 	}
 
+	@GetMapping("championships/{id}")
+	public ResponseEntity<ChampionshipResponseDto> getChampionship(@PathVariable("id") long id) {
+
+		return ResponseEntity
+				.ok(ChampionshipResponseDto.createChampionshipResponseDto(championshipService.getChampionshipById(id)));
+	}
+
 	@PostMapping("championships/add")
-	public ResponseEntity<String> createChampionshipDto(@RequestBody ChampionshipCreationDto championshipDto) {
-		Championship champ = new Championship();
-		BeanUtils.copyProperties(championshipDto, champ);
-		championshipService.createChampionship(champ);
-		return ResponseEntity.ok("createChampionship");
+	public ResponseEntity<ChampionshipResponseDto> createChampionshipDto(
+			@RequestBody ChampionshipCreationDto championshipDto) {
+		Admin admin = adminService.getAdminById(championshipDto.getAdminId());
+		Championship champ = ChampionshipCreationDto.transferToChampionship(championshipDto, admin);
+		return ResponseEntity.ok(
+				ChampionshipResponseDto.createChampionshipResponseDto(championshipService.createChampionship(champ)));
 	}
 
 	@PutMapping("championships/update")
-	public ResponseEntity<String> updateChampionship(@RequestBody Championship championship) {
-		championshipService.updateChampionship(championship);
-		return ResponseEntity.ok("createChampionship");
+	public ResponseEntity<ChampionshipResponseDto> updateChampionship(
+			@RequestBody ChampionshipUpdateDto championshipDto) {
+
+		Championship champ = ChampionshipUpdateDto.transferToChampionship(championshipDto);
+
+		return ResponseEntity.ok(
+				ChampionshipResponseDto.createChampionshipResponseDto(championshipService.updateChampionship(champ)));
 	}
 
 	@DeleteMapping("championships/delete/{id}")
-	public void /* ResponseEntity<ChampionshipResponseDto> */ deleteChampionship(@PathVariable("id") Long id) {
+	public ResponseEntity<String> deleteChampionship(@PathVariable("id") Long id) {
 		championshipService.deleteChampionship(id);
-		/*
-		 * return ResponseEntity.ok(
-		 * ChampionshipResponseDto.createChampionshipResponseDto(championshipService.
-		 * deleteChampionship(id)) );
-		 */
+		return ResponseEntity.ok("Championship has been deleted !");
 	}
 
 	@RequestMapping(value = "/admin_auth", method = RequestMethod.GET)

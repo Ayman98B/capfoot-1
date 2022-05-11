@@ -2,8 +2,8 @@ package com.capgemini.capfoot.dto;
 
 import java.time.LocalDate;
 
+import com.capgemini.capfoot.entity.Admin;
 import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Statut;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,22 +20,20 @@ public class ChampionshipCreationDto {
 
 	private LocalDate endDate;
 
-	private Statut statut;
-
-	private boolean progress;
-
-	// private List<Groupe> groups;
-
 	private Long adminId;
 
 	public static ChampionshipCreationDto createChampionshipResponseDto(Championship championship) {
-		return new ChampionshipCreationDto(
-				championship.getLabel(), 
-				championship.getStartDate(),
-				championship.getEndDate(), 
-				championship.getStatut(), 
-				championship.isProgress(),
-				championship.getAdmin().getId());
+		return new ChampionshipCreationDto(championship.getLabel(), championship.getStartDate(),
+				championship.getEndDate(), championship.getAdmin().getId());
+	}
+
+	public static Championship transferToChampionship(ChampionshipCreationDto championshipDto, Admin admin) {
+		Championship champ = new Championship();
+		champ.setLabel(championshipDto.getLabel());
+		champ.setStartDate(championshipDto.getStartDate());
+		champ.setEndDate(championshipDto.getEndDate());
+		champ.setAdmin(admin);
+		return champ;
 	}
 
 }

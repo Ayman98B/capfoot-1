@@ -3,6 +3,7 @@ package com.capgemini.capfoot.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -28,6 +29,7 @@ public class Player {
 	private boolean isCaptain;
 	private boolean isAvailable;
 	@ManyToOne
+	@ToString.Exclude
 	private Team team;
 
     public Player(long id, String firstName, String emailAddress) {

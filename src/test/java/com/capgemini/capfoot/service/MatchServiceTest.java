@@ -1,22 +1,23 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.Site;
-import com.capgemini.capfoot.entity.State;
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.MatchRepository;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
-import java.util.Optional;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.BDDMockito.anyLong;
-import static org.mockito.BDDMockito.given;
+import com.capgemini.capfoot.entity.MatchDisputee;
+import com.capgemini.capfoot.entity.Match_State;
+import com.capgemini.capfoot.entity.Site;
+import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.repository.MatchRepository;
 
 @RunWith(SpringRunner.class)
 public class MatchServiceTest {
@@ -30,12 +31,12 @@ public class MatchServiceTest {
     public void whenUpdateScore_WillReturnUpdatedScore(){
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, State.PENDING, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, Match_State.PENDING, null, null);
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedScore =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 3, State.PENDING, null, null);
+                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 3, Match_State.PENDING, null, null);
 
 
         matchService.updateMatchFinalScore(1L,updatedScore);
