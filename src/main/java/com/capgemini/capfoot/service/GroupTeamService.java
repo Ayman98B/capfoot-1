@@ -13,8 +13,7 @@ public interface GroupTeamService {
     public void addLoss(Team team, Groupe group);
     public void addDraw(Team team, Groupe group);
     public List<GroupTeam> launchDraw();
-
     GroupTeam getGroupByTeam(Team team);
-
+    public List<Team> qualifiedTeams();
     List<GroupTeamResponseDto> getAll();
 }

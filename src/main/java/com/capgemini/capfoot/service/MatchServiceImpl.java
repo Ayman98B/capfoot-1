@@ -75,31 +75,34 @@ public class MatchServiceImpl implements MatchService{
 			matchUpdateScore.get().setScoreHome(updateTeamsScore.getScoreHome());
 			matchUpdateScore.get().setMatchState(updateTeamsScore.getMatchState());
 
-
 			int scoreTeamHome = updateTeamsScore.getScoreHome();
 			int scoreTeamAway = updateTeamsScore.getScoreAway();
 			Team teamHome =  updateTeamsScore.getTeamHome();
 			Team teamAway = updateTeamsScore.getTeamAway();
 
-
 			GroupTeam groupByTeam = groupTeamService.getGroupByTeam(teamHome);
 
+			int totalMatchs = groupByTeam.getNbDrawMatch() + groupByTeam.getNbWonMatch() + groupByTeam.getNbLossMatch();
+			if(!matchUpdateScore.get().isUpdated()){
+				if(updateTeamsScore.getMatchState() == State.END  && totalMatchs < 3){
+					matchUpdateScore.get().setUpdated(true);
+					if(scoreTeamHome > scoreTeamAway) {
+						groupTeamService.addWin(teamHome,groupByTeam.getGroup());
+						groupTeamService.addLoss(teamAway,groupByTeam.getGroup());
+					}
+					if(scoreTeamHome < scoreTeamAway) {
+						groupTeamService.addLoss(teamHome,groupByTeam.getGroup());
+						groupTeamService.addWin(teamAway,groupByTeam.getGroup());
+					}
+					if(scoreTeamHome == scoreTeamAway) {
+						groupTeamService.addDraw(teamHome,groupByTeam.getGroup());
+						groupTeamService.addDraw(teamAway,groupByTeam.getGroup());
+					}
+				}
+			}else{
+				System.out.println("Already updated");;
 
-			if(updateTeamsScore.getMatchState() == State.END){
-				if(scoreTeamHome > scoreTeamAway) {
-					groupTeamService.addWin(teamHome,groupByTeam.getGroup());
-					groupTeamService.addLoss(teamAway,groupByTeam.getGroup());
-				}
-				if(scoreTeamHome < scoreTeamAway) {
-					groupTeamService.addLoss(teamHome,groupByTeam.getGroup());
-					groupTeamService.addWin(teamAway,groupByTeam.getGroup());
-				}
-				if(scoreTeamHome == scoreTeamAway) {
-					groupTeamService.addDraw(teamHome,groupByTeam.getGroup());
-					groupTeamService.addDraw(teamAway,groupByTeam.getGroup());
-				}
 			}
-
 			int[] scoreMatch = new int[2];
 			scoreMatch[0] = updateTeamsScore.getScoreAway();
 			scoreMatch[1] = updateTeamsScore.getScoreHome();

@@ -6,11 +6,14 @@ import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.GroupTeamRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class GroupTeamServiceImpl implements  GroupTeamService{
@@ -23,6 +26,9 @@ public class GroupTeamServiceImpl implements  GroupTeamService{
 
     @Autowired
     GroupTeamRepository groupTeamRepository;
+
+    @Autowired
+    ChampionshipService championshipService;
 
     @Autowired
     MatchService matchService;
@@ -137,4 +143,64 @@ public class GroupTeamServiceImpl implements  GroupTeamService{
             }
         }
     }
+    @Override
+     public List<Team> qualifiedTeams() {
+        List<MatchDisputee> allMatchs = matchService.getAllMatchs();
+        AtomicBoolean endGroupPhase = new AtomicBoolean(false);
+        AtomicInteger GroupPhase = new AtomicInteger(0);
+
+        for (MatchDisputee match : allMatchs) {
+            if (match.getMatchState() != State.END) {
+                GroupPhase.set(1);
+                break;
+            } else {
+                endGroupPhase.set(true);
+            }
+        }
+
+        System.out.println("" + GroupPhase.get());
+        List<GroupTeam> teams = new ArrayList<>();
+        List<Team> newTeams = new ArrayList<>();
+        if (GroupPhase.get() == 1) {
+            System.out.println("Not Yet Over");
+        } else {
+            //  teams = groupTeamRepository.findByOrderByCumulPointDesc(Sort.by("group").ascending());
+            teams = groupTeamRepository.findByOrderByGroupAsc(Sort.by("cumulPoint").descending());
+
+            for (int i = 0; i < teams.size(); i = i + 4) {
+                System.out.println(teams.get(i).getTeam());
+                newTeams.add(teams.get(i).getTeam());
+                newTeams.add(teams.get(i+1).getTeam());
+            }
+
+            teams.stream()
+                    .filter(g -> g.getGroup().getChampionship().getId() != null)
+                    .findFirst()
+                    .ifPresent(g -> {
+                        Championship ch = g.getGroup().getChampionship();
+                        ch.setStatut(Statut.QUART_FINAL);
+                        championshipService.updateChampionship(ch);
+                    });
+        }
+        planifierMatchQuatreFinal(newTeams);
+        return newTeams;
+    }
+
+    private void planifierMatchQuatreFinal(List<Team> quartsFinaleTeams) {
+        for (int i = 0; i < quartsFinaleTeams.size(); i= i+4) {
+            Team team_away = quartsFinaleTeams.get(i);
+            Team team_home = quartsFinaleTeams.get(i+3);
+            Team team_away1 = quartsFinaleTeams.get(i+1);
+            Team team_home1 = quartsFinaleTeams.get(i+2);
+                MatchDisputee matchDispute =
+                        new MatchDisputee(false, true, quartsFinaleTeams.get(i).getSite(), team_home, team_away);
+            MatchDisputee matchDispute1 =
+                    new MatchDisputee(false, true, quartsFinaleTeams.get(i).getSite(), team_home1, team_away1);
+                matchService.addMatch(matchDispute);
+                matchService.addMatch(matchDispute1);
+
+        }
+    }
+
 }
+
