@@ -10,9 +10,9 @@ public interface ChampionshipService {
 
 	public Championship getChampionshipById(Long idCamp);
 
-	public void createChampionship(Championship newChamp);
+	public Championship createChampionship(Championship newChamp);
 
-	public void updateChampionship(Championship updateChamp);
+	public Championship updateChampionship(Championship updateChamp);
 
 	public void deleteChampionship(Long id);
 
