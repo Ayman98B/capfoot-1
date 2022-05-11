@@ -1,5 +1,5 @@
 package com.capgemini.capfoot.entity;
 
-public enum State {
+public enum Match_State {
     PENDING, START, HALF, END
 }
