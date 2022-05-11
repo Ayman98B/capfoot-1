@@ -1,13 +1,14 @@
 package com.capgemini.capfoot.dto;
 
+import java.time.LocalDate;
+
 import com.capgemini.capfoot.entity.MatchDisputee;
+import com.capgemini.capfoot.entity.Match_State;
 import com.capgemini.capfoot.entity.Site;
-import com.capgemini.capfoot.entity.State;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class MatchDisputeeResponseDto {
 	private int scoreHome;
 	private int scoreAway;
 	private int[] scoreMatch;
-	private State matchState;
+	private Match_State matchState;
 
 	private Long teamHomeId;
 
