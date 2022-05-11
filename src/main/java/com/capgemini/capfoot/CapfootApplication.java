@@ -64,31 +64,25 @@ public class CapfootApplication implements CommandLineRunner {
             generateTeam("Rabat","team_r_13"),generateTeam("Rabat","team_r_14"),generateTeam("Rabat","team_r_15"),generateTeam("Rabat","team_r_16")
     );
 
-    List<Team> CASA_TEAMS = Arrays.asList(
-            buildTeamCasa("team_1"), buildTeamCasa("team_2"), buildTeamCasa("team_3"), buildTeamCasa("team_4"),
-            buildTeamCasa("team_5"), buildTeamCasa("team_6"), buildTeamCasa("team_7"), buildTeamCasa("team_8"),
-            buildTeamCasa("team_9"), buildTeamCasa("team_10"), buildTeamCasa("team_11"), buildTeamCasa("team_12"),
-            buildTeamCasa("team_13"), buildTeamCasa("team_14"), buildTeamCasa("team_15"), buildTeamCasa("team_16"));
+    //List<Team> CASA_TEAMS = Arrays.asList(
+           // buildTeamCasa("team_1"), buildTeamCasa("team_2"), buildTeamCasa("team_3"), buildTeamCasa("team_4"), buildTeamCasa("team_5"), buildTeamCasa("team_6"), buildTeamCasa("team_7"), buildTeamCasa("team_8"), buildTeamCasa("team_9"), buildTeamCasa("team_10"), buildTeamCasa("team_11"), buildTeamCasa("team_12"), buildTeamCasa("team_13"), buildTeamCasa("team_14"), buildTeamCasa("team_15"), buildTeamCasa("team_16"));
 
-    List<Team> RABAT_TEAMS = Arrays.asList(
-            buildTeamRabat("team_r_1"), buildTeamRabat("team_r_2"), buildTeamRabat("team_r_3"), buildTeamRabat("team_r_4"),
-            buildTeamRabat("team_r_5"), buildTeamRabat("team_r_6"), buildTeamRabat("team_r_7"), buildTeamRabat("team_r_8"),
-            buildTeamRabat("team_r_9"), buildTeamRabat("team_r_10"), buildTeamRabat("team_r_11"), buildTeamRabat("team_r_12"),
-            buildTeamRabat("team_r_13"), buildTeamRabat("team_r_14"), buildTeamRabat("team_r_15"), buildTeamRabat("team_r_16"));
+    //List<Team> RABAT_TEAMS = Arrays.asList(
+          //  buildTeamRabat("team_r_1"), buildTeamRabat("team_r_2"), buildTeamRabat("team_r_3"), buildTeamRabat("team_r_4"), buildTeamRabat("team_r_5"), buildTeamRabat("team_r_6"), buildTeamRabat("team_r_7"), buildTeamRabat("team_r_8"), buildTeamRabat("team_r_9"), buildTeamRabat("team_r_10"), buildTeamRabat("team_r_11"), buildTeamRabat("team_r_12"), buildTeamRabat("team_r_13"), buildTeamRabat("team_r_14"), buildTeamRabat("team_r_15"), buildTeamRabat("team_r_16"));
 
-    List<Groupe> GROUPS = Arrays.asList(buildGroup("A"), buildGroup("B"), buildGroup("C"), buildGroup("D"),
-            buildGroup("E"), buildGroup("F"), buildGroup("G"), buildGroup("H"));
+   // List<Groupe> GROUPS = Arrays.asList(buildGroup("A"), buildGroup("B"), buildGroup("C"), buildGroup("D"),
+     //       buildGroup("E"), buildGroup("F"), buildGroup("G"), buildGroup("H"));
 
 
-    private static Team buildTeamCasa(String teamName) {
+    //private static Team buildTeamCasa(String teamName) {
 
-        return new Team(teamName, "Casa");
-    }
+        //return new Team(teamName, "Casa");
+    //}
 
-    private static Team buildTeamRabat(String teamName) {
+    //private static Team buildTeamRabat(String teamName) {
 
-        return new Team(teamName, "RABAT");
-    }
+        //return new Team(teamName, "RABAT");
+    //}
 
     private static Groupe buildGroup(String groupName) {
 
@@ -108,9 +102,9 @@ public class CapfootApplication implements CommandLineRunner {
     private Team generateTeam(String site, String name){
         Team team = new Team();
         team.setName(name);
-        team.setSite(site);
+       //team.setSite(site);
         List players = new ArrayList<>();
-        for(int i = 0 ; i<6;i++){
+        for(int i = 0 ; i<6 ;i++){
             Player p = new Player(
                     "first Name",
                     "last Name",
@@ -144,11 +138,11 @@ public class CapfootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        championshipService.createChampionship(capfoot);
-        casaTeams.forEach(TeamCasa -> teamService.inscription(TeamCasa));
-        rabatTeams.forEach(TeamRabat -> teamService.inscription(TeamRabat));
-        groupRepository.saveAll(GROUPS);
-        groupTeamService.launchDraw();
+        //championshipService.createChampionship(capfoot);
+        //casaTeams.forEach(TeamCasa -> teamService.inscription(TeamCasa));
+        //rabatTeams.forEach(TeamRabat -> teamService.inscription(TeamRabat));
+        //groupRepository.saveAll(GROUPS);
+        //groupTeamService.launchDraw();
 
 
         /*teamRepository.saveAll(CASA_TEAMS);

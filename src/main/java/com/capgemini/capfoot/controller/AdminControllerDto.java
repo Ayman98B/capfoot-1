@@ -34,7 +34,7 @@ import com.capgemini.capfoot.service.MatchService;
 import com.capgemini.capfoot.service.TeamService;
 
 @RestController
-@RequestMapping("/api/v1/admin/dto")
+@RequestMapping("/api/v1/admin/dto/")
 @CrossOrigin(origins = "*")
 public class AdminControllerDto {
 
@@ -119,11 +119,12 @@ public class AdminControllerDto {
 		return ResponseEntity.ok("createChampionship");
 	}
 
-	@PutMapping("championships/update/{idChampion}")
-	public ResponseEntity<String> updateChampionship(@PathVariable("idChampion") Long idChampion,
-			@RequestBody Championship championship) {
-		championshipService.updateChampionship(idChampion, championship);
-		return ResponseEntity.ok("createChampionship");
+	@PutMapping("championships/update/")
+	public ResponseEntity<String> updateChampionship(@RequestBody ChampionshipCreationDto championshipupdateDto) {
+		Championship champ = new Championship();
+		BeanUtils.copyProperties(championshipupdateDto, champ);
+		championshipService.updateChampionship(champ);
+		return ResponseEntity.ok("update Championship");
 	}
 
 	@DeleteMapping("championships/delete/{id}")
