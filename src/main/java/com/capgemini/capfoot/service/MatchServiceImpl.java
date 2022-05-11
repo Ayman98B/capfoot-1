@@ -1,16 +1,17 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.GroupTeam;
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.State;
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.MatchRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.capgemini.capfoot.entity.GroupTeam;
+import com.capgemini.capfoot.entity.MatchDisputee;
+import com.capgemini.capfoot.entity.Match_State;
+import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.repository.MatchRepository;
 
 @Service
 public class MatchServiceImpl implements MatchService{
@@ -86,7 +87,7 @@ public class MatchServiceImpl implements MatchService{
 			GroupTeam groupByTeam = groupTeamService.getGroupByTeam(teamHome);
 
 
-			if(updateTeamsScore.getMatchState() == State.END){
+			if(updateTeamsScore.getMatchState() == Match_State.END){
 				if(scoreTeamHome > scoreTeamAway) {
 					groupTeamService.addWin(teamHome,groupByTeam.getGroup());
 					groupTeamService.addLoss(teamAway,groupByTeam.getGroup());
