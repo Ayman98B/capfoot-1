@@ -64,5 +64,6 @@ public class Championship {
 
 	@ManyToOne
 	private Admin admin;
-	
+
+
 }

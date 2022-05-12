@@ -22,6 +22,7 @@ public class Team {
 	@Enumerated(EnumType.STRING)
 	private Site site;
 
+	private Championship_State stage = Championship_State.GROUPE;
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -44,4 +45,6 @@ public class Team {
 		this.name = teamName;
 		this.site = site;
 	}
+
 }
+
