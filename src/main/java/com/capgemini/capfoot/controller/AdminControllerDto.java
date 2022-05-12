@@ -19,8 +19,6 @@ import java.util.List;
 @RequestMapping("/api/v2/admin")
 @CrossOrigin(origins = "*")
 public class AdminControllerDto {
-
-
 	@Autowired
 	MatchService matchService;
 
