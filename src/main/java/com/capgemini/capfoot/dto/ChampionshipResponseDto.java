@@ -1,16 +1,15 @@
 package com.capgemini.capfoot.dto;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.Championship_State;
 import com.capgemini.capfoot.entity.Groupe;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

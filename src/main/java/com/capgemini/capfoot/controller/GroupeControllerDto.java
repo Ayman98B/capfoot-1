@@ -3,6 +3,7 @@ package com.capgemini.capfoot.controller;
 import com.capgemini.capfoot.dto.GroupTeamResponseDto;
 import com.capgemini.capfoot.dto.GroupeResponseDto;
 import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.entity.Team;
 import com.capgemini.capfoot.service.GroupService;
 import com.capgemini.capfoot.service.GroupTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,11 @@ public class GroupeControllerDto {
     @GetMapping("/groupsTeams")
     public List<GroupTeamResponseDto> findAllGroupsTeams(){
         return groupTeamService.getAll();
+    }
+
+    @GetMapping("/qualifiedTeams")
+    public List<Team> findQualifiedTeams(){
+        return groupTeamService.qualifiedTeams();
     }
 }
     

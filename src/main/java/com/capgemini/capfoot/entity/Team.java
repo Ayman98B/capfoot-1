@@ -18,6 +18,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -30,15 +33,18 @@ public class Team {
 
 	@Enumerated(EnumType.STRING)
 	private Site site;
-	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@ToString.Exclude
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<Player> players;
 	private int nbPlayers;
-	@OneToMany(mappedBy = "team")
-	@ToString.Exclude
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
+	@ToString.Exclude
+
 	private List<GroupTeam> groupTeam;
 
 	public Team(long id, String name, String site, List<Player> players) {
