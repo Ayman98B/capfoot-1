@@ -1,22 +1,18 @@
 package com.capgemini.capfoot.service;
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.capgemini.capfoot.entity.MatchDisputee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.stereotype.Service;
-
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.exception.ChampionshipNotFoundException;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
 import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.MailException;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -24,6 +20,14 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Autowired
 	ChampionshipRepo championshipRepo;
+
+
+	GroupTeamService groupTeamService;
+	public ChampionshipServiceImpl(@Lazy GroupTeamService groupTeamService){
+		this.groupTeamService = groupTeamService;
+	}
+
+
 	@Autowired
 	EmailService emailService;
 	@Autowired
@@ -42,6 +46,8 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Autowired
 	PlayerService playerService;
+
+
 
 	public ChampionshipServiceImpl(ChampionshipRepo championshipRepo) {
 		this.championshipRepo = championshipRepo;
@@ -94,13 +100,26 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			Championship oldChamp = championshipRepo.findById(updateChamp.getId()).get();
 			if (oldChamp.getStatut() != updateChamp.getStatut()) {
 
-        log.info("Update matches states ...");
-        List<MatchDisputee> allMatchs = matchService.getAllMatchs();
+        		log.info("Update matches states ...");
+        		List<MatchDisputee> allMatchs = matchService.getAllMatchs();
 				allMatchs.forEach((matchDisputee -> matchDisputee.setStage(updateChamp.getStatut())));
         
 				log.info("Sending Email ...");
 				sendEmail(oldChamp);
 				log.info("Email Sent ...");
+
+				if(updateChamp.getStatut() == Championship_State.LAST_SIXTEEN){
+					groupTeamService.qualifiedTeamsToLastSixteen();
+				}
+				if(updateChamp.getStatut() == Championship_State.QUART_FINAL){
+					groupTeamService.planningQuarterFinalsMatchs();
+				}
+				if(updateChamp.getStatut() == Championship_State.DEMI_FINAL){
+					groupTeamService.planningSemiFinalsMatchs();
+				}
+				if(updateChamp.getStatut() == Championship_State.LAST_SIXTEEN){
+					groupTeamService.planningFinalsMatchs();
+				}
 
 			}
 			return championshipRepo.save(updateChamp);

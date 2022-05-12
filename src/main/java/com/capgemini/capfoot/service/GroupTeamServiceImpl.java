@@ -213,7 +213,6 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
                     new MatchDisputee(Championship_State.LAST_SIXTEEN, quartsFinaleTeams.get(i).getSite(), team_home1, team_away1);
             matchService.addMatch(matchDispute);
             matchService.addMatch(matchDispute1);
-
         }
     }
     public List<Team> qualifiedTeamsToQuarterFinals(){
