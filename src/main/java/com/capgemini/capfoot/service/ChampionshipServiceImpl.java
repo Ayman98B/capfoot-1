@@ -3,6 +3,7 @@ package com.capgemini.capfoot.service;
 import java.util.Arrays;
 import java.util.List;
 
+import com.capgemini.capfoot.entity.MatchDisputee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,9 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Autowired
 	GroupRepository groupRepository;
+
+	@Autowired
+	MatchService matchService;
 
 	@Autowired
 	PlayerService playerService;
@@ -90,6 +94,10 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			Championship oldChamp = championshipRepo.findById(updateChamp.getId()).get();
 			if (oldChamp.getStatut() != updateChamp.getStatut()) {
 
+        log.info("Update matches states ...");
+        List<MatchDisputee> allMatchs = matchService.getAllMatchs();
+				allMatchs.forEach((matchDisputee -> matchDisputee.setStage(updateChamp.getStatut())));
+        
 				log.info("Sending Email ...");
 				sendEmail(oldChamp);
 				log.info("Email Sent ...");
