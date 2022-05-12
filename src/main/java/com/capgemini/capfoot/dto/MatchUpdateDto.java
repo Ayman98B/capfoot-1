@@ -1,25 +1,19 @@
 package com.capgemini.capfoot.dto;
 
+import java.time.LocalDate;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import com.capgemini.capfoot.entity.Championship_State;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Match_State;
 import com.capgemini.capfoot.entity.Site;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import java.time.LocalDate;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class MatchResponseDto {
-
+public class MatchUpdateDto {
 	private Long id;
 	@Enumerated(EnumType.STRING)
-	private Championship_State stage = Championship_State.GROUPE;
+	private Championship_State stage;
 	private LocalDate matchDate;
 
 	private Site site;
