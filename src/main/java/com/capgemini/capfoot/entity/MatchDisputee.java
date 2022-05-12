@@ -26,7 +26,7 @@ public class MatchDisputee {
 	private int[] scoreMatch;
 	@Enumerated(EnumType.STRING)
 
-	private Match_State matchState =Match_State.PENDING;
+	private Match_State matchState = Match_State.PENDING;
 	private boolean updated = false;
 	@ManyToOne
 	private Team teamHome;

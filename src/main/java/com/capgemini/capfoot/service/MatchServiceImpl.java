@@ -23,6 +23,10 @@ public class MatchServiceImpl implements MatchService{
 	
 	@Override
 	public List<MatchDisputee> getAllMatchs() {
+		/*List<MatchDisputee> allMatch = matchRepository.findAll();
+		for(MatchDisputee match : allMatch){
+			match.setStage();
+		}*/
 		return matchRepository.findAll();
 	}
 
