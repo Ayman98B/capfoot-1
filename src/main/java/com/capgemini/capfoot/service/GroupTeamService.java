@@ -15,10 +15,9 @@ public interface GroupTeamService {
     public void qualify(Team team);
     public List<GroupTeam> launchDraw();
     GroupTeam getGroupByTeam(Team team);
-    public List<Team> qualifiedTeamsToLastSexteen();
+    public List<Team> qualifiedTeamsToLastSixteen();
     List<GroupTeamResponseDto> getAll();
     public List<Team> qualifiedTeamsToQuarterFinals();
-    public List<Team> lastSexteenTeams();
     public void planningQuarterFinalsMatchs();
     public void planningSemiFinalsMatchs();
     public void planningFinalsMatchs();

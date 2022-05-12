@@ -110,11 +110,6 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         return groupTeamResponseList;
     }
 
-    @Override
-    public List<Team> lastSexteenTeams() {
-        return null;
-    }
-
 
     private void handleDrawForTeamsPerSite(List<Team> teams, List<Groupe> groupes) {
         int index = 0;
@@ -160,7 +155,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
     }
 
     @Override
-    public List<Team> qualifiedTeamsToLastSexteen() {
+    public List<Team> qualifiedTeamsToLastSixteen() {
         List<MatchDisputee> allMatchs = matchService.getAllMatchs();
         AtomicBoolean endGroupPhase = new AtomicBoolean(false);
         AtomicInteger GroupPhase = new AtomicInteger(0);
@@ -179,8 +174,6 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
             System.out.println("Not Yet Over");
         } else {
             teams = groupTeamRepository.findByOrderByGroupAsc(Sort.by("cumulPoint").descending());
-
-
 
             for (int i = 0; i < teams.size(); i = i + 4) {
                 newTeams.add(teams.get(i).getTeam());
@@ -283,85 +276,4 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
 
 
 }
-
-
-/*
-    private void toQuarterFinal(MatchDisputee matchDisputee){
-        int scoreTeamHome = matchDisputee.getScoreHome();
-        int scoreTeamAway = matchDisputee.getScoreAway();
-        Team teamHome =  matchDisputee.getTeamHome();
-        Team teamAway = matchDisputee.getTeamAway();
-
-        List<MatchDisputee> matches = (List<MatchDisputee>) matchService.getAllMatchs().stream().filter(g -> g.getStage() == Statut.LAST_SIXTEEN);
-
-        Stream<MatchDisputee> matchesCasa = matches.stream().filter(m -> m.getSite() == Site.CASABLANCA);
-        Stream<MatchDisputee> matchesRabat = matches.stream().filter(m -> m.getSite() == Site.RABAT);
-
-        if(matchDisputee.getSite() == Site.CASABLANCA ){
-            if(scoreTeamHome > scoreTeamAway) {
-                List<MatchDisputee> nextMatchs = matchService.getMatchByStage(Statut.QUART_FINAL);
-                nextMatchs.stream().filter(m -> m.getTeamHome() != null || m.getTeamAway() != null)
-                        .findAny();
-
-                System.out.println(nextMatchs.toString());
-            }
-            if(scoreTeamHome < scoreTeamAway) {
-
-            }
-        }
-        else{
-
-        }
-
-    }
-
-
-    @Override
-    public List<Team> lastSexteenTeams() {
-        List<MatchDisputee> allMatchs = matchService.getAllMatchs();
-        allMatchs.stream()
-                .filter(g-> g.getStage() == Statut.LAST_SIXTEEN);
-
-        AtomicBoolean endGroupPhase = new AtomicBoolean(false);
-        AtomicInteger GroupPhase = new AtomicInteger(0);
-
-        for (MatchDisputee match : allMatchs) {
-            if (match.getMatchState() !=Match_State.END) {
-                GroupPhase.set(1);
-                break;
-            } else {
-                endGroupPhase.set(true);
-            }
-        }
-
-        System.out.println("" + GroupPhase.get());
-        List<GroupTeam> teams = new ArrayList<>();
-        List<Team> newTeams = new ArrayList<>();
-        if (GroupPhase.get() == 1) {
-            System.out.println("Not Yet Over");
-        } else {
-            //  teams = groupTeamRepository.findByOrderByCumulPointDesc(Sort.by("group").ascending());
-            teams = groupTeamRepository.findByOrderByGroupAsc(Sort.by("cumulPoint").descending());
-
-            for (int i = 0; i < teams.size(); i = i + 4) {
-                System.out.println(teams.get(i).getTeam());
-                newTeams.add(teams.get(i).getTeam());
-                newTeams.add(teams.get(i+1).getTeam());
-            }
-
-            teams.stream()
-                    .filter(g -> g.getGroup().getChampionship().getId() != null)
-                    .findFirst()
-                    .ifPresent(g -> {
-                        Championship ch = g.getGroup().getChampionship();
-                        ch.setStatut(Statut.QUART_FINAL);
-                        championshipService.updateChampionship(ch);
-                    });
-        }
-        planifierMatchQuatreFinal(newTeams);
-        return newTeams;
-    }
-
-*/
-
 
