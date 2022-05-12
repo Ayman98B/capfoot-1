@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/players")
+@CrossOrigin(origins = "*")
 public class PlayerController {
 
     @Autowired

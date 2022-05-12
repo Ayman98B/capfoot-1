@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,19 +21,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.capfoot.dto.ChampionshipCreationDto;
 import com.capgemini.capfoot.dto.ChampionshipResponseDto;
-import com.capgemini.capfoot.dto.MatchDisputeeResponseDto;
+import com.capgemini.capfoot.dto.ChampionshipUpdateDto;
+import com.capgemini.capfoot.dto.MatchResponseDto;
 import com.capgemini.capfoot.dto.TeamResponseDto;
+import com.capgemini.capfoot.entity.Admin;
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.GroupRepository;
+import com.capgemini.capfoot.service.AdminService;
 import com.capgemini.capfoot.service.ChampionshipService;
 import com.capgemini.capfoot.service.GroupService;
 import com.capgemini.capfoot.service.MatchService;
 import com.capgemini.capfoot.service.TeamService;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/api/v1/admin/dto/")
+=======
+@RequestMapping("/api/v2/admin")
+>>>>>>> main
 @CrossOrigin(origins = "*")
 public class AdminControllerDto {
 
@@ -51,21 +56,21 @@ public class AdminControllerDto {
 	GroupService groupService;
 
 	@Autowired
-	GroupRepository groupRepository;
+	AdminService adminService;
 
 	@GetMapping("matchs/all")
-	public ResponseEntity<List<MatchDisputeeResponseDto>> getAllMatchsDto() {
-		List<MatchDisputeeResponseDto> matchDisputeeDtos = new ArrayList<MatchDisputeeResponseDto>();
+	public ResponseEntity<List<MatchResponseDto>> getAllMatchsDto() {
+		List<MatchResponseDto> matchDisputeeDtos = new ArrayList<MatchResponseDto>();
 		for (MatchDisputee matchDisputee : matchService.getAllMatchs()) {
-			matchDisputeeDtos.add(MatchDisputeeResponseDto.createMatchDisputeeDto(matchDisputee));
+			matchDisputeeDtos.add(MatchResponseDto.createMatchDisputeeDto(matchDisputee));
 		}
 		return ResponseEntity.ok(matchDisputeeDtos);
 	}
 
 	@PostMapping("matchs/add")
-	public ResponseEntity<MatchDisputeeResponseDto> createMatchDto(@RequestBody MatchDisputee matchDisputee) {
+	public ResponseEntity<MatchResponseDto> createMatchDto(@RequestBody MatchDisputee matchDisputee) {
 
-		return ResponseEntity.ok(MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.addMatch(matchDisputee)));
+		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.addMatch(matchDisputee)));
 	}
 
 	@PostMapping("teams/add")
@@ -74,30 +79,30 @@ public class AdminControllerDto {
 	}
 
 	@PutMapping("matchs/teams/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> setTeamsDto(@PathVariable(value = "id") Long id,
+	public ResponseEntity<MatchResponseDto> setTeamsDto(@PathVariable(value = "id") Long id,
 			@RequestBody MatchDisputee setTeams) {
-		return ResponseEntity.ok(MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.setTeams(id, setTeams)));
+		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.setTeams(id, setTeams)));
 	}
 
 	@PutMapping("matchs/score/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> updateMatchScoreDto(@PathVariable(value = "id") Long id,
+	public ResponseEntity<MatchResponseDto> updateMatchScoreDto(@PathVariable(value = "id") Long id,
 			@RequestBody MatchDisputee updateTeamsScore) {
 		return ResponseEntity.ok(
-				MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.updateMatchScore(id, updateTeamsScore)));
+				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchScore(id, updateTeamsScore)));
 
 	}
 
 	@PutMapping("matchs/finalscore/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> updateMatchFinalScoreDto(@PathVariable("id") Long id,
+	public ResponseEntity<MatchResponseDto> updateMatchFinalScoreDto(@PathVariable("id") Long id,
 			@RequestBody MatchDisputee matchDisputee) {
 		return ResponseEntity.ok(
-				MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.updateMatchFinalScore(id, matchDisputee)));
+				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchFinalScore(id, matchDisputee)));
 
 	}
 
 	@GetMapping("matchs/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> getMatchByIdDto(@PathVariable("id") Long id) {
-		return ResponseEntity.ok(MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.getMatchById(id)));
+	public ResponseEntity<MatchResponseDto> getMatchByIdDto(@PathVariable("id") Long id) {
+		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.getMatchById(id)));
 
 	}
 
@@ -111,30 +116,45 @@ public class AdminControllerDto {
 
 	}
 
-	@PostMapping("championships/add")
-	public ResponseEntity<String> createChampionshipDto(@RequestBody ChampionshipCreationDto championshipDto) {
-		Championship champ = new Championship();
-		BeanUtils.copyProperties(championshipDto, champ);
-		championshipService.createChampionship(champ);
-		return ResponseEntity.ok("createChampionship");
+	@GetMapping("championships/{id}")
+	public ResponseEntity<ChampionshipResponseDto> getChampionship(@PathVariable("id") long id) {
+
+		return ResponseEntity
+				.ok(ChampionshipResponseDto.createChampionshipResponseDto(championshipService.getChampionshipById(id)));
 	}
 
+<<<<<<< HEAD
 	@PutMapping("championships/update/")
 	public ResponseEntity<String> updateChampionship(@RequestBody ChampionshipCreationDto championshipupdateDto) {
 		Championship champ = new Championship();
 		BeanUtils.copyProperties(championshipupdateDto, champ);
 		championshipService.updateChampionship(champ);
 		return ResponseEntity.ok("update Championship");
+=======
+	@PostMapping("championships/add")
+	public ResponseEntity<ChampionshipResponseDto> createChampionshipDto(
+			@RequestBody ChampionshipCreationDto championshipDto) {
+		Admin admin = adminService.getAdminById(championshipDto.getAdminId());
+		Championship champ = ChampionshipCreationDto.transferToChampionship(championshipDto, admin);
+		return ResponseEntity.ok(
+				ChampionshipResponseDto.createChampionshipResponseDto(championshipService.createChampionship(champ)));
+	}
+
+	@PutMapping("championships/update")
+	public ResponseEntity<ChampionshipResponseDto> updateChampionship(
+			@RequestBody ChampionshipUpdateDto championshipDto) {
+		Admin admin = adminService.getAdminById(championshipDto.getAdminId());
+		Championship champ = ChampionshipUpdateDto.transferToChampionship(championshipDto, admin);
+
+		return ResponseEntity.ok(
+				ChampionshipResponseDto.createChampionshipResponseDto(championshipService.updateChampionship(champ)));
+>>>>>>> main
 	}
 
 	@DeleteMapping("championships/delete/{id}")
-	public void /* ResponseEntity<ChampionshipResponseDto> */ deleteChampionship(@PathVariable("id") Long id) {
+	public ResponseEntity<String> deleteChampionship(@PathVariable("id") Long id) {
 		championshipService.deleteChampionship(id);
-		/*
-		 * return ResponseEntity.ok(
-		 * ChampionshipResponseDto.createChampionshipResponseDto(championshipService.
-		 * deleteChampionship(id)) );
-		 */
+		return ResponseEntity.ok("Championship has been deleted !");
 	}
 
 	@RequestMapping(value = "/admin_auth", method = RequestMethod.GET)

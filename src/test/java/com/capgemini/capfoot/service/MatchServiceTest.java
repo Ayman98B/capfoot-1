@@ -1,22 +1,18 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.Site;
-import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.repository.MatchRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.BDDMockito.anyLong;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
@@ -27,24 +23,20 @@ public class MatchServiceTest {
     @Autowired
     private MatchService matchService;
 
-    @TestConfiguration
-    static class TodoServiceContextConfiguration{
-        @Bean
-        public MatchService matchService(){
-            return new MatchServiceImpl();
-        }
-    }
-
     @Test
     public void whenUpdateScore_WillReturnUpdatedScore(){
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
+
+                new MatchDisputee(1L, Championship_State.GROUPE, LocalDate.now(), Site.CASABLANCA, 0, 0,Match_State.PENDING, null, null);
+
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedScore =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 3, null, null, null);
+
+                new MatchDisputee(1L, Championship_State.GROUPE, LocalDate.now(), Site.CASABLANCA, 0, 3,Match_State.PENDING, null, null);
+
 
 
         matchService.updateMatchFinalScore(1L,updatedScore);
@@ -60,12 +52,12 @@ public class MatchServiceTest {
         Team team2 = new Team(1L, "team1", Site.CASABLANCA, null, 7, null);
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
+                new MatchDisputee(1L, Championship_State.GROUPE, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedTeams =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, team1, team2);
+                new MatchDisputee(1L, Championship_State.GROUPE, LocalDate.now(), Site.CASABLANCA, 0, 0, null, team1, team2);
 
 
         matchService.setTeams(1L,updatedTeams);
@@ -78,12 +70,12 @@ public class MatchServiceTest {
     public void whenUpdateScoreTeams_WillReturnUpdatedScoreTeam(){
 
         MatchDisputee matchDisputee =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
+                new MatchDisputee(1L, Championship_State.GROUPE, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);
 
         given(matchRepository.findById(anyLong())).willReturn(Optional.of(matchDisputee));
 
         MatchDisputee updatedScoreTeams =
-                new MatchDisputee(1L, true, true, LocalDate.now(), Site.CASABLANCA, 2, 3, null, null, null);
+                new MatchDisputee(1L, Championship_State.GROUPE, LocalDate.now(), Site.CASABLANCA, 2, 3, null, null, null);
 
 
         matchService.updateMatchFinalScore(1L,updatedScoreTeams);

@@ -39,13 +39,13 @@ public class TeamServiceTest {
         team.setName("test name");
 
         List<Player> players = new ArrayList<>();
-        Player player1 = new Player(null,"test","test","test","test","test","test",true,true,true,null);
-        Player player2 = new Player(null,"test2","test","test2","test2","test2","test",true,true,true,null);
-        Player player3 = new Player(null,"test3","test","test3","test3","test3","test",true,true,true,null);
-        Player player4 = new Player(null,"test4","test","test4","test4","test4","test",true,true,true,null);
-        Player player5 = new Player(null,"test5","test","test5","test5","test5","test",true,true,true,null);
-        Player player6 = new Player(null,"test6","test","test6","test6","test6","test",true,true,true,null);
-        Player player7 = new Player(null,"test7","test","test7","test7","test7","test",true,true,true,null);
+        Player player1 = new Player(null,"test","test","test","test","test",true,true,true,null);
+        Player player2 = new Player(null,"test2","test2","test2","test2","test",true,true,true,null);
+        Player player3 = new Player(null,"test3","test3","test3","test3","test",true,true,true,null);
+        Player player4 = new Player(null,"test4","test4","test4","test4","test",true,true,true,null);
+        Player player5 = new Player(null,"test5","test5","test5","test5","test",true,true,true,null);
+        Player player6 = new Player(null,"test6","test6","test6","test6","test",true,true,true,null);
+        Player player7 = new Player(null,"test7","test7","test7","test7","test",true,true,true,null);
 
         players.add(player1);
         players.add(player2);
@@ -59,7 +59,6 @@ public class TeamServiceTest {
         when(teamRepository.save(ArgumentMatchers.any(Team.class))).thenReturn(team);
         Team createdTeam = teamService.addTeam(team);
         assertThat(createdTeam.getPlayers().size()).isEqualTo(7);
-
     }
 
 
