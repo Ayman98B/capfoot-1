@@ -1,22 +1,13 @@
 package com.capgemini.capfoot.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
+import com.capgemini.capfoot.entity.*;
+import com.capgemini.capfoot.repository.ChampionshipRepo;
 import com.capgemini.capfoot.repository.PlayerRepository;
+import com.capgemini.capfoot.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.GroupTeam;
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.entity.Player;
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.ChampionshipRepo;
-import com.capgemini.capfoot.repository.TeamRepository;
+import java.util.*;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -118,6 +109,9 @@ public class TeamServiceImpl implements TeamService {
 		return new ArrayList<>(teams);
 	}
 
-	
+	@Override
+	public List<Team> getAllTeamsByStage(Championship_State stage) {
+		return teamRepository.findByStage(stage);
+	}
 
 }
