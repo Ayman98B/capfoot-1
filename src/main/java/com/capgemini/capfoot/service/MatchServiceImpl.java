@@ -26,7 +26,6 @@ public class MatchServiceImpl implements MatchService{
 	
 	@Override
 	public List<MatchDisputee> getAllMatchs() {
-
 		return matchRepository.findAll();
 	}
 
