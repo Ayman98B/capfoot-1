@@ -32,7 +32,7 @@ public class Championship {
 	private LocalDate endDate = LocalDate.now().plusDays(30);
 
 	@Enumerated(EnumType.STRING)
-	private Statut statut = Statut.INSCRIPTION;
+	private Championship_State statut = Championship_State.INSCRIPTION;
 
 	@Column(nullable = false)
 	private boolean progress = true;

@@ -1,7 +1,7 @@
 package com.capgemini.capfoot.service;
 
+import com.capgemini.capfoot.entity.Championship_State;
 import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.Statut;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface MatchService {
 
 	public MatchDisputee getMatchById(Long id);
 
-	public List<MatchDisputee> getMatchByStage(Statut stage);
+	public List<MatchDisputee> getMatchByStage(Championship_State stage);
 
 	public MatchDisputee addMatch(MatchDisputee match);
 

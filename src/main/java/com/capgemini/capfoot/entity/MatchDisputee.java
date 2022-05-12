@@ -17,7 +17,7 @@ public class MatchDisputee {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Enumerated(EnumType.STRING)
-	private Statut stage = Statut.GROUPE;
+	private Championship_State stage = Championship_State.GROUPE;
 	private LocalDate matchDate;
 	@Enumerated(EnumType.STRING)
 	private Site site;
@@ -33,14 +33,14 @@ public class MatchDisputee {
 	@ManyToOne
 	private Team teamAway;
 
-	public MatchDisputee(Statut stage, Site site, Team team_home, Team team_away) {
+	public MatchDisputee(Championship_State stage, Site site, Team team_home, Team team_away) {
 		this.stage = stage;
 		this.site = site;
 		this.teamHome = team_home;
 		this.teamAway = team_away;
 	}
 
-	public MatchDisputee(long l, Statut stage, LocalDate now, Site site, int i, int i1, State state, Team team_home, Team team_away) {
+	public MatchDisputee(long l, Championship_State stage, LocalDate now, Site site, int i, int i1, State state, Team team_home, Team team_away) {
 		this.stage = stage;
 		this.site = site;
 		this.matchState = state;

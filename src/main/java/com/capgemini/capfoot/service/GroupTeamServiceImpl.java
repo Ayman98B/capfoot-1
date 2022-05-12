@@ -149,7 +149,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
             for (int j = i + 1; j < fourTeamsGroup.size(); j++) {
                 Team team_home = fourTeamsGroup.get(j);
                 MatchDisputee matchDispute =
-                        new MatchDisputee(Statut.GROUPE, fourTeamsGroup.get(i).getSite(), team_home, team_away);
+                        new MatchDisputee(Championship_State.GROUPE, fourTeamsGroup.get(i).getSite(), team_home, team_away);
                 matchService.addMatch(matchDispute);
             }
         }
@@ -190,7 +190,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
                     .findFirst()
                     .ifPresent(g -> {
                         Championship ch = g.getGroup().getChampionship();
-                        ch.setStatut(Statut.QUART_FINAL);
+                        ch.setStatut(Championship_State.QUART_FINAL);
                         championshipService.updateChampionship(ch);
                     });
         }
@@ -206,9 +206,9 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
             Team team_home1 = quartsFinaleTeams.get(i + 2);
 
             MatchDisputee matchDispute =
-                    new MatchDisputee(Statut.LAST_SEXTEEN, quartsFinaleTeams.get(i).getSite(), team_home, team_away);
+                    new MatchDisputee(Championship_State.LAST_SEXTEEN, quartsFinaleTeams.get(i).getSite(), team_home, team_away);
             MatchDisputee matchDispute1 =
-                    new MatchDisputee(Statut.LAST_SEXTEEN, quartsFinaleTeams.get(i).getSite(), team_home1, team_away1);
+                    new MatchDisputee(Championship_State.LAST_SEXTEEN, quartsFinaleTeams.get(i).getSite(), team_home1, team_away1);
             matchService.addMatch(matchDispute);
             matchService.addMatch(matchDispute1);
 

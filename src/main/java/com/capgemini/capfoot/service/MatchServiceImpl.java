@@ -34,7 +34,7 @@ public class MatchServiceImpl implements MatchService{
 	}
 
 	@Override
-	public List<MatchDisputee> getMatchByStage(Statut stage) {
+	public List<MatchDisputee> getMatchByStage(Championship_State stage) {
 
 		return matchRepository.findByStage(stage);
 	}
@@ -87,7 +87,7 @@ public class MatchServiceImpl implements MatchService{
 
 			int totalMatchs = groupByTeam.getNbDrawMatch() + groupByTeam.getNbWonMatch() + groupByTeam.getNbLossMatch();
 			if(!matchUpdateScore.get().isUpdated()){
-				if(updateTeamsScore.getMatchState() == State.END  && totalMatchs < 3 && updateTeamsScore.getStage() == Statut.GROUPE){
+				if(updateTeamsScore.getMatchState() == State.END  && totalMatchs < 3 && updateTeamsScore.getStage() == Championship_State.GROUPE){
 					matchUpdateScore.get().setUpdated(true);
 					if(scoreTeamHome > scoreTeamAway) {
 						groupTeamService.addWin(teamHome,groupByTeam.getGroup());
@@ -98,7 +98,7 @@ public class MatchServiceImpl implements MatchService{
 						groupTeamService.addWin(teamAway,groupByTeam.getGroup());
 					}
 				}
-			} if(updateTeamsScore.getMatchState() == State.END && updateTeamsScore.getStage() == Statut.LAST_SEXTEEN){
+			} if(updateTeamsScore.getMatchState() == State.END && updateTeamsScore.getStage() == Championship_State.LAST_SEXTEEN){
 				matchUpdateScore.get().setUpdated(true);
 				groupTeamService.lastSexteenTeams();
 			}

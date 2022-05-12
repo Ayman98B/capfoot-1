@@ -1,13 +1,12 @@
 package com.capgemini.capfoot.dto;
 
-import java.time.LocalDate;
-
 import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Statut;
-
+import com.capgemini.capfoot.entity.Championship_State;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +19,7 @@ public class ChampionshipCreationDto {
 
 	private LocalDate endDate;
 
-	private Statut statut;
+	private Championship_State statut;
 
 	private boolean progress;
 

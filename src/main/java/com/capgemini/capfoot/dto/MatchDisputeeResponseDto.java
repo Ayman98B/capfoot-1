@@ -3,7 +3,7 @@ package com.capgemini.capfoot.dto;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Site;
 import com.capgemini.capfoot.entity.State;
-import com.capgemini.capfoot.entity.Statut;
+import com.capgemini.capfoot.entity.Championship_State;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ public class MatchDisputeeResponseDto {
 
 	private Long id;
 	@Enumerated(EnumType.STRING)
-	private Statut stage = Statut.GROUPE;
+	private Championship_State stage = Championship_State.GROUPE;
 	private LocalDate matchDate;
 
 	private Site site;
