@@ -3,6 +3,7 @@ package com.capgemini.capfoot.service;
 import java.util.Arrays;
 import java.util.List;
 
+import com.capgemini.capfoot.entity.MatchDisputee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,9 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	GroupRepository groupRepository;
 
 	@Autowired
+	MatchService matchService;
+
+	@Autowired
 	PlayerService playerService;
 
 	public ChampionshipServiceImpl(ChampionshipRepo championshipRepo) {
@@ -56,7 +60,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			log.error("Championship not found !");
 			throw new ChampionshipNotFoundException(idCamp);
 		} else {
-			log.info("championship with id "+idCamp+"found !");
+			log.info("championship with id " + idCamp + "found !");
 			return championshipRepo.findById(idCamp).get();
 		}
 
@@ -90,21 +94,29 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			Championship oldChamp = championshipRepo.findById(updateChamp.getId()).get();
 			if (oldChamp.getStatut() != updateChamp.getStatut()) {
 
-				List<Team> teams = teamService.getAllTeamsByChampionat(oldChamp.getId());
-				log.info("Sending Email...");
-				try {
-					emailService.sendEmailToAllPlayers(teams,
-							"Cap du monde: Update et informations de la phase précédente et le planning des matches",
-							"test");
-				} catch (MailException mailException) {
-					mailException.getStackTrace();
-				} catch (Exception e) {
-					log.error("Erreur d'envoie d'email: " + e);
-					e.printStackTrace();
-				}
+        log.info("Update matches states ...");
+        List<MatchDisputee> allMatchs = matchService.getAllMatchs();
+				allMatchs.forEach((matchDisputee -> matchDisputee.setStage(updateChamp.getStatut())));
+        
+				log.info("Sending Email ...");
+				sendEmail(oldChamp);
+				log.info("Email Sent ...");
 
 			}
 			return championshipRepo.save(updateChamp);
+		}
+	}
+
+	public void sendEmail(Championship oldChamp) {
+		List<Team> teams = teamService.getAllTeamsByChampionat(oldChamp.getId());
+		try {
+			emailService.sendEmailToAllPlayers(teams,
+					"Cap du monde: Update et informations de la phase précédente et le planning des matches");
+		} catch (MailException mailException) {
+			mailException.getStackTrace();
+		} catch (Exception e) {
+			log.error("Erreur d'envoie d'email: " + e);
+			e.printStackTrace();
 		}
 	}
 

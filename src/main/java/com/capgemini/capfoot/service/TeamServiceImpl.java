@@ -36,6 +36,11 @@ public class TeamServiceImpl implements TeamService {
 			System.out.println("Le nombre de joueurs par equipe doit etre egale à 7");
 		return teamRepository.save(team);
 	}
+	
+	@Override
+	public Team getTeamById(Long idTeam) {
+		return teamRepository.findById(idTeam).get();
+	}
 
 	@Override
 	public Team getTeamByName(String name) {

@@ -7,6 +7,7 @@ import com.capgemini.capfoot.repository.PlayerRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
 import com.capgemini.capfoot.service.AdminService;
 import com.capgemini.capfoot.service.ChampionshipService;
+import com.capgemini.capfoot.service.EmailService;
 import com.capgemini.capfoot.service.GroupTeamService;
 import com.capgemini.capfoot.service.PlayerService;
 import com.capgemini.capfoot.service.TeamService;
@@ -19,6 +20,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 
 @SpringBootApplication
@@ -50,6 +53,9 @@ public class CapfootApplication implements CommandLineRunner {
     
     @Autowired
     PlayerService playerService;
+    
+    @Autowired
+    EmailService emailService;
     public static void main(String[] args) {
 
         SpringApplication.run(CapfootApplication.class, args);
@@ -157,7 +163,7 @@ public class CapfootApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws MessagingException {
     	adminService.createAdmin(admin);
         championshipService.createChampionship(capfoot);
         casaTeams.forEach(TeamCasa -> teamService.inscription(TeamCasa));
@@ -165,10 +171,17 @@ public class CapfootApplication implements CommandLineRunner {
         groupRepository.saveAll(GROUPS);
         groupTeamService.launchDraw();
         
-        List<Team> teams = teamService.getAllTeamsByChampionat(2L);
+        /*System.out.println("Sending email ... ");
+        emailService.sendEmail("o.intissar@mundiapolis.ma", "Test");
+        System.out.println("Email sent... ");
+		*/
+		
+        /*List<Team> teams = teamService.getAllTeamsByChampionat(2L);
         for(Team player: teams) {
             System.out.println("Team : " + player);
             }
+        
+        */
         
         /*
         List<Player> capitains = playerService.getAllCaptains();

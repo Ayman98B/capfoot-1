@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.capfoot.dto.ChampionshipCreationDto;
 import com.capgemini.capfoot.dto.ChampionshipResponseDto;
 import com.capgemini.capfoot.dto.ChampionshipUpdateDto;
-import com.capgemini.capfoot.dto.MatchDisputeeResponseDto;
+import com.capgemini.capfoot.dto.MatchResponseDto;
 import com.capgemini.capfoot.dto.TeamResponseDto;
 import com.capgemini.capfoot.entity.Admin;
 import com.capgemini.capfoot.entity.Championship;
@@ -55,18 +55,18 @@ public class AdminControllerDto {
 	AdminService adminService;
 
 	@GetMapping("matchs/all")
-	public ResponseEntity<List<MatchDisputeeResponseDto>> getAllMatchsDto() {
-		List<MatchDisputeeResponseDto> matchDisputeeDtos = new ArrayList<MatchDisputeeResponseDto>();
+	public ResponseEntity<List<MatchResponseDto>> getAllMatchsDto() {
+		List<MatchResponseDto> matchDisputeeDtos = new ArrayList<MatchResponseDto>();
 		for (MatchDisputee matchDisputee : matchService.getAllMatchs()) {
-			matchDisputeeDtos.add(MatchDisputeeResponseDto.createMatchDisputeeDto(matchDisputee));
+			matchDisputeeDtos.add(MatchResponseDto.createMatchDisputeeDto(matchDisputee));
 		}
 		return ResponseEntity.ok(matchDisputeeDtos);
 	}
 
 	@PostMapping("matchs/add")
-	public ResponseEntity<MatchDisputeeResponseDto> createMatchDto(@RequestBody MatchDisputee matchDisputee) {
+	public ResponseEntity<MatchResponseDto> createMatchDto(@RequestBody MatchDisputee matchDisputee) {
 
-		return ResponseEntity.ok(MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.addMatch(matchDisputee)));
+		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.addMatch(matchDisputee)));
 	}
 
 	@PostMapping("teams/add")
@@ -75,30 +75,30 @@ public class AdminControllerDto {
 	}
 
 	@PutMapping("matchs/teams/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> setTeamsDto(@PathVariable(value = "id") Long id,
+	public ResponseEntity<MatchResponseDto> setTeamsDto(@PathVariable(value = "id") Long id,
 			@RequestBody MatchDisputee setTeams) {
-		return ResponseEntity.ok(MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.setTeams(id, setTeams)));
+		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.setTeams(id, setTeams)));
 	}
 
 	@PutMapping("matchs/score/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> updateMatchScoreDto(@PathVariable(value = "id") Long id,
+	public ResponseEntity<MatchResponseDto> updateMatchScoreDto(@PathVariable(value = "id") Long id,
 			@RequestBody MatchDisputee updateTeamsScore) {
 		return ResponseEntity.ok(
-				MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.updateMatchScore(id, updateTeamsScore)));
+				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchScore(id, updateTeamsScore)));
 
 	}
 
 	@PutMapping("matchs/finalscore/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> updateMatchFinalScoreDto(@PathVariable("id") Long id,
+	public ResponseEntity<MatchResponseDto> updateMatchFinalScoreDto(@PathVariable("id") Long id,
 			@RequestBody MatchDisputee matchDisputee) {
 		return ResponseEntity.ok(
-				MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.updateMatchFinalScore(id, matchDisputee)));
+				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchFinalScore(id, matchDisputee)));
 
 	}
 
 	@GetMapping("matchs/{id}")
-	public ResponseEntity<MatchDisputeeResponseDto> getMatchByIdDto(@PathVariable("id") Long id) {
-		return ResponseEntity.ok(MatchDisputeeResponseDto.createMatchDisputeeDto(matchService.getMatchById(id)));
+	public ResponseEntity<MatchResponseDto> getMatchByIdDto(@PathVariable("id") Long id) {
+		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.getMatchById(id)));
 
 	}
 
@@ -131,8 +131,8 @@ public class AdminControllerDto {
 	@PutMapping("championships/update")
 	public ResponseEntity<ChampionshipResponseDto> updateChampionship(
 			@RequestBody ChampionshipUpdateDto championshipDto) {
-
-		Championship champ = ChampionshipUpdateDto.transferToChampionship(championshipDto);
+		Admin admin = adminService.getAdminById(championshipDto.getAdminId());
+		Championship champ = ChampionshipUpdateDto.transferToChampionship(championshipDto, admin);
 
 		return ResponseEntity.ok(
 				ChampionshipResponseDto.createChampionshipResponseDto(championshipService.updateChampionship(champ)));

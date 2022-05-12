@@ -8,6 +8,8 @@ import java.util.List;
 public interface TeamService {
 
 	Team addTeam(Team team);
+	
+	Team getTeamById(Long idTeam);
 
 	Team getTeamByName(String name);
 
