@@ -1,6 +1,5 @@
 package com.capgemini.capfoot.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +56,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			log.error("Championship not found !");
 			throw new ChampionshipNotFoundException(idCamp);
 		} else {
+			log.info("championship with id "+idCamp+"found !");
 			return championshipRepo.findById(idCamp).get();
 		}
 
