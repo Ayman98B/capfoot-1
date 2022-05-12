@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchDisputee {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
