@@ -5,8 +5,10 @@ import com.capgemini.capfoot.repository.ChampionshipRepo;
 import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.PlayerRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
+import com.capgemini.capfoot.service.AdminService;
 import com.capgemini.capfoot.service.ChampionshipService;
 import com.capgemini.capfoot.service.GroupTeamService;
+import com.capgemini.capfoot.service.PlayerService;
 import com.capgemini.capfoot.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -42,12 +44,19 @@ public class CapfootApplication implements CommandLineRunner {
 
     @Autowired
     ChampionshipService championshipService;
+    
+    @Autowired
+    AdminService adminService;
+    
+    @Autowired
+    PlayerService playerService;
     public static void main(String[] args) {
 
         SpringApplication.run(CapfootApplication.class, args);
     }
 
-    Championship capfoot = createChampionship();
+    Admin admin = createAdmin();
+    Championship capfoot = createChampionship(admin);
 
     List<Team> casaTeams = Arrays.asList(
             generateTeam(Site.CASABLANCA,"team_1"),generateTeam(Site.CASABLANCA,"team_2"),generateTeam(Site.CASABLANCA,"team_3"),generateTeam(Site.CASABLANCA,"team_4"),
@@ -92,14 +101,24 @@ public class CapfootApplication implements CommandLineRunner {
         return new Groupe(groupName);
     }
 
-    private static Championship createChampionship(){
+    private static Championship createChampionship(Admin admin){
         Championship capfoot = new Championship();
         capfoot.setLabel("Capfoot");
         capfoot.setStartDate(LocalDate.now());
         capfoot.setEndDate(LocalDate.of(2022,05,10));
-        capfoot.setAdmin(null);
+        capfoot.setAdmin(admin);
 
         return capfoot;
+    }
+    
+    private static Admin createAdmin(){
+        Admin admin = new Admin();
+        admin.setFirstName("admin");
+        admin.setLastName("Admin");
+        admin.setPassword("password");
+        admin.setEmailAdress("email@gmail.com");
+        admin.setChampionships(null);
+        return admin;
     }
 
     private Team generateTeam(Site site, String name){
@@ -109,8 +128,7 @@ public class CapfootApplication implements CommandLineRunner {
         List players = new ArrayList<>();
         for(int i = 0 ; i<6;i++){
             Player p = new Player(
-                    "first Name",
-                    "last Name",
+                    "full Name",
                     "cin",
                     "062104980",
                     "mail@cap.Com",
@@ -123,8 +141,7 @@ public class CapfootApplication implements CommandLineRunner {
             players.add(p);
         }
         Player p = new Player(
-                "first Name",
-                "last Name",
+                "full Name",
                 "cin",
                 "062104980",
                 "mail@cap.Com",
@@ -141,14 +158,25 @@ public class CapfootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+    	adminService.createAdmin(admin);
         championshipService.createChampionship(capfoot);
         casaTeams.forEach(TeamCasa -> teamService.inscription(TeamCasa));
         rabatTeams.forEach(TeamRabat -> teamService.inscription(TeamRabat));
         groupRepository.saveAll(GROUPS);
         groupTeamService.launchDraw();
+        
+        List<Team> teams = teamService.getAllTeamsByChampionat(2L);
+        for(Team player: teams) {
+            System.out.println("Team : " + player);
+            }
+        
+        /*
+        List<Player> capitains = playerService.getAllCaptains();
 
-
-        /*teamRepository.saveAll(CASA_TEAMS);
+        for(Player player: capitains) {
+        System.out.println("Captain : " + player);
+        }
+        teamRepository.saveAll(CASA_TEAMS);
         teamRepository.saveAll(RABAT_TEAMS);
         groupTeamService.launchDraw();*/
     }

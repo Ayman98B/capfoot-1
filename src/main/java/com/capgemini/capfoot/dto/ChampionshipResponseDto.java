@@ -45,11 +45,15 @@ public class ChampionshipResponseDto {
 	}
 
 	public static List<GroupeResponseDto> createGroupeTeamsDtos(List<Groupe> group) {
-		List<GroupeResponseDto> groupDtos = new ArrayList<GroupeResponseDto>();
-		for (Groupe groupTemp : group) {
-			groupDtos.add(GroupeResponseDto.createGroupeDto(groupTemp));
+		if (group == null) {
+			return null;
+		} else {
+			List<GroupeResponseDto> groupDtos = new ArrayList<GroupeResponseDto>();
+			for (Groupe groupTemp : group) {
+				groupDtos.add(GroupeResponseDto.createGroupeDto(groupTemp));
+			}
+			return groupDtos;
 		}
-		return groupDtos;
 	}
 
 }

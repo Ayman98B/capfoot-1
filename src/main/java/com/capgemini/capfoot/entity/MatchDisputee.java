@@ -25,8 +25,10 @@ public class MatchDisputee {
 	private int scoreAway;
 	private int[] scoreMatch;
 	@Enumerated(EnumType.STRING)
+
 	private State matchState = State.PENDING;
 	private boolean updated = false;
+	private Match_State matchState = Match_State.PENDING;
 	@ManyToOne
 	private Team teamHome;
 
@@ -39,6 +41,7 @@ public class MatchDisputee {
 		this.teamHome = team_home;
 		this.teamAway = team_away;
 	}
+
 
 	public MatchDisputee(long l, Championship_State stage, LocalDate now, Site site, int i, int i1, State state, Team team_home, Team team_away) {
 		this.stage = stage;

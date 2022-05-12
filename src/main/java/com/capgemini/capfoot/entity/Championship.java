@@ -35,14 +35,14 @@ public class Championship {
 	private Championship_State statut = Championship_State.INSCRIPTION;
 
 	@Column(nullable = false)
-	private boolean progress = true;
+	private boolean progress = false;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "championship", fetch = FetchType.EAGER)
 	@ToString.Exclude
 	private List<Groupe> groups;
 
 	@ManyToOne
 	private Admin admin;
-
+	
 }

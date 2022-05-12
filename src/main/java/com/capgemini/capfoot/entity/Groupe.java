@@ -25,8 +25,9 @@ public class Groupe {
 	@ManyToOne
 	private Championship championship;
 
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "group",fetch = FetchType.EAGER)
 	@ToString.Exclude
 	private List<GroupTeam> groupTeams;
 

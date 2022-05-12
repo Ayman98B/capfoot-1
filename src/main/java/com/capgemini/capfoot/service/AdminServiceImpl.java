@@ -1,36 +1,36 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.Admin;
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.repository.AdminRepository;
-import com.capgemini.capfoot.repository.ChampionshipRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.capgemini.capfoot.entity.Admin;
+import com.capgemini.capfoot.exception.AdminNotFoundException;
+import com.capgemini.capfoot.repository.AdminRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    AdminRepository adminRepository;
+	@Autowired
+	AdminRepository adminRepository;
 
-/*
-    @Override
-    public void add(Admin admin) {
-        adminRepository.save(admin);
-    }
+	@Override
+	public Admin createAdmin(Admin admin) {
+		log.info("Entred create admin");
+		return adminRepository.save(admin);
+	}
 
-    @Override
-    public void delete(Long id) {
-        adminRepository.deleteById(id);
-    }
-
-    @Override
-    public void update(Admin admin) {
-
-    }
-*/
+	@Override
+	public Admin getAdminById(Long id) {
+		log.info("Entred get admin by id");
+		if (!adminRepository.findById(id).isPresent()) {
+			log.error("Admin not found !");
+			throw new AdminNotFoundException(id);
+		} else {
+			return adminRepository.findById(id).get();
+		}
+	}
 
 }
