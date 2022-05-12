@@ -128,8 +128,7 @@ public class CapfootApplication implements CommandLineRunner {
         List players = new ArrayList<>();
         for(int i = 0 ; i<6;i++){
             Player p = new Player(
-                    "first Name",
-                    "last Name",
+                    "full Name",
                     "cin",
                     "062104980",
                     "mail@cap.Com",
@@ -142,8 +141,7 @@ public class CapfootApplication implements CommandLineRunner {
             players.add(p);
         }
         Player p = new Player(
-                "first Name",
-                "last Name",
+                "full Name",
                 "cin",
                 "062104980",
                 "mail@cap.Com",

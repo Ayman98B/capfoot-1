@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.capgemini.capfoot.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,10 @@ public class TeamServiceImpl implements TeamService {
 
 	@Autowired
 	PlayerServiceImpl playerService;
+
+	@Autowired
+
+	PlayerRepository playerRepository;
 
 	public TeamServiceImpl(TeamRepository teamRepository) {
 		this.teamRepository = teamRepository;
@@ -80,12 +85,17 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Team inscription(Team team) {
 		Team newTeam = this.addTeam(team);
-		List<Player> players = team.getPlayers();
+		List<Player> players = newTeam.getPlayers();
 		for (Player p : players) {
-			Player player = playerService.addPlayer(p);
-			playerService.addPlayerToTeam(newTeam.getId(), player.getId());
+			if (p.isAvailable())
+				{
+					p.setTeam(newTeam);
+					p.setAvailable(false);
+				}
+			else
+				System.out.println("Joueur n'est pas dispo");
 		}
-
+		playerRepository.saveAll(players);
 		return newTeam;
 	}
 

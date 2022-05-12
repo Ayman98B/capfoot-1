@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Admin getAdminById(Long id) {
 		log.info("Entred get admin by id");
-		if (adminRepository.findById(id).isEmpty()) {
+		if (!adminRepository.findById(id).isPresent()) {
 			log.error("Admin not found !");
 			throw new AdminNotFoundException(id);
 		} else {
