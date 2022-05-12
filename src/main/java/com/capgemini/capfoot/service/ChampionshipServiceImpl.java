@@ -7,7 +7,6 @@ import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +20,12 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	@Autowired
 	ChampionshipRepo championshipRepo;
 
-
 	GroupTeamService groupTeamService;
-	public ChampionshipServiceImpl(@Lazy GroupTeamService groupTeamService){
+	public void setChampionship(GroupTeamService groupTeamService) {
 		this.groupTeamService = groupTeamService;
 	}
+
+
 
 
 	@Autowired
