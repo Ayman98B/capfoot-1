@@ -268,7 +268,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         List<Team> FinalsTeams = qualifiedTeamsToFinals();
 
         MatchDisputee matchDispute =
-                new MatchDisputee(Championship_State.FINAL, FinalsTeams.get(1).getSite(), FinalsTeams.get(0), FinalsTeams.get(1));
+                new MatchDisputee(Championship_State.FINAL, Site.CASABLANCA, FinalsTeams.get(0), FinalsTeams.get(1));
         matchService.addMatch(matchDispute);
 
     }
