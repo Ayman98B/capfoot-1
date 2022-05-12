@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MatchDisputeeResponseDto {
+public class MatchResponseDto {
 
 	private Long id;
 	@Enumerated(EnumType.STRING)
@@ -32,8 +32,8 @@ public class MatchDisputeeResponseDto {
 
 	private Long teamAwayId;
 
-	public static MatchDisputeeResponseDto createMatchDisputeeDto(MatchDisputee matchDisputee) {
-		return new MatchDisputeeResponseDto(
+	public static MatchResponseDto createMatchDisputeeDto(MatchDisputee matchDisputee) {
+		return new MatchResponseDto(
 				matchDisputee.getId(), 
 				matchDisputee.getStage(),
 				matchDisputee.getMatchDate(), 

@@ -171,10 +171,10 @@ public class CapfootApplication implements CommandLineRunner {
         groupRepository.saveAll(GROUPS);
         groupTeamService.launchDraw();
         
-        System.out.println("Sending email ... ");
+        /*System.out.println("Sending email ... ");
         emailService.sendEmail("o.intissar@mundiapolis.ma", "Test");
         System.out.println("Email sent... ");
-		
+		*/
 		
         /*List<Team> teams = teamService.getAllTeamsByChampionat(2L);
         for(Team player: teams) {
