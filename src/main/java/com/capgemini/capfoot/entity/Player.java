@@ -1,5 +1,6 @@
 package com.capgemini.capfoot.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,7 @@ public class Player {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String firstName;
-	private String lastName;
+	private String fullName;
 	//@Column(unique=true)
 	private String cin;
 	//@Column(unique=true)
@@ -30,17 +30,17 @@ public class Player {
 	private boolean isAvailable;
 	@ManyToOne
 	@ToString.Exclude
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Team team;
 
-    public Player(long id, String firstName, String emailAddress) {
+    public Player(long id, String fullName, String emailAddress) {
 		this.id=id;
-		this.firstName=firstName;
+		this.fullName=fullName;
 		this.emailAddress=emailAddress;
     }
 
-	public Player(String firstName, String lastName, String cin, String phone, String emailAddress, String password, boolean isStartingPlayer, boolean isCaptain, boolean isAvailable, Team team) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public Player(String fullName, String cin, String phone, String emailAddress, String password, boolean isStartingPlayer, boolean isCaptain, boolean isAvailable, Team team) {
+		this.fullName = fullName;
 		this.cin = cin;
 		this.phone = phone;
 		this.emailAddress = emailAddress;

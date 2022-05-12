@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,10 +33,12 @@ public class Team {
 	
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<Player> players;
 	private int nbPlayers;
 	@OneToMany(mappedBy = "team")
 	@ToString.Exclude
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<GroupTeam> groupTeam;
 
 	public Team(long id, String name, String site, List<Player> players) {

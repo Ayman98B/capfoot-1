@@ -13,9 +13,7 @@ public class PlayerResponseDto {
 
 	private Long id;
 
-	private String firstName;
-
-	private String lastName;
+	private String fullName;
 
 	private String cin;
 
@@ -34,8 +32,7 @@ public class PlayerResponseDto {
 	public static PlayerResponseDto createPlayerDto(Player player) {
 		return new PlayerResponseDto(
 				player.getId(), 
-				player.getFirstName(), 
-				player.getLastName(), 
+				player.getFullName(),
 				player.getCin(),
 				player.getPhone(), 
 				player.getEmailAddress(), 

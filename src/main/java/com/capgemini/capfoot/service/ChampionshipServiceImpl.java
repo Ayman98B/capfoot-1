@@ -53,7 +53,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	@Override
 	public Championship getChampionshipById(Long idCamp) {
 		log.info("Entred get championship by id");
-		if (championshipRepo.findById(idCamp).isEmpty()) {
+		if (!championshipRepo.findById(idCamp).isPresent()) {
 			log.error("Championship not found !");
 			throw new ChampionshipNotFoundException(idCamp);
 		} else {
@@ -82,7 +82,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	public Championship updateChampionship(Championship updateChamp) {
 
 		log.info("Entred update championship");
-		if (championshipRepo.findById(updateChamp.getId()).isEmpty()) {
+		if (!championshipRepo.findById(updateChamp.getId()).isPresent()) {
 			log.error("Championship not found !");
 			throw new ChampionshipNotFoundException(updateChamp.getId());
 

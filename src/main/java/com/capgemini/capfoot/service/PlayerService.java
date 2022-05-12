@@ -11,6 +11,5 @@ public interface PlayerService {
     public void deletePlayer(Long id);
     public List<Player> getAllPlayers();
     public Player getPlayerById(Long id);
-    public void addPlayerToTeam(Long idPlayer, Long idTeam);
 
 }
