@@ -1,15 +1,13 @@
 package com.capgemini.capfoot.dto;
 
-import java.time.LocalDate;
-
+import com.capgemini.capfoot.entity.Championship_State;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Match_State;
 import com.capgemini.capfoot.entity.Site;
-import com.capgemini.capfoot.entity.State;
-import com.capgemini.capfoot.entity.Championship_State;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;

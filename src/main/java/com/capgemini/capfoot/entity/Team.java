@@ -1,17 +1,5 @@
 package com.capgemini.capfoot.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,8 +21,7 @@ public class Team {
 
 	@Enumerated(EnumType.STRING)
 	private Site site;
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@ToString.Exclude
+
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@ToString.Exclude
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

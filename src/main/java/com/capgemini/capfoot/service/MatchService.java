@@ -24,4 +24,5 @@ public interface MatchService {
 	public MatchDisputee updateMatchScore(Long id, MatchDisputee updateTeamsScore);
 
 	public MatchDisputee updateMatchFinalScore(Long id, MatchDisputee matchFinalScore);
+
 }

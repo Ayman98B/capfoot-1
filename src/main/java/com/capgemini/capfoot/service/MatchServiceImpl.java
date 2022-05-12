@@ -2,18 +2,12 @@ package com.capgemini.capfoot.service;
 
 import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.repository.MatchRepository;
-
-import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.capfoot.entity.GroupTeam;
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.Match_State;
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.MatchRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MatchServiceImpl implements MatchService{
@@ -94,25 +88,25 @@ public class MatchServiceImpl implements MatchService{
       
 			int totalMatchs = groupByTeam.getNbDrawMatch() + groupByTeam.getNbWonMatch() + groupByTeam.getNbLossMatch();
 			if(!matchUpdateScore.get().isUpdated()){
-				if(updateTeamsScore.getMatchState() == Match_State.END  && totalMatchs < 3 && updateTeamsScore.getStage() == Championship_State.GROUPE){
+				if(updateTeamsScore.getMatchState() == Match_State.END  && totalMatchs < 3 && updateTeamsScore.getStage() == Championship_State.GROUPE) {
 					matchUpdateScore.get().setUpdated(true);
-					if(scoreTeamHome > scoreTeamAway) {
-						groupTeamService.addWin(teamHome,groupByTeam.getGroup());
-						groupTeamService.addLoss(teamAway,groupByTeam.getGroup());
+					if (scoreTeamHome > scoreTeamAway) {
+						groupTeamService.addWin(teamHome, groupByTeam.getGroup());
+						groupTeamService.addLoss(teamAway, groupByTeam.getGroup());
 					}
-					if(scoreTeamHome < scoreTeamAway) {
-						groupTeamService.addLoss(teamHome,groupByTeam.getGroup());
-						groupTeamService.addWin(teamAway,groupByTeam.getGroup());
+					if (scoreTeamHome < scoreTeamAway) {
+						groupTeamService.addLoss(teamHome, groupByTeam.getGroup());
+						groupTeamService.addWin(teamAway, groupByTeam.getGroup());
 					}
-				if(scoreTeamHome == scoreTeamAway) {
-					groupTeamService.addDraw(teamHome,groupByTeam.getGroup());
-					groupTeamService.addDraw(teamAway,groupByTeam.getGroup());
+					if (scoreTeamHome == scoreTeamAway) {
+						groupTeamService.addDraw(teamHome, groupByTeam.getGroup());
+						groupTeamService.addDraw(teamAway, groupByTeam.getGroup());
+					}
 				}
-			} if(updateTeamsScore.getMatchState() == State.END && updateTeamsScore.getStage() == Championship_State.LAST_SEXTEEN){
+			} if(updateTeamsScore.getMatchState() ==Match_State.END && updateTeamsScore.getStage() == Championship_State.LAST_SEXTEEN){
 				matchUpdateScore.get().setUpdated(true);
 				groupTeamService.lastSexteenTeams();
 			}
-
 
 			else{
 				System.out.println("Already updated");;

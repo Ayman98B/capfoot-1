@@ -162,7 +162,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         AtomicInteger GroupPhase = new AtomicInteger(0);
 
         for (MatchDisputee match : allMatchs) {
-            if (match.getMatchState() != State.END) {
+            if (match.getMatchState() !=Match_State.END) {
                 GroupPhase.set(1);
                 break;
             } else {
@@ -257,7 +257,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         AtomicInteger GroupPhase = new AtomicInteger(0);
 
         for (MatchDisputee match : allMatchs) {
-            if (match.getMatchState() != State.END) {
+            if (match.getMatchState() !=Match_State.END) {
                 GroupPhase.set(1);
                 break;
             } else {

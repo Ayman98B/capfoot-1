@@ -1,9 +1,6 @@
 package com.capgemini.capfoot.dto;
 
 
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Championship_State;
-import java.time.LocalDate;
 import com.capgemini.capfoot.entity.Admin;
 import com.capgemini.capfoot.entity.Championship;
 import lombok.AllArgsConstructor;
@@ -22,14 +19,10 @@ public class ChampionshipCreationDto {
 	private LocalDate startDate;
 
 	private LocalDate endDate;
-
-	private Championship_State statut;
-
-	private boolean progress;
-
 	// private List<Groupe> groups;
 
 	private Long adminId;
+
 
 	public static ChampionshipCreationDto createChampionshipResponseDto(Championship championship) {
 		return new ChampionshipCreationDto(championship.getLabel(), championship.getStartDate(),
