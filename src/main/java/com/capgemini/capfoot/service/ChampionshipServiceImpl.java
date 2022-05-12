@@ -95,7 +95,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 				try {
 					emailService.sendEmailToAllPlayers(teams,
 							"Cap du monde: Update et informations de la phase précédente et le planning des matches");
-				} catch (MailException mailException) { 
+				} catch (MailException mailException) {
 					mailException.getStackTrace();
 				} catch (Exception e) {
 					log.error("Erreur d'envoie d'email: " + e);
