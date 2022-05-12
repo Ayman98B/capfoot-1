@@ -3,10 +3,13 @@ package com.capgemini.capfoot.dto;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Site;
 import com.capgemini.capfoot.entity.State;
+import com.capgemini.capfoot.entity.Statut;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 @Data
@@ -15,8 +18,8 @@ import java.time.LocalDate;
 public class MatchDisputeeResponseDto {
 
 	private Long id;
-	private boolean groupePhase;
-	private boolean directEliminationPhase;
+	@Enumerated(EnumType.STRING)
+	private Statut stage = Statut.GROUPE;
 	private LocalDate matchDate;
 
 	private Site site;
@@ -32,8 +35,7 @@ public class MatchDisputeeResponseDto {
 	public static MatchDisputeeResponseDto createMatchDisputeeDto(MatchDisputee matchDisputee) {
 		return new MatchDisputeeResponseDto(
 				matchDisputee.getId(), 
-				matchDisputee.isGroupePhase(),
-				matchDisputee.isDirectEliminationPhase(), 
+				matchDisputee.getStage(),
 				matchDisputee.getMatchDate(), 
 				matchDisputee.getSite(),
 				matchDisputee.getScoreHome(), 

@@ -1,14 +1,17 @@
 package com.capgemini.capfoot.service;
 
-import java.util.List;
-
 import com.capgemini.capfoot.entity.MatchDisputee;
+import com.capgemini.capfoot.entity.Statut;
+
+import java.util.List;
 
 public interface MatchService {
 
 	public List<MatchDisputee> getAllMatchs();
 
 	public MatchDisputee getMatchById(Long id);
+
+	public List<MatchDisputee> getMatchByStage(Statut stage);
 
 	public MatchDisputee addMatch(MatchDisputee match);
 

@@ -1,9 +1,6 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.GroupTeam;
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.State;
-import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -34,6 +31,12 @@ public class MatchServiceImpl implements MatchService{
 	public MatchDisputee getMatchById(Long id) {
 
 		return matchRepository.findById(id).get();
+	}
+
+	@Override
+	public List<MatchDisputee> getMatchByStage(Statut stage) {
+
+		return matchRepository.findByStage(stage);
 	}
 
 	@Override
@@ -84,7 +87,7 @@ public class MatchServiceImpl implements MatchService{
 
 			int totalMatchs = groupByTeam.getNbDrawMatch() + groupByTeam.getNbWonMatch() + groupByTeam.getNbLossMatch();
 			if(!matchUpdateScore.get().isUpdated()){
-				if(updateTeamsScore.getMatchState() == State.END  && totalMatchs < 3){
+				if(updateTeamsScore.getMatchState() == State.END  && totalMatchs < 3 && updateTeamsScore.getStage() == Statut.GROUPE){
 					matchUpdateScore.get().setUpdated(true);
 					if(scoreTeamHome > scoreTeamAway) {
 						groupTeamService.addWin(teamHome,groupByTeam.getGroup());
@@ -94,14 +97,15 @@ public class MatchServiceImpl implements MatchService{
 						groupTeamService.addLoss(teamHome,groupByTeam.getGroup());
 						groupTeamService.addWin(teamAway,groupByTeam.getGroup());
 					}
-					if(scoreTeamHome == scoreTeamAway) {
-						groupTeamService.addDraw(teamHome,groupByTeam.getGroup());
-						groupTeamService.addDraw(teamAway,groupByTeam.getGroup());
-					}
 				}
-			}else{
-				System.out.println("Already updated");;
+			} if(updateTeamsScore.getMatchState() == State.END && updateTeamsScore.getStage() == Statut.LAST_SEXTEEN){
+				matchUpdateScore.get().setUpdated(true);
+				groupTeamService.lastSexteenTeams();
+			}
 
+
+			else{
+				System.out.println("Already updated");;
 			}
 			int[] scoreMatch = new int[2];
 			scoreMatch[0] = updateTeamsScore.getScoreAway();

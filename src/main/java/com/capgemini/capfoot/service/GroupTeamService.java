@@ -12,8 +12,10 @@ public interface GroupTeamService {
     public void addWin(Team team, Groupe group);
     public void addLoss(Team team, Groupe group);
     public void addDraw(Team team, Groupe group);
+    public void qualify(Team team);
     public List<GroupTeam> launchDraw();
     GroupTeam getGroupByTeam(Team team);
     public List<Team> qualifiedTeams();
     List<GroupTeamResponseDto> getAll();
+    public List<Team> lastSexteenTeams();
 }

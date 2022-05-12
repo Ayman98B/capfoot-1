@@ -16,8 +16,8 @@ public class MatchDisputee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private boolean groupePhase;
-	private boolean directEliminationPhase;
+	@Enumerated(EnumType.STRING)
+	private Statut stage = Statut.GROUPE;
 	private LocalDate matchDate;
 	@Enumerated(EnumType.STRING)
 	private Site site;
@@ -33,17 +33,15 @@ public class MatchDisputee {
 	@ManyToOne
 	private Team teamAway;
 
-	public MatchDisputee(boolean b, boolean b1, Site site, Team team_home, Team team_away) {
-		this.groupePhase = b;
-		this.directEliminationPhase = b1;
+	public MatchDisputee(Statut stage, Site site, Team team_home, Team team_away) {
+		this.stage = stage;
 		this.site = site;
 		this.teamHome = team_home;
 		this.teamAway = team_away;
 	}
 
-	public MatchDisputee(long l, boolean b, boolean b1, LocalDate now, Site site, int i, int i1, State state, Team team_home, Team team_away) {
-		this.groupePhase = b;
-		this.directEliminationPhase = b1;
+	public MatchDisputee(long l, Statut stage, LocalDate now, Site site, int i, int i1, State state, Team team_home, Team team_away) {
+		this.stage = stage;
 		this.site = site;
 		this.matchState = state;
 		this.teamHome = team_home;
