@@ -131,8 +131,8 @@ public class AdminControllerDto {
 	@PutMapping("championships/update")
 	public ResponseEntity<ChampionshipResponseDto> updateChampionship(
 			@RequestBody ChampionshipUpdateDto championshipDto) {
-
-		Championship champ = ChampionshipUpdateDto.transferToChampionship(championshipDto);
+		Admin admin = adminService.getAdminById(championshipDto.getAdminId());
+		Championship champ = ChampionshipUpdateDto.transferToChampionship(championshipDto, admin);
 
 		return ResponseEntity.ok(
 				ChampionshipResponseDto.createChampionshipResponseDto(championshipService.updateChampionship(champ)));
