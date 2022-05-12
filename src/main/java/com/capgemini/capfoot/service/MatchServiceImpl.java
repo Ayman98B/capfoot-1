@@ -2,6 +2,7 @@ package com.capgemini.capfoot.service;
 
 import com.capgemini.capfoot.entity.*;
 import com.capgemini.capfoot.repository.MatchRepository;
+import com.capgemini.capfoot.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,11 @@ import java.util.Optional;
 
 @Service
 public class MatchServiceImpl implements MatchService{
+	@Autowired
+	TeamService teamService;
 
+	@Autowired
+	TeamRepository teamRepository;
 	@Autowired
 	MatchRepository matchRepository;
 
@@ -87,6 +92,7 @@ public class MatchServiceImpl implements MatchService{
 			GroupTeam groupByTeam = groupTeamService.getGroupByTeam(teamHome);
       
 			int totalMatchs = groupByTeam.getNbDrawMatch() + groupByTeam.getNbWonMatch() + groupByTeam.getNbLossMatch();
+
 			if(!matchUpdateScore.get().isUpdated()){
 				if(updateTeamsScore.getMatchState() == Match_State.END  && totalMatchs < 3 && updateTeamsScore.getStage() == Championship_State.GROUPE) {
 					matchUpdateScore.get().setUpdated(true);
@@ -103,9 +109,50 @@ public class MatchServiceImpl implements MatchService{
 						groupTeamService.addDraw(teamAway, groupByTeam.getGroup());
 					}
 				}
-			} if(updateTeamsScore.getMatchState() ==Match_State.END && updateTeamsScore.getStage() == Championship_State.LAST_SEXTEEN){
+			} if(updateTeamsScore.getMatchState() ==Match_State.END && updateTeamsScore.getStage() == Championship_State.LAST_SIXTEEN){
 				matchUpdateScore.get().setUpdated(true);
-				groupTeamService.lastSexteenTeams();
+				if (scoreTeamHome > scoreTeamAway) {
+					teamHome.setStage(Championship_State.QUART_FINAL);
+					teamService.updateTeam(teamHome);
+				}
+				if (scoreTeamHome < scoreTeamAway) {
+					teamAway.setStage(Championship_State.QUART_FINAL);
+					teamService.updateTeam(teamAway);
+				}
+			}
+			if(updateTeamsScore.getMatchState() ==Match_State.END && updateTeamsScore.getStage() == Championship_State.QUART_FINAL){
+				matchUpdateScore.get().setUpdated(true);
+				if (scoreTeamHome > scoreTeamAway) {
+					teamHome.setStage(Championship_State.DEMI_FINAL);
+					teamService.updateTeam(teamHome);
+				}
+				if (scoreTeamHome < scoreTeamAway) {
+					teamAway.setStage(Championship_State.DEMI_FINAL);
+					teamService.updateTeam(teamAway);
+				}
+			}
+			if(updateTeamsScore.getMatchState() ==Match_State.END && updateTeamsScore.getStage() == Championship_State.DEMI_FINAL){
+				matchUpdateScore.get().setUpdated(true);
+				if (scoreTeamHome > scoreTeamAway) {
+					teamHome.setStage(Championship_State.FINAL);
+					teamService.updateTeam(teamHome);
+				}
+				if (scoreTeamHome < scoreTeamAway) {
+					teamAway.setStage(Championship_State.FINAL);
+					teamService.updateTeam(teamAway);
+				}
+			}
+
+			if(updateTeamsScore.getMatchState() ==Match_State.END && updateTeamsScore.getStage() == Championship_State.FINAL){
+				matchUpdateScore.get().setUpdated(true);
+				if (scoreTeamHome > scoreTeamAway) {
+					teamHome.setStage(Championship_State.WINNER);
+					teamService.updateTeam(teamHome);
+				}
+				if (scoreTeamHome < scoreTeamAway) {
+					teamAway.setStage(Championship_State.WINNER);
+					teamService.updateTeam(teamAway);
+				}
 			}
 
 			else{

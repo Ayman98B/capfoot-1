@@ -48,8 +48,8 @@ public class MatchServiceTest {
     @Test
     public void whenSetTeams_WillReturnUpdatedMatch(){
 
-        Team team1 = new Team(1L, "team1", Site.CASABLANCA, null, 7, null);
-        Team team2 = new Team(1L, "team1", Site.CASABLANCA, null, 7, null);
+        Team team1 = new Team(1L, "team1", Site.CASABLANCA,null, null, 7, null);
+        Team team2 = new Team(1L, "team1", Site.CASABLANCA,null, null, 7, null);
 
         MatchDisputee matchDisputee =
                 new MatchDisputee(1L, Championship_State.GROUPE, LocalDate.now(), Site.CASABLANCA, 0, 0, null, null, null);

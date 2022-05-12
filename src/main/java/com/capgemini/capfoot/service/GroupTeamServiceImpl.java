@@ -14,12 +14,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupTeamServiceImpl implements  GroupTeamService {
 
     @Autowired
     TeamRepository teamRepository;
+
+    @Autowired
+    TeamService teamService;
 
     @Autowired
     GroupRepository groupRepository;
@@ -156,7 +160,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
     }
 
     @Override
-    public List<Team> qualifiedTeams() {
+    public List<Team> qualifiedTeamsToLastSexteen() {
         List<MatchDisputee> allMatchs = matchService.getAllMatchs();
         AtomicBoolean endGroupPhase = new AtomicBoolean(false);
         AtomicInteger GroupPhase = new AtomicInteger(0);
@@ -165,8 +169,6 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
             if (match.getMatchState() !=Match_State.END) {
                 GroupPhase.set(1);
                 break;
-            } else {
-                endGroupPhase.set(true);
             }
         }
 
@@ -176,11 +178,11 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         if (GroupPhase.get() == 1) {
             System.out.println("Not Yet Over");
         } else {
-            //  teams = groupTeamRepository.findByOrderByCumulPointDesc(Sort.by("group").ascending());
             teams = groupTeamRepository.findByOrderByGroupAsc(Sort.by("cumulPoint").descending());
 
+
+
             for (int i = 0; i < teams.size(); i = i + 4) {
-                System.out.println(teams.get(i).getTeam());
                 newTeams.add(teams.get(i).getTeam());
                 newTeams.add(teams.get(i + 1).getTeam());
             }
@@ -194,6 +196,13 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
                         championshipService.updateChampionship(ch);
                     });
         }
+
+        newTeams.stream().filter(team -> team.getStage().equals(Championship_State.GROUPE)).forEach(team -> {
+            team.setStage(Championship_State.LAST_SIXTEEN);
+            teamService.updateTeam(team);
+        });
+
+        newTeams.forEach( team -> System.out.println("Teamss"+ team.toString()));
         planifierMatchQuatreFinal(newTeams);
         return newTeams;
     }
@@ -206,15 +215,75 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
             Team team_home1 = quartsFinaleTeams.get(i + 2);
 
             MatchDisputee matchDispute =
-                    new MatchDisputee(Championship_State.LAST_SEXTEEN, quartsFinaleTeams.get(i).getSite(), team_home, team_away);
+                    new MatchDisputee(Championship_State.LAST_SIXTEEN, quartsFinaleTeams.get(i).getSite(), team_home, team_away);
             MatchDisputee matchDispute1 =
-                    new MatchDisputee(Championship_State.LAST_SEXTEEN, quartsFinaleTeams.get(i).getSite(), team_home1, team_away1);
+                    new MatchDisputee(Championship_State.LAST_SIXTEEN, quartsFinaleTeams.get(i).getSite(), team_home1, team_away1);
             matchService.addMatch(matchDispute);
             matchService.addMatch(matchDispute1);
 
         }
     }
+    public List<Team> qualifiedTeamsToQuarterFinals(){
+        List<Team> quarterFinalsTeams =  teamService.getAllTeamsByStage(Championship_State.QUART_FINAL);
+        return quarterFinalsTeams;
+    }
+    @Override
+    public void planningQuarterFinalsMatchs(){
+            List<Team> quarterFinalsTeams = qualifiedTeamsToQuarterFinals();
+            List<Team> teamsCasa = quarterFinalsTeams.stream().filter(team -> team.getSite() == Site.CASABLANCA ).
+                    collect(Collectors.toList());
+            List<Team> teamsRabat= quarterFinalsTeams.stream().filter(team -> team.getSite() == Site.RABAT).
+                collect(Collectors.toList());
+
+            for(int i =0; i<teamsCasa.size()/2;i++){
+                MatchDisputee matchDispute =
+                        new MatchDisputee(Championship_State.QUART_FINAL, teamsCasa.get(i).getSite(), teamsCasa.get(i), teamsCasa.get(i+2));
+                        matchService.addMatch(matchDispute);
+            }
+            for(int i =0; i<teamsRabat.size()/2;i++){
+                MatchDisputee matchDispute =
+                        new MatchDisputee(Championship_State.QUART_FINAL, teamsRabat.get(i).getSite(), teamsRabat.get(i), teamsRabat.get(i+2));
+                matchService.addMatch(matchDispute);
+            }
+    }
+    public List<Team> qualifiedTeamsToSemiFinals(){
+        List<Team> semiFinalsTeams =  teamService.getAllTeamsByStage(Championship_State.DEMI_FINAL);
+        return semiFinalsTeams;
+    }
+    @Override
+    public void planningSemiFinalsMatchs(){
+        List<Team> semiFinalsTeams = qualifiedTeamsToSemiFinals();
+        List<Team> teamsCasa = semiFinalsTeams.stream().filter(team -> team.getSite() == Site.CASABLANCA ).
+                collect(Collectors.toList());
+        List<Team> teamsRabat= semiFinalsTeams.stream().filter(team -> team.getSite() == Site.RABAT).
+                collect(Collectors.toList());
+
+            MatchDisputee matchDispute =
+                    new MatchDisputee(Championship_State.DEMI_FINAL, teamsCasa.get(1).getSite(), teamsCasa.get(0), teamsCasa.get(1));
+            matchService.addMatch(matchDispute);
+
+            MatchDisputee matchDispute1 =
+                    new MatchDisputee(Championship_State.DEMI_FINAL, teamsRabat.get(1).getSite(), teamsRabat.get(0), teamsRabat.get(1));
+            matchService.addMatch(matchDispute1);
+        }
+
+    public List<Team> qualifiedTeamsToFinals(){
+        List<Team> FinalsTeams =  teamService.getAllTeamsByStage(Championship_State.FINAL);
+        return FinalsTeams;
+    }
+    @Override
+    public void planningFinalsMatchs(){
+        List<Team> FinalsTeams = qualifiedTeamsToFinals();
+
+        MatchDisputee matchDispute =
+                new MatchDisputee(Championship_State.FINAL, FinalsTeams.get(1).getSite(), FinalsTeams.get(0), FinalsTeams.get(1));
+        matchService.addMatch(matchDispute);
+
+    }
+
+
 }
+
 
 /*
     private void toQuarterFinal(MatchDisputee matchDisputee){
@@ -223,7 +292,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         Team teamHome =  matchDisputee.getTeamHome();
         Team teamAway = matchDisputee.getTeamAway();
 
-        List<MatchDisputee> matches = (List<MatchDisputee>) matchService.getAllMatchs().stream().filter(g -> g.getStage() == Statut.LAST_SEXTEEN);
+        List<MatchDisputee> matches = (List<MatchDisputee>) matchService.getAllMatchs().stream().filter(g -> g.getStage() == Statut.LAST_SIXTEEN);
 
         Stream<MatchDisputee> matchesCasa = matches.stream().filter(m -> m.getSite() == Site.CASABLANCA);
         Stream<MatchDisputee> matchesRabat = matches.stream().filter(m -> m.getSite() == Site.RABAT);
@@ -251,7 +320,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
     public List<Team> lastSexteenTeams() {
         List<MatchDisputee> allMatchs = matchService.getAllMatchs();
         allMatchs.stream()
-                .filter(g-> g.getStage() == Statut.LAST_SEXTEEN);
+                .filter(g-> g.getStage() == Statut.LAST_SIXTEEN);
 
         AtomicBoolean endGroupPhase = new AtomicBoolean(false);
         AtomicInteger GroupPhase = new AtomicInteger(0);

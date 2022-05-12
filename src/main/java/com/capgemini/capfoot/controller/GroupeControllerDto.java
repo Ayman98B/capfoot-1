@@ -57,7 +57,22 @@ public class GroupeControllerDto {
 
     @GetMapping("/qualifiedTeams")
     public List<Team> findQualifiedTeams(){
-        return groupTeamService.qualifiedTeams();
+        return groupTeamService.qualifiedTeamsToLastSexteen();
+    }
+
+    @GetMapping("/quarterFinalsTeams")
+    public void quarterFinalsTeams(){
+         groupTeamService.planningQuarterFinalsMatchs();
+    }
+
+    @GetMapping("/semiFinalsTeams")
+    public void semiFinalsTeams(){
+        groupTeamService.planningSemiFinalsMatchs();
+    }
+
+    @GetMapping("/FinalsTeams")
+    public void FinalsTeams(){
+        groupTeamService.planningFinalsMatchs();
     }
 }
     
