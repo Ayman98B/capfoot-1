@@ -1,14 +1,15 @@
 package com.capgemini.capfoot.repository;
 
-import com.capgemini.capfoot.entity.GroupTeam;
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.entity.Team;
+import java.util.List;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.capgemini.capfoot.entity.GroupTeam;
+import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.entity.Team;
 
 @Repository
 public interface GroupTeamRepository extends JpaRepository<GroupTeam, Long> {

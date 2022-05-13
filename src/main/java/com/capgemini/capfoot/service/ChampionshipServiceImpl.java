@@ -1,19 +1,24 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.*;
-import com.capgemini.capfoot.exception.ChampionshipNotFoundException;
-import com.capgemini.capfoot.repository.ChampionshipRepo;
-import com.capgemini.capfoot.repository.GroupRepository;
-import com.capgemini.capfoot.repository.TeamRepository;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
+import com.capgemini.capfoot.entity.Championship;
+import com.capgemini.capfoot.entity.Championship_State;
+import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.exception.ChampionshipNotFoundException;
+import com.capgemini.capfoot.repository.ChampionshipRepo;
+import com.capgemini.capfoot.repository.GroupRepository;
+import com.capgemini.capfoot.repository.TeamRepository;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j

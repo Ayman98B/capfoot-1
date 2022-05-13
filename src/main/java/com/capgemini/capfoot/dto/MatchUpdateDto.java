@@ -10,6 +10,13 @@ import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Match_State;
 import com.capgemini.capfoot.entity.Site;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MatchUpdateDto {
 	private Long id;
 	@Enumerated(EnumType.STRING)
