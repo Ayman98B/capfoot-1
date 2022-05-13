@@ -18,11 +18,11 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String fullName;
-	//@Column(unique=true)
+	@Column(unique=true)
 	private String cin;
-	//@Column(unique=true)
+	@Column(unique=true)
 	private String phone;
-	//@Column(unique=true)
+	@Column(unique=true)
 	private String emailAddress;
 	private String password;
 	private boolean isStartingPlayer;
