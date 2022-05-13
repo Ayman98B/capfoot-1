@@ -213,7 +213,6 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
                     new MatchDisputee(Championship_State.LAST_SIXTEEN, quartsFinaleTeams.get(i).getSite(), team_home1, team_away1);
             matchService.addMatch(matchDispute);
             matchService.addMatch(matchDispute1);
-
         }
     }
     public List<Team> qualifiedTeamsToQuarterFinals(){
@@ -269,7 +268,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         List<Team> FinalsTeams = qualifiedTeamsToFinals();
 
         MatchDisputee matchDispute =
-                new MatchDisputee(Championship_State.FINAL, FinalsTeams.get(1).getSite(), FinalsTeams.get(0), FinalsTeams.get(1));
+                new MatchDisputee(Championship_State.FINAL, Site.CASABLANCA, FinalsTeams.get(0), FinalsTeams.get(1));
         matchService.addMatch(matchDispute);
 
     }

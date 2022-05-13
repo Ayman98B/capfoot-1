@@ -1,38 +1,19 @@
+
 package com.capgemini.capfoot.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.capgemini.capfoot.dto.ChampionshipCreationDto;
-import com.capgemini.capfoot.dto.ChampionshipResponseDto;
-import com.capgemini.capfoot.dto.ChampionshipUpdateDto;
-import com.capgemini.capfoot.dto.MatchResponseDto;
-import com.capgemini.capfoot.dto.TeamResponseDto;
+import com.capgemini.capfoot.dto.*;
 import com.capgemini.capfoot.entity.Admin;
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.MatchDisputee;
 import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.service.AdminService;
-import com.capgemini.capfoot.service.ChampionshipService;
-import com.capgemini.capfoot.service.GroupService;
-import com.capgemini.capfoot.service.MatchService;
-import com.capgemini.capfoot.service.TeamService;
+import com.capgemini.capfoot.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v2/admin")
@@ -76,13 +57,13 @@ public class AdminControllerDto {
 
 	@PutMapping("matchs/teams/{id}")
 	public ResponseEntity<MatchResponseDto> setTeamsDto(@PathVariable(value = "id") Long id,
-			@RequestBody MatchDisputee setTeams) {
+														@RequestBody MatchDisputee setTeams) {
 		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.setTeams(id, setTeams)));
 	}
 
 	@PutMapping("matchs/score/{id}")
 	public ResponseEntity<MatchResponseDto> updateMatchScoreDto(@PathVariable(value = "id") Long id,
-			@RequestBody MatchDisputee updateTeamsScore) {
+																@RequestBody MatchDisputee updateTeamsScore) {
 		return ResponseEntity.ok(
 				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchScore(id, updateTeamsScore)));
 
@@ -90,7 +71,7 @@ public class AdminControllerDto {
 
 	@PutMapping("matchs/finalscore/{id}")
 	public ResponseEntity<MatchResponseDto> updateMatchFinalScoreDto(@PathVariable("id") Long id,
-			@RequestBody MatchDisputee matchDisputee) {
+																	 @RequestBody MatchDisputee matchDisputee) {
 		return ResponseEntity.ok(
 				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchFinalScore(id, matchDisputee)));
 
@@ -99,7 +80,6 @@ public class AdminControllerDto {
 	@GetMapping("matchs/{id}")
 	public ResponseEntity<MatchResponseDto> getMatchByIdDto(@PathVariable("id") Long id) {
 		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.getMatchById(id)));
-
 	}
 
 	@GetMapping("championships/getall")
