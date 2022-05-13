@@ -80,7 +80,6 @@ public class AdminControllerDto {
 	@GetMapping("matchs/{id}")
 	public ResponseEntity<MatchResponseDto> getMatchByIdDto(@PathVariable("id") Long id) {
 		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.getMatchById(id)));
-
 	}
 
 	@GetMapping("championships/getall")
