@@ -1,25 +1,20 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.repository.GroupRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import com.capgemini.capfoot.entity.Championship;
+import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.repository.GroupRepository;
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
     GroupRepository groupeRepository;
-
-   /* @Override
-    public void add(Groupe groupe) {
-        groupeRepository.save(groupe);
-    }*/
 
     @Override
     public void delete(Long id) {

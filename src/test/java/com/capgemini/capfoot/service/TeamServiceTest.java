@@ -1,9 +1,11 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.Player;
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.PlayerRepository;
-import com.capgemini.capfoot.repository.TeamRepository;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -11,13 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.capgemini.capfoot.entity.Player;
+import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.repository.PlayerRepository;
+import com.capgemini.capfoot.repository.TeamRepository;
 
 @RunWith(SpringRunner.class)
 public class TeamServiceTest {
