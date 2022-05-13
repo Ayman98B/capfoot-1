@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.service.PlayerServiceImpl;
 import com.capgemini.capfoot.service.TeamServiceImpl;
 
 @RestController
@@ -21,9 +20,7 @@ public class TeamController {
 
     @Autowired
     private TeamServiceImpl teamService;
-    @Autowired
-    private PlayerServiceImpl playerService;
-
+   
     @GetMapping("/all")
     public List<Team> getAllTeams() {
         List<Team> teams = teamService.gatAllTeam();

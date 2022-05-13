@@ -3,7 +3,6 @@ package com.capgemini.capfoot.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -165,7 +164,6 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
     @Override
     public List<Team> qualifiedTeamsToLastSixteen() {
         List<MatchDisputee> allMatchs = matchService.getAllMatchs();
-        AtomicBoolean endGroupPhase = new AtomicBoolean(false);
         AtomicInteger GroupPhase = new AtomicInteger(0);
 
         for (MatchDisputee match : allMatchs) {
