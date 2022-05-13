@@ -95,9 +95,9 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			if (oldChamp.getStatut() != updateChamp.getStatut()) {
 
 				List<Team> teams = teamService.getAllTeamsByChampionat(oldChamp.getId());
-				List<MatchDisputee> allMatchs = matchService.getAllMatchs();
-				log.info("updating match stage");
-				allMatchs.forEach((matchDisputee -> matchDisputee.setStage(updateChamp.getStatut())));
+				//List<MatchDisputee> allMatchs = matchService.getAllMatchs();
+				//log.info("updating match stage");
+				//allMatchs.forEach((matchDisputee -> matchDisputee.setStage(updateChamp.getStatut())));
         
 				log.info("Sending Email ...");
 				sendEmail(oldChamp);
