@@ -1,3 +1,4 @@
+
 package com.capgemini.capfoot.controller;
 
 import com.capgemini.capfoot.dto.*;
@@ -9,19 +10,18 @@ import com.capgemini.capfoot.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/admin/dto/")
+@RequestMapping("/api/v2/admin")
 @CrossOrigin(origins = "*")
 public class AdminControllerDto {
+
 	@Autowired
 	MatchService matchService;
-
 
 	@Autowired
 	TeamService teamService;
@@ -57,13 +57,13 @@ public class AdminControllerDto {
 
 	@PutMapping("matchs/teams/{id}")
 	public ResponseEntity<MatchResponseDto> setTeamsDto(@PathVariable(value = "id") Long id,
-			@RequestBody MatchDisputee setTeams) {
+														@RequestBody MatchDisputee setTeams) {
 		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.setTeams(id, setTeams)));
 	}
 
 	@PutMapping("matchs/score/{id}")
 	public ResponseEntity<MatchResponseDto> updateMatchScoreDto(@PathVariable(value = "id") Long id,
-			@RequestBody MatchDisputee updateTeamsScore) {
+																@RequestBody MatchDisputee updateTeamsScore) {
 		return ResponseEntity.ok(
 				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchScore(id, updateTeamsScore)));
 
@@ -71,7 +71,7 @@ public class AdminControllerDto {
 
 	@PutMapping("matchs/finalscore/{id}")
 	public ResponseEntity<MatchResponseDto> updateMatchFinalScoreDto(@PathVariable("id") Long id,
-			@RequestBody MatchDisputee matchDisputee) {
+																	 @RequestBody MatchDisputee matchDisputee) {
 		return ResponseEntity.ok(
 				MatchResponseDto.createMatchDisputeeDto(matchService.updateMatchFinalScore(id, matchDisputee)));
 
@@ -98,13 +98,6 @@ public class AdminControllerDto {
 		return ResponseEntity
 				.ok(ChampionshipResponseDto.createChampionshipResponseDto(championshipService.getChampionshipById(id)));
 	}
-
-	@PutMapping("championships/update/")
-	public ResponseEntity<String> updateChampionship(@RequestBody ChampionshipCreationDto championshipupdateDto) {
-		Championship champ = new Championship();
-		BeanUtils.copyProperties(championshipupdateDto, champ);
-		championshipService.updateChampionship(champ);
-		return ResponseEntity.ok("update Championship");
 
 	@PostMapping("championships/add")
 	public ResponseEntity<ChampionshipResponseDto> createChampionshipDto(
