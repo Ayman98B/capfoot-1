@@ -1,13 +1,14 @@
 package com.capgemini.capfoot.dto;
 
 
+import java.time.LocalDate;
+
 import com.capgemini.capfoot.entity.Admin;
 import com.capgemini.capfoot.entity.Championship;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor

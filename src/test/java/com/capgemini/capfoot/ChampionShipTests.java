@@ -1,9 +1,11 @@
 package com.capgemini.capfoot;
 
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.repository.ChampionshipRepo;
-import com.capgemini.capfoot.service.ChampionshipService;
-import com.capgemini.capfoot.service.ChampionshipServiceImpl;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.times;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
-import java.time.LocalDate;
-import java.util.Optional;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.times;
+
+import com.capgemini.capfoot.entity.Championship;
+import com.capgemini.capfoot.repository.ChampionshipRepo;
+import com.capgemini.capfoot.service.ChampionshipService;
+import com.capgemini.capfoot.service.ChampionshipServiceImpl;
 
 
 @RunWith(SpringRunner.class)

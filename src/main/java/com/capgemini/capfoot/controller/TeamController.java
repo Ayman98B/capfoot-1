@@ -1,12 +1,17 @@
 package com.capgemini.capfoot.controller;
 
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.service.PlayerServiceImpl;
-import com.capgemini.capfoot.service.TeamServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.service.TeamServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1/teams")
@@ -15,9 +20,7 @@ public class TeamController {
 
     @Autowired
     private TeamServiceImpl teamService;
-    @Autowired
-    private PlayerServiceImpl playerService;
-
+   
     @GetMapping("/all")
     public List<Team> getAllTeams() {
         List<Team> teams = teamService.gatAllTeam();

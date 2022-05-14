@@ -1,10 +1,10 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Groupe;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.capgemini.capfoot.entity.Championship;
+import com.capgemini.capfoot.entity.Groupe;
 
 public interface GroupService {
 

@@ -1,8 +1,8 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.Player;
-
 import java.util.List;
+
+import com.capgemini.capfoot.entity.Player;
 
 public interface PlayerService {
 

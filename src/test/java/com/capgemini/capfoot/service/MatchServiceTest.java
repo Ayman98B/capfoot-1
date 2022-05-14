@@ -1,19 +1,24 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.*;
-import com.capgemini.capfoot.repository.MatchRepository;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
-import java.util.Optional;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.BDDMockito.given;
+import com.capgemini.capfoot.entity.Championship_State;
+import com.capgemini.capfoot.entity.MatchDisputee;
+import com.capgemini.capfoot.entity.Match_State;
+import com.capgemini.capfoot.entity.Site;
+import com.capgemini.capfoot.entity.Team;
+import com.capgemini.capfoot.repository.MatchRepository;
 
 @RunWith(SpringRunner.class)
 public class MatchServiceTest {

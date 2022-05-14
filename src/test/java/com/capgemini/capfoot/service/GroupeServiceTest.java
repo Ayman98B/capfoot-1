@@ -1,8 +1,15 @@
 package com.capgemini.capfoot.service;
 
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.repository.GroupRepository;
-import com.capgemini.capfoot.service.GroupServiceImpl;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,15 +19,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import com.capgemini.capfoot.entity.Groupe;
+import com.capgemini.capfoot.repository.GroupRepository;
 
 @RunWith(SpringRunner.class)
 public class GroupeServiceTest {
