@@ -2,13 +2,19 @@ package com.capgemini.capfoot.security.jwt;
 
 import java.util.Date;
 
-import com.capgemini.capfoot.security.services.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.*;
+
+import com.capgemini.capfoot.security.services.UserDetailsImpl;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtUtils {
