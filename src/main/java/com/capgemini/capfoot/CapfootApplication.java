@@ -16,3 +16,4 @@ public class CapfootApplication implements CommandLineRunner {
 	public void run(String... args) {
 	}
 }
+
