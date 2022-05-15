@@ -110,6 +110,10 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 				sendEmail(oldChamp);
 				log.info("Email Sent ...");
 
+				if(updateChamp.getStatut() == Championship_State.GROUPE){
+					this.groupTeamService.launchDraw();
+				}
+
 				if(updateChamp.getStatut() == Championship_State.LAST_SIXTEEN){
 					this.groupTeamService.qualifiedTeamsToLastSixteen();
 				}
