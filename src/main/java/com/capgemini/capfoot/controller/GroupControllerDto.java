@@ -24,9 +24,9 @@ import com.capgemini.capfoot.service.GroupService;
 import com.capgemini.capfoot.service.GroupTeamService;
 
 @RestController
-@RequestMapping("/api/v1/groupes/dto")
+@RequestMapping("/api/v2/groups")
 @CrossOrigin("*")
-public class GroupeControllerDto {
+public class GroupControllerDto {
 
     @Autowired
     GroupService groupeService;
@@ -84,10 +84,5 @@ public class GroupeControllerDto {
         groupTeamService.planningFinalsMatchs();
     }
 }
-    
-    /* @GetMapping("/{id}")
-    public Optional<GroupeResponseDto> findById(@PathVariable("id") Long id){
-        return GroupeResponseDto.createGroupeDto(groupeService.findById(id)));
-    }
-    */
+   
 
