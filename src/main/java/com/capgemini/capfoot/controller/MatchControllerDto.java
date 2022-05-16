@@ -69,6 +69,11 @@ public class MatchControllerDto {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<MatchResponseDto> getMatchByIdDto(@PathVariable("id") Long id) {
-		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(matchService.getMatchById(id)));
+		MatchDisputee match = matchService.getMatchById(id);
+        match.getTeamAway().setPlayers(null);
+        match.getTeamHome().setPlayers(null);
+        match.getTeamAway().setGroupTeam(null);
+        match.getTeamHome().setGroupTeam(null);
+		return ResponseEntity.ok(MatchResponseDto.createMatchDisputeeDto(match));
 	}
 }
