@@ -3,6 +3,8 @@ package com.capgemini.capfoot.service;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.MailException;
@@ -32,8 +34,6 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	@Lazy
 	private GroupTeamService groupTeamService;
 
-
-
 	@Autowired
 	EmailService emailService;
 	@Autowired
@@ -52,11 +52,6 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Autowired
 	PlayerService playerService;
-
-
-	/*public ChampionshipServiceImpl(@Lazy GroupTeamService groupTeamService){
-		this.groupTeamService = groupTeamService;
-	}*/
 
 	public ChampionshipServiceImpl(ChampionshipRepo championshipRepo) {
 		this.championshipRepo = championshipRepo;
@@ -98,7 +93,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	}
 
 	@Override
-	public Championship updateChampionship(Championship updateChamp) {
+	public Championship updateChampionship(Championship updateChamp) throws MessagingException {
 
 		log.info("Entred update championship");
 		if (!championshipRepo.findById(updateChamp.getId()).isPresent()) {
@@ -108,10 +103,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 		} else {
 			Championship oldChamp = championshipRepo.findById(updateChamp.getId()).get();
 			if (oldChamp.getStatut() != updateChamp.getStatut()) {
-        
-				log.info("Sending Email ...");
-				sendEmail(oldChamp);
-				log.info("Email Sent ...");
+
 
 				if(updateChamp.getStatut() == Championship_State.GROUPE){
 					this.groupTeamService.launchDraw();
@@ -120,26 +112,29 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 				if(updateChamp.getStatut() == Championship_State.LAST_SIXTEEN){
 					this.groupTeamService.qualifiedTeamsToLastSixteen();
 				}
-				if(updateChamp.getStatut() == Championship_State.QUART_FINAL){
+				if (updateChamp.getStatut() == Championship_State.QUART_FINAL) {
 					this.groupTeamService.planningQuarterFinalsMatchs();
 				}
-				if(updateChamp.getStatut() == Championship_State.DEMI_FINAL){
+				if (updateChamp.getStatut() == Championship_State.DEMI_FINAL) {
 					this.groupTeamService.planningSemiFinalsMatchs();
 				}
-				if(updateChamp.getStatut() == Championship_State.FINAL){
+				if (updateChamp.getStatut() == Championship_State.FINAL) {
 					this.groupTeamService.planningFinalsMatchs();
 				}
+
+				log.info("Sending Email ...");
+				sendEmailNews(updateChamp);
+				log.info("Email Sent ...");
 
 			}
 			return championshipRepo.save(updateChamp);
 		}
 	}
 
-	public void sendEmail(Championship oldChamp) {
-		List<Team> teams = teamService.getAllTeamsByChampionat(oldChamp.getId());
+	public void sendEmailNews(Championship champ) {
+		List<Team> teams = teamService.getAllTeamsByChampionat(champ.getId());
 		try {
-			emailService.sendEmailToAllPlayers(teams,
-					"Cap du monde: Update et informations de la phase précédente et le planning des matches");
+			emailService.sendEmailChampNewsToAll(teams, champ.getStatut());
 		} catch (MailException mailException) {
 			mailException.getStackTrace();
 		} catch (Exception e) {
