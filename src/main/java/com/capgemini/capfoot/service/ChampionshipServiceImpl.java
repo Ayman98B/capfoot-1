@@ -104,7 +104,12 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 			Championship oldChamp = championshipRepo.findById(updateChamp.getId()).get();
 			if (oldChamp.getStatut() != updateChamp.getStatut()) {
 
-				if (updateChamp.getStatut() == Championship_State.LAST_SIXTEEN) {
+
+				if(updateChamp.getStatut() == Championship_State.GROUPE){
+					this.groupTeamService.launchDraw();
+				}
+
+				if(updateChamp.getStatut() == Championship_State.LAST_SIXTEEN){
 					this.groupTeamService.qualifiedTeamsToLastSixteen();
 				}
 				if (updateChamp.getStatut() == Championship_State.QUART_FINAL) {
