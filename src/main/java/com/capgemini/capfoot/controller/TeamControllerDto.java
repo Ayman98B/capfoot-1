@@ -3,6 +3,8 @@ package com.capgemini.capfoot.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +34,7 @@ public class TeamControllerDto {
 	}
 
 	@PostMapping("/inscription")
-	public ResponseEntity<TeamResponseDto> inscription(@RequestBody Team team) {
+	public ResponseEntity<TeamResponseDto> inscription(@RequestBody Team team) throws MessagingException {
 		return ResponseEntity.ok(TeamResponseDto.createTeamDto(teamService.inscription(team)));
 	}
 

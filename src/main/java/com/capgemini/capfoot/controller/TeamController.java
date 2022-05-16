@@ -2,6 +2,8 @@ package com.capgemini.capfoot.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,7 @@ public class TeamController {
     }
 
     @PostMapping("/inscription")
-    public Team inscription(@RequestBody Team team) {
+    public Team inscription(@RequestBody Team team) throws MessagingException {
         return teamService.inscription(team);
     }
 
