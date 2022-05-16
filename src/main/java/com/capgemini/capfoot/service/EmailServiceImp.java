@@ -26,10 +26,6 @@ public class EmailServiceImp implements EmailService {
 	@Lazy
 	GroupTeamService groupTeamService;
 
-	@Autowired
-	@Lazy
-	TeamService teamService;
-
 	public void sendEmailAfterInscription(Team team) throws MessagingException {
 
 		MimeMessage message = emailSender.createMimeMessage();
@@ -147,7 +143,7 @@ public class EmailServiceImp implements EmailService {
 						+ "	<p><a href=\"mailto:younes.el-harim@capgemini.com\"><span style=\"color:#12abdb\"><span style=\"font-size:14px\">Contacter Younes El Harim - SPOC Rabat</span></span></a></p>\r\n"
 						+ "	</li>\r\n" + "	<li>\r\n"
 						+ "	<p><a href=\"mailto:mehdi.elkhomsi@capgemini.com\"><span style=\"color:#12abdb\"><span style=\"font-size:14px\">Contacter Mehdi ELKHOMSI - Chargé de communication</span></span></a></p>\r\n"
-						+ "	</li>\r\n" + "</ul>\r\n"
+						+ "	</li>" + "</ul>\r\n"
 						+ "</div></td></tr></tbody></td></tr></tbody></table></td></tr></tbody></table>");
 		return String.valueOf(emailBody);
 	}
