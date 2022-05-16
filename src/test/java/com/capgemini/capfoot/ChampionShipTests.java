@@ -6,6 +6,8 @@ import static org.mockito.Mockito.times;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +34,7 @@ public class ChampionShipTests {
 
 
     @Test
-    public void testUpdateChampion(){
+    public void testUpdateChampion() throws MessagingException{
         // Given
         Championship championship = new Championship();
         championship.setLabel("First Label");

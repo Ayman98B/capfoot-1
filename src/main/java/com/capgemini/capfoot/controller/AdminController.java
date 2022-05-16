@@ -2,6 +2,7 @@ package com.capgemini.capfoot.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -118,7 +119,7 @@ public class AdminController {
     }
 
     @PutMapping("championships/update")
-    public void updateChampionship(@RequestBody Championship championship) {
+    public void updateChampionship(@RequestBody Championship championship) throws MessagingException {
         championshipService.updateChampionship(championship);
     }
 

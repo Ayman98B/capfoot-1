@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,22 +65,22 @@ public class GroupeControllerDto {
     }
 
     @GetMapping("/qualifiedTeams")
-    public List<Team> findQualifiedTeams(){
+    public List<Team> findQualifiedTeams() throws MessagingException{
         return groupTeamService.qualifiedTeamsToLastSixteen();
     }
 
     @GetMapping("/quarterFinalsTeams")
-    public void quarterFinalsTeams(){
+    public void quarterFinalsTeams() throws MessagingException{
          groupTeamService.planningQuarterFinalsMatchs();
     }
 
     @GetMapping("/semiFinalsTeams")
-    public void semiFinalsTeams(){
+    public void semiFinalsTeams() throws MessagingException{
         groupTeamService.planningSemiFinalsMatchs();
     }
 
     @GetMapping("/FinalsTeams")
-    public void FinalsTeams(){
+    public void FinalsTeams() throws MessagingException{
         groupTeamService.planningFinalsMatchs();
     }
 }
