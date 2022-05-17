@@ -1,13 +1,5 @@
 package com.capgemini.capfoot.service;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.mail.MailException;
-import org.springframework.stereotype.Service;
-
 import com.capgemini.capfoot.entity.Championship;
 import com.capgemini.capfoot.entity.Championship_State;
 import com.capgemini.capfoot.entity.Groupe;
@@ -16,9 +8,16 @@ import com.capgemini.capfoot.exception.ChampionshipNotFoundException;
 import com.capgemini.capfoot.repository.ChampionshipRepo;
 import com.capgemini.capfoot.repository.GroupRepository;
 import com.capgemini.capfoot.repository.TeamRepository;
-
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.MailException;
+import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -31,8 +30,6 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	@Autowired
 	@Lazy
 	private GroupTeamService groupTeamService;
-
-
 
 	@Autowired
 	EmailService emailService;
@@ -52,11 +49,6 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 
 	@Autowired
 	PlayerService playerService;
-
-
-	/*public ChampionshipServiceImpl(@Lazy GroupTeamService groupTeamService){
-		this.groupTeamService = groupTeamService;
-	}*/
 
 	public ChampionshipServiceImpl(ChampionshipRepo championshipRepo) {
 		this.championshipRepo = championshipRepo;
@@ -98,7 +90,7 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 	}
 
 	@Override
-	public Championship updateChampionship(Championship updateChamp) {
+	public Championship updateChampionship(Championship updateChamp) throws MessagingException {
 
 		log.info("Entred update championship");
 		if (!championshipRepo.findById(updateChamp.getId()).isPresent()) {
@@ -108,36 +100,38 @@ public class ChampionshipServiceImpl implements ChampionshipService {
 		} else {
 			Championship oldChamp = championshipRepo.findById(updateChamp.getId()).get();
 			if (oldChamp.getStatut() != updateChamp.getStatut()) {
-        
-				log.info("Sending Email ...");
-				sendEmail(oldChamp);
-				log.info("Email Sent ...");
+
+
 				if(updateChamp.getStatut() == Championship_State.GROUPE){
 					this.groupTeamService.launchDraw();
 				}
+
 				if(updateChamp.getStatut() == Championship_State.LAST_SIXTEEN){
 					this.groupTeamService.qualifiedTeamsToLastSixteen();
 				}
-				if(updateChamp.getStatut() == Championship_State.QUART_FINAL){
+				if (updateChamp.getStatut() == Championship_State.QUART_FINAL) {
 					this.groupTeamService.planningQuarterFinalsMatchs();
 				}
-				if(updateChamp.getStatut() == Championship_State.DEMI_FINAL){
+				if (updateChamp.getStatut() == Championship_State.DEMI_FINAL) {
 					this.groupTeamService.planningSemiFinalsMatchs();
 				}
-				if(updateChamp.getStatut() == Championship_State.FINAL){
+				if (updateChamp.getStatut() == Championship_State.FINAL) {
 					this.groupTeamService.planningFinalsMatchs();
 				}
+
+				log.info("Sending Email ...");
+				sendEmailNews(updateChamp);
+				log.info("Email Sent ...");
 
 			}
 			return championshipRepo.save(updateChamp);
 		}
 	}
 
-	public void sendEmail(Championship oldChamp) {
-		List<Team> teams = teamService.getAllTeamsByChampionat(oldChamp.getId());
+	public void sendEmailNews(Championship champ) {
+		List<Team> teams = teamService.getAllTeamsByChampionat(champ.getId());
 		try {
-			emailService.sendEmailToAllPlayers(teams,
-					"Cap du monde: Update et informations de la phase précédente et le planning des matches");
+			emailService.sendEmailChampNewsToAll(teams, champ.getStatut());
 		} catch (MailException mailException) {
 			mailException.getStackTrace();
 		} catch (Exception e) {

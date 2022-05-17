@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +34,10 @@ public class TeamServiceImpl implements TeamService {
 	PlayerServiceImpl playerService;
 
 	@Autowired
-
 	PlayerRepository playerRepository;
+	
+	@Autowired
+	EmailService emailService;
 
 	public TeamServiceImpl(TeamRepository teamRepository) {
 		this.teamRepository = teamRepository;
@@ -89,7 +93,7 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public Team inscription(Team team) {
+	public Team inscription(Team team) throws MessagingException {
 		Team newTeam = this.addTeam(team);
 		List<Player> players = newTeam.getPlayers();
 		for (Player p : players) {
@@ -102,6 +106,9 @@ public class TeamServiceImpl implements TeamService {
 				System.out.println("Joueur n'est pas dispo");
 		}
 		playerRepository.saveAll(players);
+		
+		emailService.sendEmailAfterInscription(team);
+		
 		return newTeam;
 	}
 

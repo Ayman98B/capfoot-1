@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,9 +24,9 @@ import com.capgemini.capfoot.service.GroupService;
 import com.capgemini.capfoot.service.GroupTeamService;
 
 @RestController
-@RequestMapping("/api/v1/groupes/dto")
+@RequestMapping("/api/v2/groups")
 @CrossOrigin("*")
-public class GroupeControllerDto {
+public class GroupControllerDto {
 
     @Autowired
     GroupService groupeService;
@@ -63,29 +65,24 @@ public class GroupeControllerDto {
     }
 
     @GetMapping("/qualifiedTeams")
-    public List<Team> findQualifiedTeams(){
+    public List<Team> findQualifiedTeams() throws MessagingException{
         return groupTeamService.qualifiedTeamsToLastSixteen();
     }
 
     @GetMapping("/quarterFinalsTeams")
-    public void quarterFinalsTeams(){
+    public void quarterFinalsTeams() throws MessagingException{
          groupTeamService.planningQuarterFinalsMatchs();
     }
 
     @GetMapping("/semiFinalsTeams")
-    public void semiFinalsTeams(){
+    public void semiFinalsTeams() throws MessagingException{
         groupTeamService.planningSemiFinalsMatchs();
     }
 
     @GetMapping("/FinalsTeams")
-    public void FinalsTeams(){
+    public void FinalsTeams() throws MessagingException{
         groupTeamService.planningFinalsMatchs();
     }
 }
-    
-    /* @GetMapping("/{id}")
-    public Optional<GroupeResponseDto> findById(@PathVariable("id") Long id){
-        return GroupeResponseDto.createGroupeDto(groupeService.findById(id)));
-    }
-    */
+   
 

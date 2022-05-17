@@ -4,6 +4,7 @@ package com.capgemini.capfoot.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -130,7 +131,7 @@ public class AdminControllerDto {
 
 	@PutMapping("championships/update")
 	public ResponseEntity<ChampionshipResponseDto> updateChampionship(
-			@RequestBody ChampionshipUpdateDto championshipDto) {
+			@RequestBody ChampionshipUpdateDto championshipDto) throws MessagingException {
 		Admin admin = adminService.getAdminById(championshipDto.getAdminId());
 		Championship champ = ChampionshipUpdateDto.transferToChampionship(championshipDto, admin);
 

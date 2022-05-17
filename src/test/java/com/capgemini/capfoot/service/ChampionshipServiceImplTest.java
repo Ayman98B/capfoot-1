@@ -5,6 +5,8 @@ import static org.mockito.Mockito.times;
 
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,7 +41,7 @@ public class ChampionshipServiceImplTest {
     }
 
     @Test
-    public void testUpdateChampion(){
+    public void testUpdateChampion() throws MessagingException{
         // Given
         Championship championship = new Championship();
         championship.setLabel("First Label");

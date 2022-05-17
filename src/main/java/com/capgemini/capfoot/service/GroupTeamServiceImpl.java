@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,9 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
 
     @Autowired
     MatchService matchService;
+    
+    @Autowired
+    EmailService emailService;
 
     @Override
     public void addTeamToGroup(Team team, Groupe group) {
@@ -162,7 +167,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
     }
 
     @Override
-    public List<Team> qualifiedTeamsToLastSixteen() {
+    public List<Team> qualifiedTeamsToLastSixteen() throws MessagingException {
         List<MatchDisputee> allMatchs = matchService.getAllMatchs();
         AtomicInteger GroupPhase = new AtomicInteger(0);
 
@@ -192,7 +197,11 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
                     .ifPresent(g -> {
                         Championship ch = g.getGroup().getChampionship();
                         ch.setStatut(Championship_State.QUART_FINAL);
-                        championshipService.updateChampionship(ch);
+                        try {
+							championshipService.updateChampionship(ch);
+						} catch (MessagingException e) {
+							e.printStackTrace();
+						}
                     });
         }
 
@@ -203,6 +212,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
 
         newTeams.forEach( team -> System.out.println("Teamss"+ team.toString()));
         planifierMatchQuatreFinal(newTeams);
+        emailService.sendEmailQualifiedTeams(newTeams, Championship_State.LAST_SIXTEEN);
         return newTeams;
     }
 
@@ -226,7 +236,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
         return quarterFinalsTeams;
     }
     @Override
-    public void planningQuarterFinalsMatchs(){
+    public void planningQuarterFinalsMatchs() throws MessagingException{
             List<Team> quarterFinalsTeams = qualifiedTeamsToQuarterFinals();
             List<Team> teamsCasa = quarterFinalsTeams.stream().filter(team -> team.getSite() == Site.CASABLANCA ).
                     collect(Collectors.toList());
@@ -243,13 +253,16 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
                         new MatchDisputee(Championship_State.QUART_FINAL, teamsRabat.get(i).getSite(), teamsRabat.get(i), teamsRabat.get(i+2));
                 matchService.addMatch(matchDispute);
             }
+            emailService.sendEmailQualifiedTeams(quarterFinalsTeams, Championship_State.QUART_FINAL);
     }
+    
+    @Override
     public List<Team> qualifiedTeamsToSemiFinals(){
         List<Team> semiFinalsTeams =  teamService.getAllTeamsByStage(Championship_State.DEMI_FINAL);
         return semiFinalsTeams;
     }
     @Override
-    public void planningSemiFinalsMatchs(){
+    public void planningSemiFinalsMatchs() throws MessagingException{
         List<Team> semiFinalsTeams = qualifiedTeamsToSemiFinals();
         List<Team> teamsCasa = semiFinalsTeams.stream().filter(team -> team.getSite() == Site.CASABLANCA ).
                 collect(Collectors.toList());
@@ -263,19 +276,24 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
             MatchDisputee matchDispute1 =
                     new MatchDisputee(Championship_State.DEMI_FINAL, teamsRabat.get(1).getSite(), teamsRabat.get(0), teamsRabat.get(1));
             matchService.addMatch(matchDispute1);
+            
+            emailService.sendEmailQualifiedTeams(semiFinalsTeams, Championship_State.DEMI_FINAL);
         }
 
+    @Override
     public List<Team> qualifiedTeamsToFinals(){
         List<Team> FinalsTeams =  teamService.getAllTeamsByStage(Championship_State.FINAL);
         return FinalsTeams;
     }
     @Override
-    public void planningFinalsMatchs(){
+    public void planningFinalsMatchs() throws MessagingException{
         List<Team> FinalsTeams = qualifiedTeamsToFinals();
 
         MatchDisputee matchDispute =
                 new MatchDisputee(Championship_State.FINAL, Site.CASABLANCA, FinalsTeams.get(0), FinalsTeams.get(1));
         matchService.addMatch(matchDispute);
+        
+        emailService.sendEmailQualifiedTeams(FinalsTeams, Championship_State.FINAL);
 
     }
 

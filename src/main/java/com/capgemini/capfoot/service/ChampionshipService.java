@@ -2,6 +2,8 @@ package com.capgemini.capfoot.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import com.capgemini.capfoot.entity.Championship;
 
 public interface ChampionshipService {
@@ -12,7 +14,7 @@ public interface ChampionshipService {
 
 	public Championship createChampionship(Championship newChamp);
 
-	public Championship updateChampionship(Championship updateChamp);
+	public Championship updateChampionship(Championship updateChamp) throws MessagingException;
 
 	public void deleteChampionship(Long id);
 
