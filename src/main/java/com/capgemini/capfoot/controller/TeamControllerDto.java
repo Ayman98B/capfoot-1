@@ -7,11 +7,7 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.capgemini.capfoot.dto.TeamResponseDto;
 import com.capgemini.capfoot.entity.Team;
@@ -19,6 +15,7 @@ import com.capgemini.capfoot.service.TeamServiceImpl;
 
 @RestController
 @RequestMapping("/api/v2/teams")
+@CrossOrigin(origins = "*")
 public class TeamControllerDto {
 
 	@Autowired
