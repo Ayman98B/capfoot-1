@@ -1,18 +1,12 @@
 package com.capgemini.capfoot.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -24,11 +18,11 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String fullName;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String cin;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String phone;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String emailAddress;
 	private String password;
 	private boolean isStartingPlayer;

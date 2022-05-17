@@ -1,29 +1,20 @@
 package com.capgemini.capfoot.service;
 
+import com.capgemini.capfoot.dto.GroupTeamResponseDto;
+import com.capgemini.capfoot.entity.*;
+import com.capgemini.capfoot.repository.GroupRepository;
+import com.capgemini.capfoot.repository.GroupTeamRepository;
+import com.capgemini.capfoot.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-
-import javax.mail.MessagingException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
-import com.capgemini.capfoot.dto.GroupTeamResponseDto;
-import com.capgemini.capfoot.entity.Championship;
-import com.capgemini.capfoot.entity.Championship_State;
-import com.capgemini.capfoot.entity.GroupTeam;
-import com.capgemini.capfoot.entity.Groupe;
-import com.capgemini.capfoot.entity.MatchDisputee;
-import com.capgemini.capfoot.entity.Match_State;
-import com.capgemini.capfoot.entity.Site;
-import com.capgemini.capfoot.entity.Team;
-import com.capgemini.capfoot.repository.GroupRepository;
-import com.capgemini.capfoot.repository.GroupTeamRepository;
-import com.capgemini.capfoot.repository.TeamRepository;
 
 @Service
 public class GroupTeamServiceImpl implements  GroupTeamService {
@@ -191,7 +182,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
                 newTeams.add(teams.get(i + 1).getTeam());
             }
 
-            teams.stream()
+          /*  teams.stream()
                     .filter(g -> g.getGroup().getChampionship().getId() != null)
                     .findFirst()
                     .ifPresent(g -> {
@@ -202,7 +193,7 @@ public class GroupTeamServiceImpl implements  GroupTeamService {
 						} catch (MessagingException e) {
 							e.printStackTrace();
 						}
-                    });
+                    })*/
         }
 
         newTeams.stream().filter(team -> team.getStage().equals(Championship_State.GROUPE)).forEach(team -> {
