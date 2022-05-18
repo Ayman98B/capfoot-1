@@ -107,7 +107,7 @@ public class TeamServiceImpl implements TeamService {
 		}
 		playerRepository.saveAll(players);
 		
-		emailService.sendEmailAfterInscription(team);
+		//emailService.sendEmailAfterInscription(team);
 		
 		return newTeam;
 	}
