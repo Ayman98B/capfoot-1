@@ -94,4 +94,3 @@ public class CapfootApplication implements CommandLineRunner {
 		
 	}
 }
-
